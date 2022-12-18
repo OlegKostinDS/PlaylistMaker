@@ -1,86 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#1A1B22"
+    android:background="@color/settings_main_background"
     android:orientation="vertical"
-    android:padding="20dp">
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:text="@string/main_question"
-            android:textColor="#ffffff"
-            android:textSize="20sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:text="@string/main_two_ten"
-            android:textColor="#ffffff"
-            android:textSize="20sp" />
-    </FrameLayout>
-<androidx.cardview.widget.CardView
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1"
-    android:layout_marginTop="20dp"
-    app:cardCornerRadius="20dp"
-    >
-    <ImageView
-        android:contentDescription="@string/main_image"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/poster"
-
-        />
-</androidx.cardview.widget.CardView>
+    android:paddingStart="@dimen/main_start_padding"
+    android:paddingEnd="@dimen/main_end_padding">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="33dp"
-        android:layout_marginHorizontal="63dp"
-      android:layout_gravity="center"
-        android:text="@string/main_raring"
-        android:textColor="#ffffff"
-        android:textSize="23sp"
-        android:textStyle="bold"
-        />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="33dp"
-        android:layout_marginBottom="34dp"
-        android:orientation="horizontal">
-        <Button
-            android:textAllCaps="false"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_marginEnd="10dp"
-            android:layout_weight="1"
-            android:backgroundTint="#ffffff"
-            android:text="@string/main_no"
-            android:textColor="#1A1B22"
-            app:cornerRadius="15dp"/>
-        <Button
-            android:textAllCaps="false"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="10dp"
-            android:layout_weight="1"
-            android:backgroundTint="#ffffff"
-            android:text="@string/main_yes"
-            android:textColor="#1A1B22"
-            app:cornerRadius="15dp"/>
-    </LinearLayout>
+        android:layout_marginTop="@dimen/main_title_top_margin"
+        android:layout_marginBottom="40dp"
+        android:gravity="top"
+        android:text="@string/title"
+        android:textColor="@color/white"
+        android:textSize="@dimen/main_text_size" />
 
+    <Button
+        android:id="@+id/search_btn"
+        android:textAllCaps="false"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:backgroundTint="@color/white"
+        android:includeFontPadding="true"
+        android:text="@string/main_search_button_text"
+        android:textColor="@color/black"
+        android:textSize="@dimen/main_text_size"
+        app:cornerRadius="16dp"
+        app:icon="@drawable/search_button_icon"
+        app:iconGravity="textStart"
+        app:iconPadding="@dimen/main_icon_padding"
+        app:iconTint="@color/settings_icon_color" />
+
+    <Button
+        android:id="@+id/music_btn"
+        android:textAllCaps="false"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_weight="1"
+        android:backgroundTint="@color/white"
+        android:includeFontPadding="true"
+        android:text="@string/main_music"
+        android:textColor="@color/black"
+        android:textSize="@dimen/main_text_size"
+        app:cornerRadius="16dp"
+        app:icon="@drawable/settings_music_icon"
+        app:iconGravity="textStart"
+        app:iconPadding="@dimen/main_icon_padding"
+        app:iconTint="@color/settings_icon_color" />
+
+    <Button
+        android:id="@+id/setting_btn"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="28dp"
+        android:layout_weight="1"
+        android:backgroundTint="@color/white"
+        android:includeFontPadding="true"
+        android:textAllCaps="false"
+        android:text="@string/main_settings"
+        android:textColor="@color/black"
+        android:textSize="@dimen/main_text_size"
+        app:cornerRadius="16dp"
+        app:icon="@drawable/setting_settings_icon"
+        app:iconGravity="textStart"
+        app:iconPadding="@dimen/main_icon_padding"
+        app:iconTint="@color/settings_icon_color" />
 </LinearLayout>
