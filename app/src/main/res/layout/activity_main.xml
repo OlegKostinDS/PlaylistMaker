@@ -62,6 +62,7 @@
         android:layout_marginBottom="34dp"
         android:orientation="horizontal">
         <Button
+            android:textAllCaps="false"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_marginEnd="10dp"
@@ -71,6 +72,7 @@
             android:textColor="#1A1B22"
             app:cornerRadius="15dp"/>
         <Button
+            android:textAllCaps="false"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"

@@ -19,6 +19,7 @@
         android:textSize="@dimen/setting_text_size" />
 
     <Button
+        android:textAllCaps="false"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -34,6 +35,7 @@
         app:iconTint="@color/settings_icon_color" />
 
     <Button
+        android:textAllCaps="false"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
@@ -57,7 +59,7 @@
         android:layout_weight="1"
         android:backgroundTint="@color/white"
         android:includeFontPadding="true"
-
+        android:textAllCaps="false"
         android:text="@string/settings_settings"
         android:textColor="@color/black"
         android:textSize="@dimen/setting_text_size"
