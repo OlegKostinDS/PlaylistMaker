@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="settings_start_padding">17dp</dimen>
+    <dimen name="settings_end_padding">15dp</dimen>
+    <dimen name="settings_title_top_margin">14dp</dimen>
+    <dimen name="setting_text_size">22sp</dimen>
+    <dimen name="settings_icon_padding">10dp</dimen>
+
+</resources>

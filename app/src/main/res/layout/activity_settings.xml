@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/settings_main_background"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/settings_start_padding"
+    android:paddingEnd="@dimen/settings_end_padding">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/settings_title_top_margin"
+        android:layout_marginBottom="40dp"
+        android:gravity="top"
+        android:text="@string/title"
+        android:textColor="@color/white"
+        android:textSize="@dimen/setting_text_size" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:backgroundTint="@color/white"
+        android:includeFontPadding="true"
+        android:text="@string/settings_search_button_text"
+        android:textColor="@color/black"
+        android:textSize="@dimen/setting_text_size"
+        app:cornerRadius="16dp"
+        app:icon="@drawable/search_button_icon"
+        app:iconGravity="textStart"
+        app:iconPadding="@dimen/settings_icon_padding"
+        app:iconTint="@color/settings_icon_color" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_weight="1"
+        android:backgroundTint="@color/white"
+        android:includeFontPadding="true"
+        android:text="@string/settings_music"
+        android:textColor="@color/black"
+        android:textSize="@dimen/setting_text_size"
+        app:cornerRadius="16dp"
+        app:icon="@drawable/settings_music_icon"
+        app:iconGravity="textStart"
+        app:iconPadding="@dimen/settings_icon_padding"
+        app:iconTint="@color/settings_icon_color" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="28dp"
+        android:layout_weight="1"
+        android:backgroundTint="@color/white"
+        android:includeFontPadding="true"
+
+        android:text="@string/settings_settings"
+        android:textColor="@color/black"
+        android:textSize="@dimen/setting_text_size"
+        app:cornerRadius="16dp"
+        app:icon="@drawable/setting_settings_icon"
+        app:iconGravity="textStart"
+        app:iconPadding="@dimen/settings_icon_padding"
+        app:iconTint="@color/settings_icon_color" />
+</LinearLayout>
