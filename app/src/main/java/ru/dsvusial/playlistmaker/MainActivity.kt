@@ -1,12 +1,12 @@
 package ru.dsvusial.playlistmaker
 
-import android.content.Intent
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 
-import android.widget.Toast
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,6 +24,13 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         searchBtn.setOnClickListener(searchBtnClickListener)
+
+        musicBtn.setOnClickListener{
+
+        }
+        settingBtn.setOnClickListener{
+
+        }
     }
 
 }
