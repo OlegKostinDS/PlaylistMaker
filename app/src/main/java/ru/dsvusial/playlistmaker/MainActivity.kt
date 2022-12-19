@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-
+import android.widget.Toast
 
 
 class MainActivity : AppCompatActivity() {
@@ -20,16 +20,16 @@ class MainActivity : AppCompatActivity() {
         val searchBtnClickListener: View.OnClickListener =
             object : View.OnClickListener {
                 override fun onClick(p0: View?) {
-
+                    Toast.makeText(this@MainActivity, "search", Toast.LENGTH_SHORT).show()
                 }
             }
         searchBtn.setOnClickListener(searchBtnClickListener)
 
-        musicBtn.setOnClickListener{
-
+        musicBtn.setOnClickListener {
+            Toast.makeText(this, "music", Toast.LENGTH_SHORT).show()
         }
-        settingBtn.setOnClickListener{
-
+        settingBtn.setOnClickListener {
+            Toast.makeText(this, "setting", Toast.LENGTH_SHORT).show()
         }
     }
 
