@@ -7,5 +7,9 @@
     <dimen name="main_icon_padding">10dp</dimen>
     <dimen name="settings_margin_start_framelayouts">16dp</dimen>
     <dimen name="settings_paddings_frameslayouts">21dp</dimen>
+    <dimen name="main_btn_radius">16dp</dimen>
+    <dimen name="space_between_button">16dp</dimen>
+    <dimen name="settings_tw_margin_end">44dp</dimen>
+    <dimen name="settings_tw_text_size">16sp</dimen>
 
 </resources>

@@ -6,19 +6,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/settings_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginBottom="24dp"
+        app:navigationIcon="@drawable/arrow_back_btn">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="40dp"
-        android:drawablePadding="28dp"
-        android:text="@string/settings_settings_text_view"
-        android:textColor="@color/settings_settings_textview"
-        android:textSize="@dimen/main_text_size"
-        android:textStyle="bold"
-        app:drawableStartCompat="@drawable/arrow_back_btn" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="@string/settings_settings_text_view"
+            android:textColor="@color/settings_settings_textview"
+            android:textSize="@dimen/main_text_size"
+            android:textStyle="bold" />
+
+    </androidx.appcompat.widget.Toolbar>
 
 
     <FrameLayout
@@ -33,10 +37,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginEnd="44dp"
+            android:layout_marginEnd="@dimen/settings_tw_margin_end"
             android:text="@string/settings_dark_theme"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="@dimen/settings_tw_text_size" />
 
         <Switch
             android:layout_width="wrap_content"
@@ -57,10 +61,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginEnd="44dp"
+            android:layout_marginEnd="@dimen/settings_tw_margin_end"
             android:text="@string/settings_share_app"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="@dimen/settings_tw_text_size" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -83,10 +87,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginEnd="44dp"
+            android:layout_marginEnd="@dimen/settings_tw_margin_end"
             android:text="@string/settings_call_support"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="@dimen/settings_tw_text_size" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -109,10 +113,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginEnd="44dp"
+            android:layout_marginEnd="@dimen/settings_tw_margin_end"
             android:text="@string/settings_user_case"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="@dimen/settings_tw_text_size" />
 
         <ImageView
             android:layout_width="wrap_content"
