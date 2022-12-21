@@ -20,13 +20,13 @@
 
     <Button
         android:id="@+id/search_btn"
-        android:textAllCaps="false"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:backgroundTint="@color/white"
         android:includeFontPadding="true"
         android:text="@string/main_search_button_text"
+        android:textAllCaps="false"
         android:textColor="@color/black"
         android:textSize="@dimen/main_text_size"
         app:cornerRadius="16dp"
@@ -37,7 +37,6 @@
 
     <Button
         android:id="@+id/music_btn"
-        android:textAllCaps="false"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
@@ -46,6 +45,7 @@
         android:backgroundTint="@color/white"
         android:includeFontPadding="true"
         android:text="@string/main_music"
+        android:textAllCaps="false"
         android:textColor="@color/black"
         android:textSize="@dimen/main_text_size"
         app:cornerRadius="16dp"
@@ -62,8 +62,8 @@
         android:layout_weight="1"
         android:backgroundTint="@color/white"
         android:includeFontPadding="true"
-        android:textAllCaps="false"
         android:text="@string/main_settings"
+        android:textAllCaps="false"
         android:textColor="@color/black"
         android:textSize="@dimen/main_text_size"
         app:cornerRadius="16dp"

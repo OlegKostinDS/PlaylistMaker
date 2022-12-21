@@ -7,18 +7,18 @@
     android:orientation="vertical">
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="40dp"
-            android:text="@string/settings_settings_text_view"
-            android:textColor="@color/settings_settings_textview"
-            android:textSize="@dimen/main_text_size"
-            android:textStyle="bold"
-            android:drawablePadding="28dp"
-            app:drawableStartCompat="@drawable/arrow_back_btn" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="40dp"
+        android:drawablePadding="28dp"
+        android:text="@string/settings_settings_text_view"
+        android:textColor="@color/settings_settings_textview"
+        android:textSize="@dimen/main_text_size"
+        android:textStyle="bold"
+        app:drawableStartCompat="@drawable/arrow_back_btn" />
 
 
     <FrameLayout
@@ -66,8 +66,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            app:srcCompat="@drawable/share_icon"
-            android:contentDescription="@string/settings_share_app" />
+            android:contentDescription="@string/settings_share_app"
+            app:srcCompat="@drawable/share_icon" />
 
     </FrameLayout>
 
@@ -92,8 +92,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            app:srcCompat="@drawable/settings_support_item"
-            android:contentDescription="@string/settings_call_support" />
+            android:contentDescription="@string/settings_call_support"
+            app:srcCompat="@drawable/settings_support_item" />
 
     </FrameLayout>
 
@@ -118,8 +118,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            app:srcCompat="@drawable/arrow_forward_btn"
-            android:contentDescription="@string/user_agreement" />
+            android:contentDescription="@string/user_agreement"
+            app:srcCompat="@drawable/arrow_forward_btn" />
     </FrameLayout>
 
 </LinearLayout>
