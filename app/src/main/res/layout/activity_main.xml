@@ -20,55 +20,19 @@
 
     <Button
         android:id="@+id/search_btn"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:backgroundTint="@color/white"
-        android:includeFontPadding="true"
+        style="@style/MainActivityButtonStyle"
         android:text="@string/main_search_button_text"
-        android:textAllCaps="false"
-        android:textColor="@color/black"
-        android:textSize="@dimen/main_text_size"
-        app:cornerRadius="@dimen/main_btn_radius"
-        app:icon="@drawable/search_button_icon"
-        app:iconGravity="textStart"
-        app:iconPadding="@dimen/main_icon_padding"
-        app:iconTint="@color/settings_icon_color" />
+        app:icon="@drawable/search_button_icon" />
 
     <Button
         android:id="@+id/music_btn"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/space_between_button"
-        android:layout_marginBottom="@dimen/space_between_button"
-        android:layout_weight="1"
-        android:backgroundTint="@color/white"
-        android:includeFontPadding="true"
+        style="@style/MainActivityButtonStyle"
         android:text="@string/main_music"
-        android:textAllCaps="false"
-        android:textColor="@color/black"
-        android:textSize="@dimen/main_text_size"
-        app:cornerRadius="@dimen/main_btn_radius"
-        app:icon="@drawable/settings_music_icon"
-        app:iconGravity="textStart"
-        app:iconPadding="@dimen/main_icon_padding"
-        app:iconTint="@color/settings_icon_color" />
+        app:icon="@drawable/settings_music_icon" />
 
     <Button
         android:id="@+id/setting_btn"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="28dp"
-        android:layout_weight="1"
-        android:backgroundTint="@color/white"
-        android:includeFontPadding="true"
+        style="@style/MainActivityButtonStyle"
         android:text="@string/main_settings"
-        android:textAllCaps="false"
-        android:textColor="@color/black"
-        android:textSize="@dimen/main_text_size"
-        app:cornerRadius="@dimen/main_btn_radius"
-        app:icon="@drawable/setting_settings_icon"
-        app:iconGravity="textStart"
-        app:iconPadding="@dimen/main_icon_padding"
-        app:iconTint="@color/settings_icon_color" />
+        app:icon="@drawable/setting_settings_icon" />
 </LinearLayout>
