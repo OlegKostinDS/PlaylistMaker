@@ -37,11 +37,12 @@
             tools:ignore="UseSwitchCompatOrMaterialXml" />
     </FrameLayout>
 
-    <FrameLayout style="@style/SettingsActivityFrameLayoutPaddingStyle">
+    <FrameLayout
+        android:id="@+id/settings_sharing_btn"
+        style="@style/SettingsActivityFrameLayoutPaddingStyle">
 
         <TextView
             style="@style/SettingsActivityTextViewTextAndLayoutStyle"
-
             android:text="@string/settings_share_app" />
 
         <ImageView
@@ -51,25 +52,26 @@
 
     </FrameLayout>
 
-    <FrameLayout style="@style/SettingsActivityFrameLayoutPaddingStyle">
+    <FrameLayout
+        android:id="@+id/settings_support_btn"
+        style="@style/SettingsActivityFrameLayoutPaddingStyle">
 
         <TextView
             style="@style/SettingsActivityTextViewTextAndLayoutStyle"
-
             android:text="@string/settings_call_support" />
 
         <ImageView
             style="@style/SettingsActivityImageViewGravity"
             android:contentDescription="@string/settings_call_support"
             app:srcCompat="@drawable/settings_support_item" />
-
     </FrameLayout>
 
-    <FrameLayout style="@style/SettingsActivityFrameLayoutPaddingStyle">
+    <FrameLayout
+        android:id="@+id/settings_user_case_btn"
+        style="@style/SettingsActivityFrameLayoutPaddingStyle">
 
         <TextView
             style="@style/SettingsActivityTextViewTextAndLayoutStyle"
-
             android:text="@string/settings_user_case" />
 
         <ImageView
