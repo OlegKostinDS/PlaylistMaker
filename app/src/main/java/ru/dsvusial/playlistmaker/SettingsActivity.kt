@@ -11,7 +11,6 @@ class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
-
         val toolbar = findViewById<Toolbar>(R.id.settings_toolbar)
         val sharingBtn = findViewById<FrameLayout>(R.id.settings_sharing_btn)
         val supportBtn = findViewById<FrameLayout>(R.id.settings_support_btn)
