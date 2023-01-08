@@ -49,4 +49,8 @@
         <item name="android:textColor">@color/settings_settings_textview</item>
         <item name="navigationIcon">@drawable/arrow_back_btn</item>
     </style>
+    <style name="SearchDayNightStyle">
+        <item name="android:textColor">@color/settings_settings_textview</item>
+        <item name="navigationIcon">@drawable/arrow_back_btn</item>
+    </style>
 </resources>
