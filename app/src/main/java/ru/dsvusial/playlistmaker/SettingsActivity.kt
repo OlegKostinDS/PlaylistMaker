@@ -32,7 +32,7 @@ class SettingsActivity : AppCompatActivity() {
                 putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.contact_email)))
                 putExtra(Intent.EXTRA_SUBJECT, getString(R.string.support_email_subject))
                 putExtra(Intent.EXTRA_TEXT, getString(R.string.support_email_text_body))
-                startActivity(this)
+                startActivity(Intent.createChooser(this, "Sending email"))
             }
         }
 

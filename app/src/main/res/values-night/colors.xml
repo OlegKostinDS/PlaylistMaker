@@ -11,6 +11,8 @@
     <color name="settings_main_background">@color/black</color>
     <color name="settings_icon_color">#1A1B22</color>
     <color name="settings_settings_textview">#1A1B22</color>
+    <color name="search_edit_text">#FFFFFF</color>
+    <color name="search_edittext_drawable_color">#1A1B22</color>
     <color name="settings_vector_color">@color/white</color>
     <color name="search_color">@color/black</color>
     <color name="back_arrow_vector_color">@color/white</color>

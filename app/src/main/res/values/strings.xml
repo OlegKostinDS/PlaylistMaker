@@ -10,7 +10,7 @@
     <string name="settings_call_support">Написать в поддержку</string>
     <string name="settings_share_app">Поделиться приложением</string>
     <string name="user_agreement">user agreement</string>
-    <string name="yandex_practicum_android_dev_url">user agreement</string>
+    <string name="yandex_practicum_android_dev_url">https://practicum.yandex.ru/android-developer/</string>
     <string name="contact_email">olegkostin89@yandex.ru</string>
     <string name="support_email_subject">Сообщение разработчикам и разработчицам приложения Playlist Maker</string>
     <string name="support_email_text_body">Спасибо разработчикам и разработчицам за крутое приложение!</string>
