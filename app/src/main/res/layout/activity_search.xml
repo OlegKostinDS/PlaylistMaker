@@ -38,6 +38,7 @@
             android:drawablePadding="7dp"
             android:focusable="true"
             android:hint="@string/search_hint"
+            android:textColorHint="@color/hint_edittext_hint_color"
             android:inputType="text"
             android:lines="1"
             android:maxLength="50"
