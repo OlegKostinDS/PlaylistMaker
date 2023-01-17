@@ -7,15 +7,14 @@
     <color name="yp_blue">#3772E7</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
-    <color name="hint_edittext_hint_color">#AEAFB4</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="settings_main_background">#3772E7</color>
+    <color name="settings_main_background">@color/black</color>
     <color name="settings_icon_color">#1A1B22</color>
     <color name="settings_settings_textview">#1A1B22</color>
-    <color name="vector_color">#1A1B22</color>
-    <color name="search_edittext_drawable_color">#AEAFB4</color>
-    <color name="search_edit_text">#E6E8EB</color>
-    <color name="back_arrow_vector_color">#1A1B22</color>
-    <color name="settings_vector_color">#AEAFB4</color>
-    <color name="search_color">#AEAFB4</color>
+    <color name="search_edit_text">#FFFFFF</color>
+    <color name="search_edittext_drawable_color">#1A1B22</color>
+    <color name="settings_vector_color">@color/white</color>
+    <color name="search_color">@color/black</color>
+    <color name="back_arrow_vector_color">@color/white</color>
+    <color name="hint_edittext_hint_color">#1A1B22</color>
 </resources>
