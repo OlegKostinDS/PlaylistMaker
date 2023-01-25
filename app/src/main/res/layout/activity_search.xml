@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/rc_background"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
@@ -42,6 +43,7 @@
             android:maxLength="50"
             android:paddingStart="13dp"
             android:paddingEnd="30dp"
+            android:textColor="@color/edittext_hint_color"
             android:textColorHint="@color/hint_edittext_hint_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

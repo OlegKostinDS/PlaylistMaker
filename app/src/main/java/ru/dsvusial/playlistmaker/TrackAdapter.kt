@@ -6,6 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 
 class TrackAdapter(private val tracks: ArrayList<Track>) :
     RecyclerView.Adapter<TrackAdapter.TrackViewHolder>() {
@@ -22,6 +23,8 @@ class TrackAdapter(private val tracks: ArrayList<Track>) :
             Glide.with(itemView.context)
                 .load(model.artworkUrl100)
                 .placeholder(R.drawable.nodata)
+                .transform(RoundedCorners(2))
+                .centerCrop()
                 .into(imageTitle)
             rvTrackName.text = model.trackName
             rvArtistName.text = model.artistName
@@ -29,10 +32,10 @@ class TrackAdapter(private val tracks: ArrayList<Track>) :
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder =
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         TrackViewHolder(parent)
 
-    override fun getItemCount(): Int = tracks.size
+    override fun getItemCount() = tracks.size
 
     override fun onBindViewHolder(holder: TrackViewHolder, position: Int) =
         holder.bind(tracks[position])
