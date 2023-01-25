@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,8 +10,7 @@
         android:id="@+id/search_toolbar"
         style="@style/SearchDayNightStyle"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        >
+        android:layout_height="?attr/actionBarSize">
 
         <TextView
             style="@style/SearchDayNightStyle"
@@ -37,14 +35,14 @@
             android:drawableStart="@drawable/search_edittext_icon"
             android:drawablePadding="7dp"
             android:focusable="true"
+            android:fontFamily="@font/ys_display_regular"
             android:hint="@string/search_hint"
-            android:textColorHint="@color/hint_edittext_hint_color"
             android:inputType="text"
             android:lines="1"
             android:maxLength="50"
-            android:fontFamily="@font/ys_display_regular"
             android:paddingStart="13dp"
             android:paddingEnd="30dp"
+            android:textColorHint="@color/hint_edittext_hint_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -53,8 +51,8 @@
             android:id="@+id/search_cancel_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="12dp"
             android:paddingStart="0dp"
+            android:paddingTop="12dp"
             android:paddingEnd="12dp"
             android:src="@drawable/clear_search"
             app:layout_constraintBaseline_toBaselineOf="@id/search_search"
@@ -65,5 +63,9 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_tracks_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>
