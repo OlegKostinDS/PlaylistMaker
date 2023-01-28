@@ -17,4 +17,8 @@
     <color name="search_color">@color/black</color>
     <color name="back_arrow_vector_color">@color/white</color>
     <color name="hint_edittext_hint_color">#1A1B22</color>
+    <color name="edittext_hint_color">#1A1B22</color>
+    <color name="rc_background">#1A1B22</color>
+    <color name="rc_lesser_text_color">#FFFFFF</color>
+    <color name="rc_greater_text_color">#FFFFFF</color>
 </resources>

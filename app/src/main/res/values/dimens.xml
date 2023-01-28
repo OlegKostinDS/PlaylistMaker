@@ -11,5 +11,8 @@
     <dimen name="space_between_button">16dp</dimen>
     <dimen name="settings_tw_margin_end">44dp</dimen>
     <dimen name="settings_tw_text_size">16sp</dimen>
+    <dimen name="rv_imageview_wh">45dp</dimen>
+    <dimen name="rv_lesser_text_size">11sp</dimen>
+    <dimen name="rv_greater_text_size">16sp</dimen>
 
 </resources>
