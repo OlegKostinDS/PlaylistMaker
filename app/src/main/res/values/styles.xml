@@ -53,4 +53,10 @@
         <item name="android:textColor">@color/settings_settings_textview</item>
         <item name="navigationIcon">@drawable/arrow_back_btn</item>
     </style>
+    <style name="SearchActivityTextStyle">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/search_day_night_color</item>
+        <item name="android:textSize">19sp</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+    </style>
 </resources>
