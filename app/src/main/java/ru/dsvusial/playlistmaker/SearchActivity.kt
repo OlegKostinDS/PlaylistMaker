@@ -7,10 +7,12 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.Toast
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import retrofit2.Call
@@ -18,12 +20,18 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import ru.dsvusial.playlistmaker.network.*
+import ru.dsvusial.playlistmaker.network.TrackApi
+import ru.dsvusial.playlistmaker.network.TrackData
+import ru.dsvusial.playlistmaker.network.TrackResponse
 
 class SearchActivity : AppCompatActivity() {
     private val baseUrl = "https://itunes.apple.com"
     private lateinit var searchEditText: EditText
     private lateinit var searchTracksRecyclerView: RecyclerView
+    private lateinit var searchNothingToFindLayout: ConstraintLayout
+    private lateinit var searchNothingFoundImage: ImageView
+    private lateinit var searchNothingFoundText: TextView
+    private lateinit var searchNothingFoundBtn: Button
     private var tracks = ArrayList<TrackData>()
     private val retrofit = Retrofit.Builder()
         .baseUrl(baseUrl)
@@ -42,13 +50,17 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.search_toolbar)
-        searchEditText = findViewById<EditText>(R.id.search_search)
+        searchEditText = findViewById(R.id.search_search)
+        searchNothingToFindLayout = findViewById(R.id.search_nothing_found_layout)
+        searchNothingFoundImage = findViewById(R.id.search_nothing_found_image)
+        searchNothingFoundText = findViewById(R.id.search_nothing_found_text)
+        searchNothingFoundBtn = findViewById(R.id.search_nothing_found_btn)
         val searchClearBtn = findViewById<ImageView>(R.id.search_cancel_btn)
         searchTracksRecyclerView = findViewById<RecyclerView>(R.id.search_tracks_recyclerview)
         searchClearBtn.visibility = View.GONE
         searchEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-            search()
+                search()
                 true
             }
             false
@@ -83,37 +95,55 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun search() {
-        songService.search(searchEditText.text.toString()).enqueue(object : Callback<TrackResponse> {
-            override fun onResponse(call: Call<TrackResponse>, response: Response<TrackResponse>) {
-                when (response.code()) {
-                    200 ->
-                        if (response.body()?.results?.isNotEmpty() == true) {
-                            tracks.clear()
-                            tracks.addAll(response.body()?.results!!)
-                            searchTracksRecyclerView.adapter?.notifyDataSetChanged()
+        songService.search(searchEditText.text.toString())
+            .enqueue(object : Callback<TrackResponse> {
+                override fun onResponse(
+                    call: Call<TrackResponse>,
+                    response: Response<TrackResponse>
+                ) {
+                    when (response.code()) {
+                        200 ->
+                            if (response.body()?.results?.isNotEmpty() == true) {
+                                searchTracksRecyclerView.visibility = View.VISIBLE
+                                searchNothingToFindLayout.visibility = View.GONE
+                                searchNothingFoundBtn.visibility = View.GONE
+                                tracks.clear()
+                                tracks.addAll(response.body()?.results!!)
+                                searchTracksRecyclerView.adapter?.notifyDataSetChanged()
 
-                        } else {
-                            Toast.makeText(
-                                this@SearchActivity,
-                                "ПОИСК НЕ ДАЛ РЕЗУЛЬТАТОВ",
-                                Toast.LENGTH_LONG
-                            ).show()
+                            } else {
+                                searchNothingFoundBtn.visibility = View.GONE
+                                searchTracksRecyclerView.visibility = View.GONE
+                                searchNothingToFindLayout.visibility = View.VISIBLE
+                                searchNothingFoundImage.setImageResource(R.drawable.search_nothing_found)
+                                searchNothingFoundText.text =
+                                    getText(R.string.search_nothing_find_text)
 
+                            }
+
+                        else -> {
+                            searchTracksRecyclerView.visibility = View.GONE
+                            searchNothingToFindLayout.visibility = View.VISIBLE
+                            searchNothingFoundBtn.visibility = View.VISIBLE
+                            searchNothingFoundImage.setImageResource(R.drawable.search_no_internet)
+                            searchNothingFoundText.text = getText(R.string.search_no_internet_text)
+                            searchNothingFoundBtn.visibility = View.VISIBLE
+                            searchNothingFoundBtn.setOnClickListener { search() }
                         }
-
-
-                    else -> {Toast.makeText(
-                        this@SearchActivity,
-                        "ПОИСК НЕ ДАЛ РЕЗУЛЬТАТОВ",
-                        Toast.LENGTH_LONG
-                    ).show()}
+                    }
                 }
-            }
 
-            override fun onFailure(call: Call<TrackResponse>, t: Throwable) {
-            }
+                override fun onFailure(call: Call<TrackResponse>, t: Throwable) {
+                    searchTracksRecyclerView.visibility = View.GONE
+                    searchNothingToFindLayout.visibility = View.VISIBLE
+                    searchNothingFoundBtn.visibility = View.VISIBLE
+                    searchNothingFoundImage.setImageResource(R.drawable.search_no_internet)
+                    searchNothingFoundText.text = getText(R.string.search_no_internet_text)
+                    searchNothingFoundBtn.visibility = View.VISIBLE
+                    searchNothingFoundBtn.setOnClickListener { search() }
+                }
 
-        })
+            })
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

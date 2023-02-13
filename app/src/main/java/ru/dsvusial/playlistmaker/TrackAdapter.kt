@@ -8,6 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.dsvusial.playlistmaker.network.*
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class TrackAdapter(private val tracks: ArrayList<TrackData>) :
     RecyclerView.Adapter<TrackAdapter.TrackViewHolder>() {
@@ -29,7 +32,9 @@ class TrackAdapter(private val tracks: ArrayList<TrackData>) :
                 .into(imageTitle)
             rvTrackName.text = model.trackName
             rvArtistName.text = model.artistName
-            rvTrackDuration.text = model.trackTimeMillis.toString()
+            rvTrackDuration.text =
+                SimpleDateFormat("mm:ss", Locale.getDefault()).format(model.trackTimeMillis)
+                    .toString()
         }
     }
 
