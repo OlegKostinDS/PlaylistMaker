@@ -123,13 +123,7 @@ class SearchActivity : AppCompatActivity() {
 
 
                 override fun onFailure(call: Call<TrackResponse>, t: Throwable) {
-                    searchTracksRecyclerView.visibility = View.GONE
-                    searchNothingToFindLayout.visibility = View.VISIBLE
-                    searchNothingFoundBtn.visibility = View.VISIBLE
-                    searchNothingFoundImage.setImageResource(R.drawable.search_no_internet)
-                    searchNothingFoundText.text = getText(R.string.search_no_internet_text)
-                    searchNothingFoundBtn.visibility = View.VISIBLE
-                    searchNothingFoundBtn.setOnClickListener { search() }
+                    selectSearchUI(SearchUIType.NO_INTERNET)
                 }
 
             })
