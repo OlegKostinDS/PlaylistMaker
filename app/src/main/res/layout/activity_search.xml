@@ -92,8 +92,8 @@
 
         <ImageButton
             android:id="@+id/search_nothing_found_image"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_width="@dimen/search_image_param"
+            android:layout_height="@dimen/search_image_param"
             android:backgroundTint="@color/rc_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
