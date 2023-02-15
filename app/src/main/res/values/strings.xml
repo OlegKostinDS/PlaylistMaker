@@ -16,4 +16,8 @@
     <string name="support_email_text_body">Спасибо разработчикам и разработчицам за крутое приложение!</string>
     <string name="support_yandex_practicum_offer">https://yandex.ru/legal/practicum_offer/</string>
     <string name="search_hint">Поиск</string>
+    <string name="search_nothing_find_text">Ничего не нашлось</string>
+    <string name="search_no_internet_text">Проблемы со связью\n\n
+        Загрузка не удалась. Проверьте подключение к интернету</string>
+    <string name="search_text_refresh">Обновить</string>
 </resources>
