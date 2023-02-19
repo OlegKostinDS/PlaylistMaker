@@ -5,7 +5,9 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.FrameLayout
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
+import com.google.android.material.switchmaterial.SwitchMaterial
 
 class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,7 +17,19 @@ class SettingsActivity : AppCompatActivity() {
         val sharingBtn = findViewById<FrameLayout>(R.id.settings_sharing_btn)
         val supportBtn = findViewById<FrameLayout>(R.id.settings_support_btn)
         val userCaseBtn = findViewById<FrameLayout>(R.id.settings_user_case_btn)
+        val themeSwitcher = findViewById<SwitchMaterial>(R.id.themeSwitcher)
+        themeSwitcher.isChecked =
+            getSharedPreferences(PRACTICUM_EXAMPLE_PREFERENCES, MODE_PRIVATE).getBoolean(
+                THEME_KEY,
+                false
+            )
 
+
+        themeSwitcher.setOnCheckedChangeListener { switcher, checked ->
+            (applicationContext as App).switchTheme(checked)
+            getSharedPreferences(PRACTICUM_EXAMPLE_PREFERENCES, MODE_PRIVATE).edit()
+                .putBoolean(THEME_KEY, checked).apply()
+        }
         sharingBtn.setOnClickListener {
             Intent().apply {
                 action = Intent.ACTION_SEND
