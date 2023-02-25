@@ -18,14 +18,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         val settingsTheme = getSharedPreferences(PRACTICUM_EXAMPLE_PREFERENCES, MODE_PRIVATE)
-        darkTheme = settingsTheme.getBoolean(THEME_KEY, false)
-        AppCompatDelegate.setDefaultNightMode(
-            if (darkTheme) {
-                AppCompatDelegate.MODE_NIGHT_YES
-            } else {
-                AppCompatDelegate.MODE_NIGHT_NO
-            }
-        )
+        switchTheme(settingsTheme.getBoolean(THEME_KEY, false))
     }
 
     fun switchTheme(darkThemeEnabled: Boolean) {

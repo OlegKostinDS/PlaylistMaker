@@ -114,6 +114,7 @@ class SearchActivity : AppCompatActivity() {
         searchHistoryTracksRecyclerView.layoutManager = LinearLayoutManager(this)
 
         clearHistoryBtn.setOnClickListener {
+            searchHistory.clear()
             recentHistoryLayout.visibility = View.GONE
             recentHistoryTracks.clear()
             searchHistoryTracksRecyclerView.adapter?.notifyDataSetChanged()
@@ -126,8 +127,7 @@ class SearchActivity : AppCompatActivity() {
             if (recentHistoryTracks[track].trackId == trackData.trackId) {
                 recentHistoryTracks.removeAt(track)
                 recentHistoryTracks.add(0, trackData)
-                searchHistoryTracksRecyclerView.adapter?.notifyItemInserted(0)
-                searchHistoryTracksRecyclerView.adapter?.notifyDataSetChanged()
+                searchHistoryTracksRecyclerView.adapter?.notifyItemMoved(recentHistoryTracks.size,0)
                 return
             }
         }
