@@ -61,7 +61,6 @@ class SearchActivity : AppCompatActivity() {
                 if (searchEditText.text.isNotEmpty())
                     search()
                 else {
-                    recentHistoryLayout.visibility = View.GONE
                     selectSearchUI(SearchUIType.NO_DATA)
                 }
                 true
@@ -194,12 +193,14 @@ class SearchActivity : AppCompatActivity() {
     private fun selectSearchUI(uiType: SearchUIType) {
         when (uiType) {
             SearchUIType.SUCCESS -> {
+                recentHistoryLayout.visibility = View.GONE
                 searchTracksRecyclerView.visibility = View.VISIBLE
                 searchNothingToFindLayout.visibility = View.GONE
                 searchNothingFoundBtn.visibility = View.GONE
 
             }
             SearchUIType.NO_INTERNET -> {
+                recentHistoryLayout.visibility = View.GONE
                 searchTracksRecyclerView.visibility = View.GONE
                 searchNothingToFindLayout.visibility = View.VISIBLE
                 searchNothingFoundBtn.visibility = View.VISIBLE
@@ -209,6 +210,7 @@ class SearchActivity : AppCompatActivity() {
                 searchNothingFoundBtn.setOnClickListener { search() }
             }
             SearchUIType.NO_DATA -> {
+                recentHistoryLayout.visibility = View.GONE
                 searchNothingFoundBtn.visibility = View.GONE
                 searchTracksRecyclerView.visibility = View.GONE
                 searchNothingToFindLayout.visibility = View.VISIBLE
