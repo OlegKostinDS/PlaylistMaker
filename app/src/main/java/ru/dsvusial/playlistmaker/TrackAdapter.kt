@@ -12,8 +12,10 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class TrackAdapter(private val tracks: ArrayList<TrackData>) :
+class TrackAdapter(val listener: HistoryListener) :
     RecyclerView.Adapter<TrackAdapter.TrackViewHolder>() {
+
+    var recentTracks: ArrayList<TrackData> = ArrayList<TrackData>()
 
     class TrackViewHolder(item: ViewGroup) : RecyclerView.ViewHolder(
         LayoutInflater.from(item.context).inflate(R.layout.track_item, item, false)
@@ -35,14 +37,24 @@ class TrackAdapter(private val tracks: ArrayList<TrackData>) :
             rvTrackDuration.text =
                 SimpleDateFormat("mm:ss", Locale.getDefault()).format(model.trackTimeMillis)
                     .toString()
+
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         TrackViewHolder(parent)
 
-    override fun getItemCount() = tracks.size
+    override fun getItemCount() = recentTracks.size
 
-    override fun onBindViewHolder(holder: TrackViewHolder, position: Int) =
-        holder.bind(tracks[position])
+    override fun onBindViewHolder(holder: TrackViewHolder, position: Int) {
+
+        holder.bind(recentTracks[position])
+        holder.itemView.setOnClickListener {
+            listener.onClick(recentTracks[position])
+        }
+    }
+
+    fun interface HistoryListener {
+        fun onClick(trackData: TrackData)
+    }
 }
