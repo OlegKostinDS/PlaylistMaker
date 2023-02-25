@@ -76,9 +76,13 @@ class SearchActivity : AppCompatActivity() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 searchClearBtn.visibility = clearButtonVisibility(p0)
                 tempEditTextString = p0.toString()
-                if (recentHistoryTracks.isNotEmpty())
+                searchTracksRecyclerView.visibility = View.GONE
+                if (recentHistoryTracks.isNotEmpty() && searchEditText.text.isEmpty())
+                    recentHistoryLayout.visibility = View.VISIBLE
+                else
                     recentHistoryLayout.visibility = View.GONE
             }
+
 
             override fun afterTextChanged(p0: Editable?) {
             }
@@ -86,7 +90,7 @@ class SearchActivity : AppCompatActivity() {
         }
         searchEditText.addTextChangedListener(textWatcherSearchBtn)
         searchClearBtn.setOnClickListener {
-            searchEditText.text.clear()
+            searchEditText.setText("")
             tracks.clear()
             searchTracksRecyclerView.adapter?.notifyDataSetChanged()
             val inputMethodManager =
@@ -138,7 +142,10 @@ class SearchActivity : AppCompatActivity() {
         } else {
             recentHistoryTracks.removeAt(9)
             searchHistoryTracksRecyclerView.adapter?.notifyItemRemoved(0)
-            searchHistoryTracksRecyclerView.adapter?.notifyDataSetChanged()
+            searchHistoryTracksRecyclerView.adapter?.notifyItemRangeChanged(
+                9,
+                recentHistoryTracks.size
+            )
 
         }
 
@@ -147,7 +154,6 @@ class SearchActivity : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         searchHistory.save(recentHistoryTracks)
-
     }
 
     private fun search() {
