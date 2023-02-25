@@ -61,6 +61,7 @@ class SearchActivity : AppCompatActivity() {
                 if (searchEditText.text.isNotEmpty())
                     search()
                 else {
+                    recentHistoryLayout.visibility = View.GONE
                     selectSearchUI(SearchUIType.NO_DATA)
                 }
                 true
