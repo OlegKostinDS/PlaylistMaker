@@ -123,11 +123,11 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun addToRecentHistoryList(trackData: TrackData) {
-        for (track in recentHistoryTracks.indices) {
-            if (recentHistoryTracks[track].trackId == trackData.trackId) {
-                recentHistoryTracks.removeAt(track)
+        for (index in recentHistoryTracks.indices) {
+            if (recentHistoryTracks[index].trackId == trackData.trackId) {
+                recentHistoryTracks.removeAt(index)
                 recentHistoryTracks.add(0, trackData)
-                searchHistoryTracksRecyclerView.adapter?.notifyItemMoved(recentHistoryTracks.size,0)
+                searchHistoryTracksRecyclerView.adapter?.notifyItemMoved(index, 0)
                 return
             }
         }
