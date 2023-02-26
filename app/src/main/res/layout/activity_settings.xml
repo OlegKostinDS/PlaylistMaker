@@ -33,7 +33,8 @@
             style="@style/SettingsActivityTextViewTextAndLayoutStyle"
             android:text="@string/settings_dark_theme" />
 
-        <Switch
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/themeSwitcher"
             style="@style/SettingsActivityImageViewGravity"
             tools:ignore="UseSwitchCompatOrMaterialXml" />
     </FrameLayout>
