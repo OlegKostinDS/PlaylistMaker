@@ -1,6 +1,7 @@
 package ru.dsvusial.playlistmaker
 
 import android.content.Context
+import android.content.Intent
 import android.opengl.Visibility
 import android.os.Bundle
 import android.text.Editable
@@ -83,7 +84,6 @@ class SearchActivity : AppCompatActivity() {
                     recentHistoryLayout.visibility = View.GONE
             }
 
-
             override fun afterTextChanged(p0: Editable?) {
             }
 
@@ -102,12 +102,13 @@ class SearchActivity : AppCompatActivity() {
 
         val trackApapter = TrackAdapter {
             addToRecentHistoryList(it)
+            transitionToMediaPlayerActivity(it)
         }
         trackApapter.recentTracks = tracks
         searchTracksRecyclerView.adapter = trackApapter
         searchTracksRecyclerView.layoutManager = LinearLayoutManager(this)
         val historyTrackAdapter = TrackAdapter {
-            Toast.makeText(this, "clicked", Toast.LENGTH_LONG).show()
+            transitionToMediaPlayerActivity(it)
         }
         historyTrackAdapter.recentTracks = recentHistoryTracks
         searchHistoryTracksRecyclerView.adapter = historyTrackAdapter
@@ -120,6 +121,18 @@ class SearchActivity : AppCompatActivity() {
             searchHistoryTracksRecyclerView.adapter?.notifyDataSetChanged()
         }
 
+    }
+
+    private fun transitionToMediaPlayerActivity(it: TrackData) {
+        val sendIntent: Intent = Intent(applicationContext, MediaPlayerActivity::class.java)
+        sendIntent.putExtra(
+            SEARCH_KEY, TrackData(
+                "", it.trackName,
+                it.artistName, it.trackTimeMillis, it.artworkUrl100,
+                it.collectionName, it.releaseDate, it.primaryGenreName, it.country
+            )
+        )
+        startActivity(sendIntent)
     }
 
     private fun addToRecentHistoryList(trackData: TrackData) {
