@@ -100,6 +100,7 @@
         android:textColor="@color/mp_value_text_color"
         android:textSize="22sp"
         app:layout_constrainedWidth="true"
+        app:layout_constrainedHeight="true"
         app:layout_constraintEnd_toEndOf="@id/right_guideline"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@id/left_guideline"
