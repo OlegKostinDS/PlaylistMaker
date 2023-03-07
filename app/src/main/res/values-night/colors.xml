@@ -22,4 +22,6 @@
     <color name="rc_lesser_text_color">#FFFFFF</color>
     <color name="rc_greater_text_color">#FFFFFF</color>
     <color name="search_day_night_color">#FFFFFF</color>
+    <color name="mp_text_color_lesser">#AEAFB4</color>
+    <color name="mp_value_text_color">#FFFFFF</color>
 </resources>

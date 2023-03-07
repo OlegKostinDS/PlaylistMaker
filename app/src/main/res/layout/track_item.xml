@@ -29,7 +29,7 @@
         android:textSize="@dimen/rv_greater_text_size"
         app:layout_constrainedWidth="true"
         app:layout_constraintBottom_toTopOf="@id/rv_artist_name"
-        app:layout_constraintEnd_toStartOf="@id/rv_image_btn"
+        app:layout_constraintEnd_toStartOf="@id/rv_details_btn"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toEndOf="@id/rv_image_title"
         app:layout_constraintTop_toTopOf="parent" />
@@ -46,7 +46,7 @@
         android:textSize="@dimen/rv_lesser_text_size"
         app:layout_constrainedWidth="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/rv_image_btn"
+        app:layout_constraintEnd_toStartOf="@id/rv_details_btn"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toEndOf="@id/rv_image_title"
         app:layout_constraintTop_toBottomOf="@id/rv_track_name" />
@@ -62,12 +62,12 @@
         app:drawableStartCompat="@drawable/rv_dot"
         app:layout_constraintBaseline_toBaselineOf="@id/rv_artist_name"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/rv_image_btn"
+        app:layout_constraintEnd_toStartOf="@id/rv_details_btn"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toEndOf="@id/rv_artist_name" />
 
     <ImageButton
-        android:id="@+id/rv_image_btn"
+        android:id="@+id/rv_details_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"

@@ -1,9 +1,12 @@
 package ru.dsvusial.playlistmaker
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -11,6 +14,9 @@ import ru.dsvusial.playlistmaker.network.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+
+const val SEARCH_KEY = "search_key"
+
 
 class TrackAdapter(val listener: HistoryListener) :
     RecyclerView.Adapter<TrackAdapter.TrackViewHolder>() {
@@ -24,6 +30,7 @@ class TrackAdapter(val listener: HistoryListener) :
         private val rvTrackName = itemView.findViewById<TextView>(R.id.rv_track_name)
         private val rvArtistName = itemView.findViewById<TextView>(R.id.rv_artist_name)
         private val rvTrackDuration = itemView.findViewById<TextView>(R.id.rv_track_duration)
+        private val rvDetails = itemView.findViewById<ImageButton>(R.id.rv_details_btn)
 
         fun bind(model: TrackData) {
             Glide.with(itemView.context)
@@ -37,7 +44,9 @@ class TrackAdapter(val listener: HistoryListener) :
             rvTrackDuration.text =
                 SimpleDateFormat("mm:ss", Locale.getDefault()).format(model.trackTimeMillis)
                     .toString()
+            rvDetails.setOnClickListener {
 
+            }
         }
     }
 
@@ -52,9 +61,12 @@ class TrackAdapter(val listener: HistoryListener) :
         holder.itemView.setOnClickListener {
             listener.onClick(recentTracks[position])
         }
+
     }
 
     fun interface HistoryListener {
         fun onClick(trackData: TrackData)
     }
+
+
 }
