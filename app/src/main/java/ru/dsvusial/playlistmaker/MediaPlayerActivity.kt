@@ -11,7 +11,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.dsvusial.playlistmaker.network.TrackData
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Locale
+
 
 class MediaPlayerActivity : AppCompatActivity() {
     private lateinit var mpBackBtn: ImageButton
@@ -63,7 +64,7 @@ class MediaPlayerActivity : AppCompatActivity() {
 
         val cornerRadius =
             applicationContext.resources.getDimensionPixelSize(R.dimen.main_btn_radius)
-        track = intent.getParcelableExtra<TrackData>(SEARCH_KEY)!!
+        track = intent.getParcelableExtra<TrackData>(SEARCH_KEY) ?: return
         Glide.with(this)
             .load(track?.artworkUrl100?.replaceAfterLast('/', "512x512bb.jpg"))
             .placeholder(R.drawable.nodata)
@@ -71,19 +72,19 @@ class MediaPlayerActivity : AppCompatActivity() {
             .transform(RoundedCorners(cornerRadius))
 
             .into(mpCover)
-        mpTrackName.text = track?.trackName
-        mpArtistName.text = track?.artistName
+        mpTrackName.text = track.trackName
+        mpArtistName.text = track.artistName
         mpTrackDuration.text =
-            SimpleDateFormat("mm:ss", Locale.getDefault()).format(track?.trackTimeMillis)
+            SimpleDateFormat("mm:ss", Locale.getDefault()).format(track.trackTimeMillis)
                 .toString()
-        mpTrackCountry.text = track?.country
-        mpTrackAlbum.text = if (track?.collectionName.isNullOrEmpty()) {
+        mpTrackCountry.text = track.country
+        mpTrackAlbum.text = if (track.collectionName.isNullOrEmpty()) {
             mpTrackAlbum.visibility = View.GONE
             mpTrackAlbumText.visibility = View.GONE
             ""
-        } else track?.collectionName
+        } else track.collectionName
 
-        mpTrackGenre.text = track?.primaryGenreName
-        mpReleaseDate.text = track?.releaseDate?.substring(0, 4)
+        mpTrackGenre.text = track.primaryGenreName
+        mpReleaseDate.text = track.releaseDate?.substring(0, 4)
     }
 }

@@ -2,7 +2,6 @@ package ru.dsvusial.playlistmaker
 
 import android.content.Context
 import android.content.Intent
-import android.opengl.Visibility
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -123,14 +122,10 @@ class SearchActivity : AppCompatActivity() {
 
     }
 
-    private fun transitionToMediaPlayerActivity(it: TrackData) {
+    private fun transitionToMediaPlayerActivity(track: TrackData) {
         val sendIntent: Intent = Intent(applicationContext, MediaPlayerActivity::class.java)
         sendIntent.putExtra(
-            SEARCH_KEY, TrackData(
-                "", it.trackName,
-                it.artistName, it.trackTimeMillis, it.artworkUrl100,
-                it.collectionName, it.releaseDate, it.primaryGenreName, it.country
-            )
+            SEARCH_KEY, track
         )
         startActivity(sendIntent)
     }
