@@ -24,4 +24,5 @@
     <color name="search_day_night_color">#FFFFFF</color>
     <color name="mp_text_color_lesser">#AEAFB4</color>
     <color name="mp_value_text_color">#FFFFFF</color>
+    <color name="progress_bar">#6200EE</color>
 </resources>

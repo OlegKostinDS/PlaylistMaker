@@ -3,6 +3,8 @@ package ru.dsvusial.playlistmaker
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -23,6 +25,7 @@ import ru.dsvusial.playlistmaker.network.TrackData
 import ru.dsvusial.playlistmaker.network.TrackResponse
 
 class SearchActivity : AppCompatActivity() {
+
     private lateinit var searchEditText: EditText
     private lateinit var searchTracksRecyclerView: RecyclerView
     private lateinit var searchHistoryTracksRecyclerView: RecyclerView
@@ -35,6 +38,10 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var searchClearBtn: ImageView
     private lateinit var clearHistoryBtn: Button
     private lateinit var recentHistoryLayout: ConstraintLayout
+    private lateinit var progressbar: ProgressBar
+    private val handler = Handler(Looper.getMainLooper())
+    private val searchRunnable = Runnable { search() }
+    private var isClickAllowed = true
     private var tracks = ArrayList<TrackData>()
     private var recentHistoryTracks = ArrayList<TrackData>()
     private val retrofit = Retrofit.Builder()
@@ -48,6 +55,8 @@ class SearchActivity : AppCompatActivity() {
     companion object {
         const val PRODUCT_AMOUNT = "PRODUCT_AMOUNT"
         const val baseUrl = "https://itunes.apple.com"
+        private const val CLICK_DEBOUNCE_DELAY = 1000L
+        private const val SEARCH_DEBOUNCE_DELAY = 2000L
     }
 
 
@@ -77,6 +86,7 @@ class SearchActivity : AppCompatActivity() {
                 searchClearBtn.visibility = clearButtonVisibility(p0)
                 tempEditTextString = p0.toString()
                 searchTracksRecyclerView.visibility = View.GONE
+                searchDebounce()
                 if (recentHistoryTracks.isNotEmpty() && searchEditText.text.isEmpty())
                     recentHistoryLayout.visibility = View.VISIBLE
                 else
@@ -101,7 +111,7 @@ class SearchActivity : AppCompatActivity() {
 
         val trackApapter = TrackAdapter {
             addToRecentHistoryList(it)
-            transitionToMediaPlayerActivity(it)
+            if (clickDebounce()) transitionToMediaPlayerActivity(it)
         }
         trackApapter.recentTracks = tracks
         searchTracksRecyclerView.adapter = trackApapter
@@ -165,6 +175,7 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun search() {
+        progressbar.visibility = View.VISIBLE
         songService.search(searchEditText.text.toString())
             .enqueue(object : Callback<TrackResponse> {
                 override fun onResponse(
@@ -193,6 +204,7 @@ class SearchActivity : AppCompatActivity() {
 
                 override fun onFailure(call: Call<TrackResponse>, t: Throwable) {
                     selectSearchUI(SearchUIType.NO_INTERNET)
+
                 }
 
             })
@@ -201,6 +213,7 @@ class SearchActivity : AppCompatActivity() {
     private fun selectSearchUI(uiType: SearchUIType) {
         when (uiType) {
             SearchUIType.SUCCESS -> {
+                progressbar.visibility = View.GONE
                 recentHistoryLayout.visibility = View.GONE
                 searchTracksRecyclerView.visibility = View.VISIBLE
                 searchNothingToFindLayout.visibility = View.GONE
@@ -215,9 +228,11 @@ class SearchActivity : AppCompatActivity() {
                 searchNothingFoundImage.setImageResource(R.drawable.search_no_internet)
                 searchNothingFoundText.text = getText(R.string.search_no_internet_text)
                 searchNothingFoundBtn.visibility = View.VISIBLE
+                progressbar.visibility = View.GONE
                 searchNothingFoundBtn.setOnClickListener { search() }
             }
             SearchUIType.NO_DATA -> {
+                progressbar.visibility = View.GONE
                 recentHistoryLayout.visibility = View.GONE
                 searchNothingFoundBtn.visibility = View.GONE
                 searchTracksRecyclerView.visibility = View.GONE
@@ -241,6 +256,7 @@ class SearchActivity : AppCompatActivity() {
         searchHistoryTracksRecyclerView = findViewById(R.id.search_history_tracks_recyclerview)
         recentHistoryLayout = findViewById(R.id.recent_history_layout)
         clearHistoryBtn = findViewById(R.id.clear_history)
+        progressbar = findViewById(R.id.progressBar)
         searchClearBtn.visibility = View.GONE
         searchHistory =
             SearchHistory(getSharedPreferences(PRACTICUM_EXAMPLE_PREFERENCES, MODE_PRIVATE))
@@ -270,6 +286,22 @@ class SearchActivity : AppCompatActivity() {
             View.VISIBLE
         }
     }
+
+    private fun clickDebounce(): Boolean {
+        val current = isClickAllowed
+        if (isClickAllowed) {
+            isClickAllowed = false
+            handler.postDelayed({ isClickAllowed = true }, CLICK_DEBOUNCE_DELAY)
+        }
+        return current
+    }
+
+    private fun searchDebounce() {
+        handler.removeCallbacks(searchRunnable)
+        handler.postDelayed(searchRunnable, SEARCH_DEBOUNCE_DELAY)
+    }
+
+
 }
 
 enum class SearchUIType {
