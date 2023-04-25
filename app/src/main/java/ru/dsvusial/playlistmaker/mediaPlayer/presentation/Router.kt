@@ -6,6 +6,6 @@ import ru.dsvusial.playlistmaker.mediaPlayer.domain.model.TrackData
 
 class Router (private val activity: AppCompatActivity){
     fun getTrack(): TrackData{
-        return activity.intent.getParcelableExtra<TrackData>(SEARCH_KEY)!!
+        return activity.intent.getSerializableExtra(SEARCH_KEY)!! as TrackData
     }
 }
