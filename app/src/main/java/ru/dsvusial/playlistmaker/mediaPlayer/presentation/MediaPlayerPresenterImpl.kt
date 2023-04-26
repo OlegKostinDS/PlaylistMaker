@@ -21,11 +21,8 @@ class MediaPlayerPresenterImpl(
 
     init {
         mediaPlayerView.getData(router.getTrack())
-        mediaPlayerInteractor.prepare(
-
-        )
+        mediaPlayerInteractor.prepare()
     }
-
 
 
     fun onViewPaused() {
@@ -58,7 +55,6 @@ class MediaPlayerPresenterImpl(
             }
         }
     }
-
 
 
     private fun startPlayer() {
