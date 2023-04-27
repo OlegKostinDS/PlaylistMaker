@@ -1,10 +1,11 @@
-package ru.dsvusial.playlistmaker
+package ru.dsvusial.playlistmaker.mediaPlayer.ui
 
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import ru.dsvusial.playlistmaker.R
 
 
 class MainActivity : AppCompatActivity() {

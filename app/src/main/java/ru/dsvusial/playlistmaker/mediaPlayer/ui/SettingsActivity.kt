@@ -1,13 +1,16 @@
-package ru.dsvusial.playlistmaker
+package ru.dsvusial.playlistmaker.mediaPlayer.ui
 
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.FrameLayout
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import com.google.android.material.switchmaterial.SwitchMaterial
+import ru.dsvusial.playlistmaker.App
+import ru.dsvusial.playlistmaker.PRACTICUM_EXAMPLE_PREFERENCES
+import ru.dsvusial.playlistmaker.R
+import ru.dsvusial.playlistmaker.THEME_KEY
 
 class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

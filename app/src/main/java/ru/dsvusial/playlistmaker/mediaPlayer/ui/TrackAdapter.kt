@@ -1,16 +1,15 @@
-package ru.dsvusial.playlistmaker
+package ru.dsvusial.playlistmaker.mediaPlayer.ui
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import ru.dsvusial.playlistmaker.network.*
+import ru.dsvusial.playlistmaker.R
+import ru.dsvusial.playlistmaker.mediaPlayer.domain.model.TrackData
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList

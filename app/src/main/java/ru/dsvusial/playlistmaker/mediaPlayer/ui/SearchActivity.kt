@@ -1,4 +1,4 @@
-package ru.dsvusial.playlistmaker
+package ru.dsvusial.playlistmaker.mediaPlayer.ui
 
 import android.content.Context
 import android.content.Intent
@@ -20,8 +20,12 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import ru.dsvusial.playlistmaker.PRACTICUM_EXAMPLE_PREFERENCES
+import ru.dsvusial.playlistmaker.R
+import ru.dsvusial.playlistmaker.SearchHistory
+import ru.dsvusial.playlistmaker.mediaPlayer.domain.model.TrackData
 import ru.dsvusial.playlistmaker.network.TrackApi
-import ru.dsvusial.playlistmaker.network.TrackData
+
 import ru.dsvusial.playlistmaker.network.TrackResponse
 
 class SearchActivity : AppCompatActivity() {

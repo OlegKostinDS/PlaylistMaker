@@ -3,7 +3,8 @@ package ru.dsvusial.playlistmaker
 import android.content.SharedPreferences
 import androidx.core.content.edit
 import com.google.gson.Gson
-import ru.dsvusial.playlistmaker.network.TrackData
+import ru.dsvusial.playlistmaker.mediaPlayer.domain.model.TrackData
+
 
 class SearchHistory(private val sharedPreferences: SharedPreferences) {
     companion object {

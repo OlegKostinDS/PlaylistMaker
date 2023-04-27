@@ -1,9 +1,7 @@
-package ru.dsvusial.playlistmaker.network
+package ru.dsvusial.playlistmaker.mediaPlayer.domain.model
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
 
-@Parcelize
+
 data class TrackData (
     val trackId: String,
     val trackName: String,
@@ -15,4 +13,4 @@ data class TrackData (
     val primaryGenreName: String,
     val country: String,
     val previewUrl: String
-): Parcelable
+): java.io.Serializable
