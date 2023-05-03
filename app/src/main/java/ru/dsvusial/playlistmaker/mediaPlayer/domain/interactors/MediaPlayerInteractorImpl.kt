@@ -23,8 +23,8 @@ class MediaPlayerInteractorImpl(
         mediaPlayerRepository.stopPlayer()
     }
 
-    override fun prepare() {
-        mediaPlayerRepository.preparePlayer()
+    override fun prepare(listenerState : (PlayerState) -> Unit) {
+        mediaPlayerRepository.preparePlayer(listenerState)
     }
 
     override fun getPlayerState(): PlayerState {

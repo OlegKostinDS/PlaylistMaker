@@ -8,11 +8,15 @@ class MediaPlayerRepositoryImpl(private val trackUrl: String) :
     MediaPlayerRepository {
   override  var playerState = PlayerState.STATE_DEFAULT
     private val mediaPlayer: MediaPlayer = MediaPlayer()
-    override fun preparePlayer() {
+    override fun preparePlayer(listenerState : (PlayerState) -> Unit) {
         mediaPlayer.apply {
             setDataSource(trackUrl)
-            prepare()
-            playerState = PlayerState.STATE_PREPARED
+         prepareAsync()
+            setOnPreparedListener {
+                playerState = PlayerState.STATE_PREPARED
+                listenerState.invoke(playerState)
+            }
+
             setOnCompletionListener {
                 playerState = PlayerState.STATE_PREPARED
             }

@@ -6,7 +6,7 @@ interface MediaPlayerInteractor {
     fun pausePlayer()
     fun start()
     fun release()
-    fun prepare()
+    fun prepare(listenerState : (PlayerState) -> Unit)
     fun getPlayerState(): PlayerState
     fun getCurrentPosition(): Int
 }

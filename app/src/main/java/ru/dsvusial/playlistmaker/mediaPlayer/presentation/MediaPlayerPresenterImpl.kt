@@ -21,7 +21,7 @@ class MediaPlayerPresenterImpl(
 
     init {
         mediaPlayerView.getData(router.getTrack())
-        mediaPlayerInteractor.prepare()
+       // mediaPlayerInteractor.prepare()
     }
 
 
@@ -41,19 +41,22 @@ class MediaPlayerPresenterImpl(
     }
 
     fun onPlayBtnClicked() {
+        mediaPlayerInteractor.prepare{
+            playerState ->
+            when (playerState) {
+                PlayerState.STATE_PLAYING -> {
+                    pausePlayer()
+                }
+                PlayerState.STATE_PREPARED, PlayerState.STATE_PAUSED -> {
+                    startPlayer()
+                }
+                PlayerState.STATE_DEFAULT -> {
 
-        when (mediaPlayerInteractor.getPlayerState()) {
-            PlayerState.STATE_PLAYING -> {
-                pausePlayer()
-            }
-            PlayerState.STATE_PREPARED, PlayerState.STATE_PAUSED -> {
-                startPlayer()
-            }
-            PlayerState.STATE_DEFAULT -> {
-                mediaPlayerInteractor.prepare()
-                startPlayer()
+                    startPlayer()
+                }
             }
         }
+
     }
 
 
