@@ -14,9 +14,12 @@ object ThemePreferences {
 
 class App : Application() {
     var darkTheme = false
-
+internal lateinit var sharedPreferences: SharedPreferences
+private set
     override fun onCreate() {
         super.onCreate()
+        instance = this
+        sharedPreferences = getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE)
         val settingsTheme = getSharedPreferences(PRACTICUM_EXAMPLE_PREFERENCES, MODE_PRIVATE)
         switchTheme(settingsTheme.getBoolean(THEME_KEY, false))
     }
@@ -31,5 +34,10 @@ class App : Application() {
                 AppCompatDelegate.MODE_NIGHT_NO
             }
         )
+    }
+    companion object{
+        private const val APP_PREFERENCES = "app_preferences"
+        lateinit var instance: App
+        private set
     }
 }

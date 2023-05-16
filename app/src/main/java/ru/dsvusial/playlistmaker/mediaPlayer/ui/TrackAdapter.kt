@@ -20,7 +20,7 @@ const val SEARCH_KEY = "search_key"
 class TrackAdapter(val listener: HistoryListener) :
     RecyclerView.Adapter<TrackAdapter.TrackViewHolder>() {
 
-    var recentTracks: ArrayList<TrackData> = ArrayList<TrackData>()
+    val recentTracks: ArrayList<TrackData> = ArrayList<TrackData>()
 
     class TrackViewHolder(item: ViewGroup) : RecyclerView.ViewHolder(
         LayoutInflater.from(item.context).inflate(R.layout.track_item, item, false)
@@ -43,9 +43,7 @@ class TrackAdapter(val listener: HistoryListener) :
             rvTrackDuration.text =
                 SimpleDateFormat("mm:ss", Locale.getDefault()).format(model.trackTimeMillis)
                     .toString()
-            rvDetails.setOnClickListener {
 
-            }
         }
     }
 
