@@ -6,9 +6,8 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.model.TrackData
-import ru.dsvusial.playlistmaker.mediaPlayer.ui.SearchActivity
-import ru.dsvusial.playlistmaker.network.TrackApi
-import ru.dsvusial.playlistmaker.network.TrackResponse
+import ru.dsvusial.playlistmaker.search.data.network.model.TrackApi
+import ru.dsvusial.playlistmaker.search.data.network.model.TrackResponse
 import ru.dsvusial.playlistmaker.search.domain.model.SearchUIType
 
 class RetrofitNetworkClient : NetworkClient {
@@ -33,7 +32,20 @@ class RetrofitNetworkClient : NetworkClient {
                     when (response.code()) {
                         200 ->
                             if (response.body()?.results?.isNotEmpty() == true) {
-                 onSuccess.invoke(response.body()?.results!!)
+                 onSuccess.invoke(response.body()?.results!!.map {
+                     TrackData(
+                         trackId = it.trackId,
+                         trackName = it.trackName,
+                         artistName = it.artistName,
+                         trackTimeMillis = it.trackTimeMillis,
+                         artworkUrl100 = it.artworkUrl100,
+                         collectionName = it.collectionName,
+                         country = it.country,
+                         primaryGenreName = it.primaryGenreName,
+                         releaseDate = it.releaseDate,
+                         previewUrl = it.previewUrl,
+                     )
+                 })
                             } else {
                                 onError.invoke(SearchUIType.NO_DATA)
 

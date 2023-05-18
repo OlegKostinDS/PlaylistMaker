@@ -1,10 +1,10 @@
-package ru.dsvusial.playlistmaker.search.ui
+package ru.dsvusial.playlistmaker.utils.router
 
 import android.app.Activity
 import android.content.Intent
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.model.TrackData
 import ru.dsvusial.playlistmaker.mediaPlayer.ui.MediaPlayerActivity
-import ru.dsvusial.playlistmaker.mediaPlayer.ui.SEARCH_KEY
+import ru.dsvusial.playlistmaker.search.ui.SEARCH_KEY
 
 class SearchRouter(val activity: Activity) {
 

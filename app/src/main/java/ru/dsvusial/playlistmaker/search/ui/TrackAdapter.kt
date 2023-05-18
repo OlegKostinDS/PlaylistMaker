@@ -1,4 +1,4 @@
-package ru.dsvusial.playlistmaker.mediaPlayer.ui
+package ru.dsvusial.playlistmaker.search.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

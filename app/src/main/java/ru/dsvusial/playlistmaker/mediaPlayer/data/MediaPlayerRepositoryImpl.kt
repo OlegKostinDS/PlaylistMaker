@@ -4,11 +4,11 @@ import android.media.MediaPlayer
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.model.PlayerState
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.repository.MediaPlayerRepository
 
-class MediaPlayerRepositoryImpl(private val trackUrl: String) :
+class MediaPlayerRepositoryImpl() :
     MediaPlayerRepository {
-  override  var playerState = PlayerState.STATE_DEFAULT
+    override var playerState = PlayerState.STATE_DEFAULT
     private val mediaPlayer: MediaPlayer = MediaPlayer()
-    override fun preparePlayer() {
+    override fun preparePlayer(  trackUrl: String) {
         mediaPlayer.apply {
             setDataSource(trackUrl)
             prepare()

@@ -9,14 +9,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import ru.dsvusial.playlistmaker.mediaPlayer.creator.Creator
+import ru.dsvusial.playlistmaker.creator.Creator
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.model.TrackData
-import ru.dsvusial.playlistmaker.network.TrackResponse
 import ru.dsvusial.playlistmaker.search.domain.api.SearchInteractor
-import ru.dsvusial.playlistmaker.search.domain.model.SearchUIType
 import ru.dsvusial.playlistmaker.search.ui.model.UiState
 
 
@@ -85,48 +80,15 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
         }
     }
 
-     fun search(query: String) {
+    fun search(query: String) {
         _uiStateLiveData.value = UiState.Loading
-      //  progressbar.visibility = View.VISIBLE
+        //  progressbar.visibility = View.VISIBLE
         searchInteractor.loadTracks(query,
             onSuccess = {
-            _uiStateLiveData.value = UiState.SearchContent(it)
-        }, onError = {
-            _uiStateLiveData.value = UiState.Error(error = it)
-        })
-
-//        songService.search(searchEditText.text.toString())
-//            .enqueue(object : Callback<TrackResponse> {
-//                override fun onResponse(
-//                    call: Call<TrackResponse>,
-//                    response: Response<TrackResponse>
-//                ) {
-//                    when (response.code()) {
-//                        200 ->
-//                            if (response.body()?.results?.isNotEmpty() == true) {
-//                                selectSearchUI(SearchUIType.SUCCESS)
-//                                tracks.clear()
-//                                tracks.addAll(response.body()?.results!!)
-//                                searchTracksRecyclerView.adapter?.notifyDataSetChanged()
-//
-//                            } else {
-//                                selectSearchUI(SearchUIType.NO_DATA)
-//
-//                            }
-//
-//                        else -> {
-//                            selectSearchUI(SearchUIType.NO_INTERNET)
-//                        }
-//                    }
-//                }
-//
-//
-//                override fun onFailure(call: Call<TrackResponse>, t: Throwable) {
-//                    selectSearchUI(SearchUIType.NO_INTERNET)
-//
-//                }
-//
-//            })
+                _uiStateLiveData.value = UiState.SearchContent(it)
+            }, onError = {
+                _uiStateLiveData.value = UiState.Error(error = it)
+            })
     }
 
 

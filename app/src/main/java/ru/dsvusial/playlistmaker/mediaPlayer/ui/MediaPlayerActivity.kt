@@ -7,18 +7,27 @@ import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.dsvusial.playlistmaker.R
-import ru.dsvusial.playlistmaker.mediaPlayer.creator.Creator
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.model.TrackData
-import ru.dsvusial.playlistmaker.mediaPlayer.presentation.MediaPlayerPresenterImpl
-import ru.dsvusial.playlistmaker.mediaPlayer.presentation.MediaPlayerView
+import ru.dsvusial.playlistmaker.mediaPlayer.presentation.MediaPlayerRouter
+import ru.dsvusial.playlistmaker.mediaPlayer.presentation.MediaPlayerViewModel
+import ru.dsvusial.playlistmaker.search.ui.SEARCH_KEY
 import java.text.SimpleDateFormat
 import java.util.Locale
 
 
-class MediaPlayerActivity : AppCompatActivity(), MediaPlayerView {
+class MediaPlayerActivity : AppCompatActivity() {
+    val router = MediaPlayerRouter(this)
+    private val viewModel by lazy {
+        ViewModelProvider(
+            this,
+            MediaPlayerViewModel.getViewModelFactory()
+        )[MediaPlayerViewModel::class.java]
+
+    }
 
     private lateinit var mpBackBtn: ImageButton
     private lateinit var mpCover: ImageView
@@ -32,33 +41,36 @@ class MediaPlayerActivity : AppCompatActivity(), MediaPlayerView {
     private lateinit var mpReleaseDate: TextView
     private lateinit var mpPlayBtn: ImageButton
     private lateinit var mpCurrentTrackDuration: TextView
-    lateinit var presenter: MediaPlayerPresenterImpl
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_media_player)
         initializeUI()
-
-        presenter = Creator.providePresenter(
-            mediaPlayerView = this,
-            activity = this
-        )
+        val track = intent.getSerializableExtra(SEARCH_KEY)!! as TrackData
+        viewModel.preparePlayer(track.previewUrl)
+        getData(track)
+        viewModel.getPlayStatusLiveData().observe(this) {
+            when (it) {
+                PlayStatus.OnPause -> mpPlayBtn.setImageResource(R.drawable.mp_play)
+                PlayStatus.OnStart -> mpPlayBtn.setImageResource(R.drawable.mp_pause)
+            }
+        }
+        viewModel.getDurationLiveData().observe(this) {
+            setDuration(it)
+        }
         initializeListeners()
 
     }
 
     override fun onPause() {
         super.onPause()
-        presenter.onViewPaused()
+
+        viewModel.onViewPaused()
+        //  presenter.onViewPaused()
 
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-
-        presenter.onViewDestroyed()
-    }
 
     private fun initializeUI() {
         mpBackBtn = findViewById(R.id.music_back_btn)
@@ -80,14 +92,15 @@ class MediaPlayerActivity : AppCompatActivity(), MediaPlayerView {
 
     private fun initializeListeners() {
         mpBackBtn.setOnClickListener {
-            presenter.onBackPressed()
+            finish()
         }
         mpPlayBtn.setOnClickListener {
-            presenter.onPlayBtnClicked()
+            viewModel.onPlayBtnClicked()
+            // presenter.onPlayBtnClicked()
         }
     }
 
-    override fun getData(trackData: TrackData) {
+     fun getData(trackData: TrackData) {
 
         val cornerRadius =
             applicationContext.resources.getDimensionPixelSize(R.dimen.main_btn_radius)
@@ -117,24 +130,24 @@ class MediaPlayerActivity : AppCompatActivity(), MediaPlayerView {
     }
 
 
-    override fun setStartImage() {
+     fun setStartImage() {
 
         mpPlayBtn.setImageResource(R.drawable.mp_play)
     }
 
-    override fun goBack() {
+     fun goBack() {
         finish()
     }
 
 
-    override fun setPausedImage() {
+     fun setPausedImage() {
 
         mpPlayBtn.setImageResource(R.drawable.mp_pause)
 
     }
 
 
-    override fun setDuration(duration: String) {
+    private fun setDuration(duration: String) {
         mpCurrentTrackDuration.text = duration
     }
 

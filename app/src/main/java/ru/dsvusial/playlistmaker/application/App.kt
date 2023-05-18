@@ -2,11 +2,11 @@ package ru.dsvusial.playlistmaker
 
 import android.app.Application
 import android.content.SharedPreferences
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
+import ru.dsvusial.playlistmaker.utils.THEME_KEY
 
 const val PRACTICUM_EXAMPLE_PREFERENCES = "practicum_example_preferences"
-const val THEME_KEY = "theme_key"
+
 
 object ThemePreferences {
 
@@ -21,11 +21,10 @@ private set
         instance = this
         sharedPreferences = getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE)
         val settingsTheme = getSharedPreferences(PRACTICUM_EXAMPLE_PREFERENCES, MODE_PRIVATE)
-        switchTheme(settingsTheme.getBoolean(THEME_KEY, false))
+        switchTheme(sharedPreferences.getBoolean(THEME_KEY, false))
     }
 
     fun switchTheme(darkThemeEnabled: Boolean) {
-
         darkTheme = darkThemeEnabled
         AppCompatDelegate.setDefaultNightMode(
             if (darkThemeEnabled) {

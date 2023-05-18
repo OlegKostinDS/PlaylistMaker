@@ -1,4 +1,4 @@
-package ru.dsvusial.playlistmaker.network
+package ru.dsvusial.playlistmaker.search.data.network.model
 
 import retrofit2.Call
 import retrofit2.http.GET
