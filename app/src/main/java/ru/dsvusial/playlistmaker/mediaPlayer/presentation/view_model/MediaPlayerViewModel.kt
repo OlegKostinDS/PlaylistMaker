@@ -1,4 +1,4 @@
-package ru.dsvusial.playlistmaker.mediaPlayer.presentation
+package ru.dsvusial.playlistmaker.mediaPlayer.presentation.view_model
 
 import android.os.Handler
 import android.os.Looper

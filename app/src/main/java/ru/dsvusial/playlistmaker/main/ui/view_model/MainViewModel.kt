@@ -14,7 +14,7 @@ import ru.dsvusial.playlistmaker.search.ui.view_model.SearchViewModel
 class MainViewModel : ViewModel() {
 
     val mainStatusLiveData = SingleLiveEvent<MainNavState>()
-    fun getMainStatusLiveData() : LiveData<MainNavState> = mainStatusLiveData
+    fun getMainStatusLiveData(): LiveData<MainNavState> = mainStatusLiveData
     fun startSearchActivity() {
         mainStatusLiveData.value = MainNavState.SEARCH
     }
@@ -30,7 +30,7 @@ class MainViewModel : ViewModel() {
     companion object {
         fun getViewModelFactory(): ViewModelProvider.Factory = viewModelFactory {
             initializer {
-                MainViewModel( )
+                MainViewModel()
             }
         }
     }

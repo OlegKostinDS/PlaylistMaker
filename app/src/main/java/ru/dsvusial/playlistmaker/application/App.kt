@@ -14,8 +14,9 @@ object ThemePreferences {
 
 class App : Application() {
     var darkTheme = false
-internal lateinit var sharedPreferences: SharedPreferences
-private set
+    lateinit var sharedPreferences: SharedPreferences
+        private set
+
     override fun onCreate() {
         super.onCreate()
         instance = this
@@ -34,9 +35,10 @@ private set
             }
         )
     }
-    companion object{
+
+    companion object {
         private const val APP_PREFERENCES = "app_preferences"
         lateinit var instance: App
-        private set
+            private set
     }
 }

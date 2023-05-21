@@ -13,7 +13,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.dsvusial.playlistmaker.R
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.model.TrackData
 import ru.dsvusial.playlistmaker.mediaPlayer.presentation.MediaPlayerRouter
-import ru.dsvusial.playlistmaker.mediaPlayer.presentation.MediaPlayerViewModel
+import ru.dsvusial.playlistmaker.mediaPlayer.presentation.view_model.MediaPlayerViewModel
 import ru.dsvusial.playlistmaker.search.ui.SEARCH_KEY
 import java.text.SimpleDateFormat
 import java.util.Locale
