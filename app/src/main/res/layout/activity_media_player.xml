@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".mediaPlayer.ui.MusicActivity">
+    tools:context=".music_library.MusicActivity">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/left_guideline"
@@ -99,8 +99,8 @@
         android:text="@string/app_name"
         android:textColor="@color/mp_value_text_color"
         android:textSize="22sp"
-        app:layout_constrainedWidth="true"
         app:layout_constrainedHeight="true"
+        app:layout_constrainedWidth="true"
         app:layout_constraintEnd_toEndOf="@id/right_guideline"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@id/left_guideline"
@@ -224,6 +224,9 @@
         style="@style/MpTexts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:maxLength="40"
         android:text="@string/track_alb"
         android:textColor="@color/mp_value_text_color"
         android:visibility="gone"

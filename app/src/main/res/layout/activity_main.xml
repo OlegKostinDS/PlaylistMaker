@@ -35,5 +35,6 @@
         android:id="@+id/setting_btn"
         style="@style/MainActivityButtonStyle"
         android:text="@string/main_settings"
+        android:layout_marginBottom="@dimen/margin_16dp"
         app:icon="@drawable/setting_settings_icon" />
 </LinearLayout>

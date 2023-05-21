@@ -1,4 +1,4 @@
-package ru.dsvusial.playlistmaker.mediaPlayer.ui
+package ru.dsvusial.playlistmaker.music_library
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

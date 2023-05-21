@@ -19,7 +19,7 @@
             android:name=".mediaPlayer.ui.MediaPlayerActivity"
             android:exported="false" />
         <activity
-            android:name=".mediaPlayer.ui.MusicActivity"
+            android:name=".music_library.MusicActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -33,14 +33,14 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".mediaPlayer.ui.SettingsActivity"
+            android:name=".settings.ui.SettingsActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".mediaPlayer.ui.MainActivity"
+            android:name=".main.ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
