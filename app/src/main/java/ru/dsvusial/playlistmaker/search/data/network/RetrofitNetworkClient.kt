@@ -10,19 +10,13 @@ import ru.dsvusial.playlistmaker.search.data.network.model.TrackApi
 import ru.dsvusial.playlistmaker.search.data.network.model.TrackResponse
 import ru.dsvusial.playlistmaker.search.domain.model.SearchUIType
 
-class RetrofitNetworkClient : NetworkClient {
-    companion object {
-        const val baseUrl = "https://itunes.apple.com"
-    }
+class RetrofitNetworkClient(val songService: TrackApi) : NetworkClient {
 
-    private val retrofit = Retrofit.Builder()
-        .baseUrl(baseUrl)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-
-    val songService = retrofit.create(TrackApi::class.java)
-
-    override fun search(query: String, onSuccess: (list: List<TrackData>)-> Unit, onError: (error: SearchUIType)-> Unit) {
+    override fun search(
+        query: String,
+        onSuccess: (list: List<TrackData>) -> Unit,
+        onError: (error: SearchUIType) -> Unit
+    ) {
         songService.search(query)
             .enqueue(object : Callback<TrackResponse> {
                 override fun onResponse(
@@ -32,20 +26,20 @@ class RetrofitNetworkClient : NetworkClient {
                     when (response.code()) {
                         200 ->
                             if (response.body()?.results?.isNotEmpty() == true) {
-                 onSuccess.invoke(response.body()?.results!!.map {
-                     TrackData(
-                         trackId = it.trackId,
-                         trackName = it.trackName,
-                         artistName = it.artistName,
-                         trackTimeMillis = it.trackTimeMillis,
-                         artworkUrl100 = it.artworkUrl100,
-                         collectionName = it.collectionName,
-                         country = it.country,
-                         primaryGenreName = it.primaryGenreName,
-                         releaseDate = it.releaseDate,
-                         previewUrl = it.previewUrl,
-                     )
-                 })
+                                onSuccess.invoke(response.body()?.results!!.map {
+                                    TrackData(
+                                        trackId = it.trackId,
+                                        trackName = it.trackName,
+                                        artistName = it.artistName,
+                                        trackTimeMillis = it.trackTimeMillis,
+                                        artworkUrl100 = it.artworkUrl100,
+                                        collectionName = it.collectionName,
+                                        country = it.country,
+                                        primaryGenreName = it.primaryGenreName,
+                                        releaseDate = it.releaseDate,
+                                        previewUrl = it.previewUrl,
+                                    )
+                                })
                             } else {
                                 onError.invoke(SearchUIType.NO_DATA)
 

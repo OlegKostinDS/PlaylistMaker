@@ -6,10 +6,6 @@ import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
-import ru.dsvusial.playlistmaker.creator.Creator
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.model.TrackData
 import ru.dsvusial.playlistmaker.search.domain.api.SearchInteractor
 import ru.dsvusial.playlistmaker.search.ui.model.UiState
@@ -73,16 +69,10 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
 
     companion object {
         private const val SEARCH_DEBOUNCE_DELAY = 2000L
-        fun getViewModelFactory(): ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                SearchViewModel(searchInteractor = Creator.provideSearchInteractor())
-            }
-        }
     }
 
     fun search(query: String) {
         _uiStateLiveData.value = UiState.Loading
-        //  progressbar.visibility = View.VISIBLE
         searchInteractor.loadTracks(query,
             onSuccess = {
                 _uiStateLiveData.value = UiState.SearchContent(it)

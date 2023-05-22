@@ -14,6 +14,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.dsvusial.playlistmaker.R
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.model.TrackData
 import ru.dsvusial.playlistmaker.search.domain.model.SearchUIType
@@ -24,12 +25,7 @@ import ru.dsvusial.playlistmaker.search.ui.view_model.SearchViewModel
 
 class SearchActivity : AppCompatActivity() {
 
-    private val viewModel by lazy {
-        ViewModelProvider(
-            this,
-            SearchViewModel.getViewModelFactory()
-        )[SearchViewModel::class.java]
-    }
+    private val viewModel by viewModel<SearchViewModel>()
     private val searchRouter by lazy { SearchRouter(this) }
     private lateinit var searchEditText: EditText
     private lateinit var searchTracksRecyclerView: RecyclerView

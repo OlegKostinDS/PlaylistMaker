@@ -1,33 +1,26 @@
 package ru.dsvusial.playlistmaker.mediaPlayer.ui
 
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.lifecycle.ViewModelProvider
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.dsvusial.playlistmaker.R
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.model.TrackData
-import ru.dsvusial.playlistmaker.mediaPlayer.presentation.MediaPlayerRouter
-import ru.dsvusial.playlistmaker.mediaPlayer.presentation.view_model.MediaPlayerViewModel
+import ru.dsvusial.playlistmaker.mediaPlayer.ui.view_model.MediaPlayerViewModel
 import ru.dsvusial.playlistmaker.search.ui.SEARCH_KEY
 import java.text.SimpleDateFormat
-import java.util.Locale
+import java.util.*
 
 
 class MediaPlayerActivity : AppCompatActivity() {
-    val router = MediaPlayerRouter(this)
-    private val viewModel by lazy {
-        ViewModelProvider(
-            this,
-            MediaPlayerViewModel.getViewModelFactory()
-        )[MediaPlayerViewModel::class.java]
 
-    }
+    private val viewModel by viewModel<MediaPlayerViewModel>()
 
     private lateinit var mpBackBtn: ImageButton
     private lateinit var mpCover: ImageView

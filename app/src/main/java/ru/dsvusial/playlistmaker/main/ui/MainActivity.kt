@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import androidx.lifecycle.ViewModelProvider
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.dsvusial.playlistmaker.R
 import ru.dsvusial.playlistmaker.main.ui.model.MainNavState
 import ru.dsvusial.playlistmaker.main.ui.view_model.MainViewModel
@@ -16,9 +17,7 @@ import ru.dsvusial.playlistmaker.settings.ui.SettingsActivity
 
 class MainActivity : AppCompatActivity() {
 
-    val viewModel by lazy {
-        ViewModelProvider(this, MainViewModel.getViewModelFactory())[MainViewModel::class.java]
-    }
+    val viewModel by viewModel<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

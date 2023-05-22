@@ -30,12 +30,13 @@ class MediaPlayerInteractorImpl(
     }
 
     override fun getPlayerState(): PlayerState {
-        return mediaPlayerRepository.playerState
+        return mediaPlayerRepository.getPlayState()
     }
 
     override fun getCurrentPosition(): String {
         return convertMillisecondsToString(mediaPlayerRepository.getCurrentPosition())
     }
+
     private fun convertMillisecondsToString(duration: Int): String {
         return SimpleDateFormat("mm:ss", Locale.getDefault()).format(duration)
     }

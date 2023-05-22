@@ -8,7 +8,7 @@ interface MediaPlayerRepository{
     fun pausedPlayer()
     fun stopPlayer()
     fun getCurrentPosition(): Int
+    fun getPlayState() : PlayerState
 
-    var playerState: PlayerState
 
 }

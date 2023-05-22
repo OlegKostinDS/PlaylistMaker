@@ -5,7 +5,7 @@ import ru.dsvusial.playlistmaker.search.domain.api.SearchRepository
 import ru.dsvusial.playlistmaker.search.domain.api.SearchInteractor
 import ru.dsvusial.playlistmaker.search.domain.model.SearchUIType
 
-class SearchInteractorImpl (private val searchRepository: SearchRepository): SearchInteractor {
+class SearchInteractorImpl(private val searchRepository: SearchRepository) : SearchInteractor {
     override fun clearHistory() {
         searchRepository.clear()
     }
@@ -15,7 +15,7 @@ class SearchInteractorImpl (private val searchRepository: SearchRepository): Sea
     }
 
     override fun getData(): List<TrackData> {
-      return  searchRepository.getSearchHistory()
+        return searchRepository.getSearchHistory()
     }
 
     override fun loadTracks(

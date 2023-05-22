@@ -8,7 +8,8 @@ import ru.dsvusial.playlistmaker.search.domain.api.SearchRepository
 import ru.dsvusial.playlistmaker.search.domain.model.SearchUIType
 
 class SearchRepositoryImpl(private val sharedPreferences: SharedPreferences,
-private val networkClient: NetworkClient) : SearchRepository {
+private val networkClient: NetworkClient,
+val gson: Gson) : SearchRepository {
 
 
     override fun clear() {
@@ -16,7 +17,7 @@ private val networkClient: NetworkClient) : SearchRepository {
     }
 
     override fun saveSearchHistory(historyTrack: ArrayList<TrackData>) {
-        val json = Gson().toJson(historyTrack)
+        val json = gson.toJson(historyTrack)
         sharedPreferences.edit().putString(HISTORY_KEY, json).apply()
     }
 
@@ -27,7 +28,6 @@ private val networkClient: NetworkClient) : SearchRepository {
     ) {
         networkClient.search(query,onSuccess,onError)
     }
-
     override fun getSearchHistory(): List<TrackData> {
         val json = sharedPreferences.getString(HISTORY_KEY, null) ?: return emptyList()
         return Gson().fromJson(json, Array<TrackData>::class.java).toList()
