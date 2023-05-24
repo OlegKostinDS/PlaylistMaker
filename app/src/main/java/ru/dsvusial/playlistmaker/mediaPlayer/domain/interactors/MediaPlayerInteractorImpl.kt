@@ -16,8 +16,8 @@ class MediaPlayerInteractorImpl(
 
     }
 
-    override fun start() {
-        mediaPlayerRepository.startPlayer()
+    override fun start(trackUrl: String) {
+        mediaPlayerRepository.startPlayer(trackUrl)
 
     }
 

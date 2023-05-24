@@ -4,12 +4,13 @@ import android.media.MediaPlayer
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.model.PlayerState
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.repository.MediaPlayerRepository
 
-class MediaPlayerRepositoryImpl(private val mediaPlayer: MediaPlayer) :
+class MediaPlayerRepositoryImpl() :
     MediaPlayerRepository {
     private var playerState = PlayerState.STATE_DEFAULT
-
+    private var mediaPlayer: MediaPlayer? = null
     override fun preparePlayer(trackUrl: String) {
-        mediaPlayer.apply {
+        mediaPlayer = MediaPlayer()
+        mediaPlayer?.apply {
             setDataSource(trackUrl)
             prepare()
             playerState = PlayerState.STATE_PREPARED
@@ -19,18 +20,25 @@ class MediaPlayerRepositoryImpl(private val mediaPlayer: MediaPlayer) :
         }
     }
 
-    override fun startPlayer() {
-        mediaPlayer.start()
+    override fun startPlayer(trackUrl: String) {
+        if (playerState == PlayerState.STATE_DEFAULT) {
+            preparePlayer(trackUrl)
+        }
+        mediaPlayer?.start()
         playerState = PlayerState.STATE_PLAYING
     }
 
     override fun stopPlayer() {
-        mediaPlayer.release()
+        mediaPlayer?.apply {
+            stop()
+            reset()
+            release()
+        }
 
     }
 
     override fun getCurrentPosition(): Int {
-        return mediaPlayer.currentPosition
+        return mediaPlayer?.currentPosition ?: 0
     }
 
     override fun getPlayState(): PlayerState {
@@ -38,7 +46,7 @@ class MediaPlayerRepositoryImpl(private val mediaPlayer: MediaPlayer) :
     }
 
     override fun pausedPlayer() {
-        mediaPlayer.pause()
+        mediaPlayer?.pause()
         playerState = PlayerState.STATE_PAUSED
     }
 

@@ -30,20 +30,20 @@ class MediaPlayerViewModel(val mediaPlayerInteractor: MediaPlayerInteractor) : V
         handler.removeCallbacksAndMessages(null)
     }
 
-    fun onPlayBtnClicked() {
+    fun onPlayBtnClicked(trackUrl: String) {
         when (mediaPlayerInteractor.getPlayerState()) {
             PlayerState.STATE_PLAYING -> {
                 onViewPaused()
             }
             PlayerState.STATE_PREPARED, PlayerState.STATE_PAUSED -> {
-                startPlayer()
+                startPlayer(trackUrl)
             }
-            PlayerState.STATE_DEFAULT -> startPlayer()
+            PlayerState.STATE_DEFAULT -> startPlayer(trackUrl)
         }
     }
 
-    private fun startPlayer() {
-        mediaPlayerInteractor.start()
+    private fun startPlayer(trackUrl: String) {
+        mediaPlayerInteractor.start(trackUrl)
         playStatusLiveData.postValue(PlayStatus.OnStart)
         handler.postDelayed(object : Runnable {
             override fun run() {

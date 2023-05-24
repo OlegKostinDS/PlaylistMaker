@@ -52,7 +52,7 @@ class MediaPlayerActivity : AppCompatActivity() {
         viewModel.getDurationLiveData().observe(this) {
             setDuration(it)
         }
-        initializeListeners()
+        initializeListeners(track.previewUrl)
 
     }
 
@@ -83,23 +83,22 @@ class MediaPlayerActivity : AppCompatActivity() {
 
     }
 
-    private fun initializeListeners() {
+    private fun initializeListeners(trackUrl: String) {
         mpBackBtn.setOnClickListener {
             finish()
         }
         mpPlayBtn.setOnClickListener {
-            viewModel.onPlayBtnClicked()
-            // presenter.onPlayBtnClicked()
+            viewModel.onPlayBtnClicked(trackUrl)
         }
     }
 
-     fun getData(trackData: TrackData) {
+    fun getData(trackData: TrackData) {
 
         val cornerRadius =
             applicationContext.resources.getDimensionPixelSize(R.dimen.main_btn_radius)
 
         Glide.with(this)
-            .load(trackData?.artworkUrl100?.replaceAfterLast('/', "512x512bb.jpg"))
+            .load(trackData.artworkUrl100.replaceAfterLast('/', "512x512bb.jpg"))
             .placeholder(R.drawable.nodata)
             .centerInside()
             .transform(RoundedCorners(cornerRadius))
@@ -110,33 +109,16 @@ class MediaPlayerActivity : AppCompatActivity() {
             SimpleDateFormat("mm:ss", Locale.getDefault()).format(trackData.trackTimeMillis)
                 .toString()
         mpTrackCountry.text = trackData.country
-        mpTrackAlbum.text = if (trackData.collectionName.isNullOrEmpty()) {
+        mpTrackAlbum.text = trackData.collectionName.ifEmpty {
             mpTrackAlbum.visibility = View.GONE
             mpTrackAlbumText.visibility = View.GONE
             ""
-        } else trackData.collectionName
+        }
 
         mpTrackGenre.text = trackData.primaryGenreName
         mpCurrentTrackDuration.text =
-            "00:00"
-        mpReleaseDate.text = trackData.releaseDate?.substring(0, 4)
-    }
-
-
-     fun setStartImage() {
-
-        mpPlayBtn.setImageResource(R.drawable.mp_play)
-    }
-
-     fun goBack() {
-        finish()
-    }
-
-
-     fun setPausedImage() {
-
-        mpPlayBtn.setImageResource(R.drawable.mp_pause)
-
+            getString(R.string.track_duration_zero_value)
+        mpReleaseDate.text = trackData.releaseDate.substring(0, 4)
     }
 
 

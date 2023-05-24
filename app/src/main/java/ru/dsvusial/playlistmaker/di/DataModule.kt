@@ -1,7 +1,6 @@
 package ru.dsvusial.playlistmaker.di
 
 import android.content.Context
-import android.media.MediaPlayer
 import com.google.gson.Gson
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
@@ -31,6 +30,6 @@ single<NetworkClient>{
 }
     factory { Gson() }
 
-    factory { MediaPlayer() }
+
 
 }
