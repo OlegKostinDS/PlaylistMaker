@@ -6,18 +6,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.switchmaterial.SwitchMaterial
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.dsvusial.playlistmaker.R
-import ru.dsvusial.playlistmaker.settings.view_model.SettingViewModel
+import ru.dsvusial.playlistmaker.settings.ui.view_model.SettingViewModel
 import ru.dsvusial.playlistmaker.utils.router.SettingRouter
 
 class SettingsActivity : AppCompatActivity() {
 
-    val viewModel by lazy {
-        ViewModelProvider(
-            this,
-            SettingViewModel.getViewModelFactory()
-        )[SettingViewModel::class.java]
-    }
+    val viewModel by viewModel<SettingViewModel>()
     val settingRouter by lazy {
         SettingRouter(this)
     }

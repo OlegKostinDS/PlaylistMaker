@@ -28,4 +28,5 @@
     <string name="track_release">Год</string>
     <string name="track_contry">Страна</string>
     <string name="temp_track_duration">0:30</string>
+    <string name="track_duration_zero_value">00:00</string>
 </resources>

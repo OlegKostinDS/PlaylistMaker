@@ -4,11 +4,11 @@ import ru.dsvusial.playlistmaker.mediaPlayer.domain.model.PlayerState
 
 interface MediaPlayerRepository{
     fun preparePlayer(trackUrl : String)
-    fun startPlayer()
+    fun startPlayer(trackUrl: String)
     fun pausedPlayer()
     fun stopPlayer()
     fun getCurrentPosition(): Int
+    fun getPlayState() : PlayerState
 
-    var playerState: PlayerState
 
 }

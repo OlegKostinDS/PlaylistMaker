@@ -6,39 +6,48 @@ import ru.dsvusial.playlistmaker.mediaPlayer.domain.repository.MediaPlayerReposi
 
 class MediaPlayerRepositoryImpl() :
     MediaPlayerRepository {
-    override var playerState = PlayerState.STATE_DEFAULT
-    private val mediaPlayer: MediaPlayer = MediaPlayer()
-    override fun preparePlayer(  trackUrl: String) {
-        mediaPlayer.apply {
+    private var playerState = PlayerState.STATE_DEFAULT
+    private var mediaPlayer: MediaPlayer? = null
+    override fun preparePlayer(trackUrl: String) {
+        mediaPlayer = MediaPlayer()
+        mediaPlayer?.apply {
             setDataSource(trackUrl)
             prepare()
             playerState = PlayerState.STATE_PREPARED
             setOnCompletionListener {
                 playerState = PlayerState.STATE_PREPARED
             }
-
         }
-
     }
 
-    override fun startPlayer() {
-        mediaPlayer.start()
+    override fun startPlayer(trackUrl: String) {
+        if (playerState == PlayerState.STATE_DEFAULT) {
+            preparePlayer(trackUrl)
+        }
+        mediaPlayer?.start()
         playerState = PlayerState.STATE_PLAYING
     }
 
     override fun stopPlayer() {
-        mediaPlayer.release()
+        mediaPlayer?.apply {
+            stop()
+            reset()
+            release()
+        }
 
     }
 
     override fun getCurrentPosition(): Int {
-        return mediaPlayer.currentPosition
+        return mediaPlayer?.currentPosition ?: 0
+    }
+
+    override fun getPlayState(): PlayerState {
+        return playerState
     }
 
     override fun pausedPlayer() {
-        mediaPlayer.pause()
+        mediaPlayer?.pause()
         playerState = PlayerState.STATE_PAUSED
     }
-
 
 }

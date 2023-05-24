@@ -1,14 +1,10 @@
-package ru.dsvusial.playlistmaker.mediaPlayer.presentation.view_model
+package ru.dsvusial.playlistmaker.mediaPlayer.ui.view_model
 
 import android.os.Handler
 import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
-import ru.dsvusial.playlistmaker.creator.Creator
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.interactors.MediaPlayerInteractor
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.model.PlayerState
 import ru.dsvusial.playlistmaker.mediaPlayer.ui.PlayStatus
@@ -34,20 +30,20 @@ class MediaPlayerViewModel(val mediaPlayerInteractor: MediaPlayerInteractor) : V
         handler.removeCallbacksAndMessages(null)
     }
 
-    fun onPlayBtnClicked() {
+    fun onPlayBtnClicked(trackUrl: String) {
         when (mediaPlayerInteractor.getPlayerState()) {
             PlayerState.STATE_PLAYING -> {
                 onViewPaused()
             }
             PlayerState.STATE_PREPARED, PlayerState.STATE_PAUSED -> {
-                startPlayer()
+                startPlayer(trackUrl)
             }
-            PlayerState.STATE_DEFAULT -> startPlayer()
+            PlayerState.STATE_DEFAULT -> startPlayer(trackUrl)
         }
     }
 
-    private fun startPlayer() {
-        mediaPlayerInteractor.start()
+    private fun startPlayer(trackUrl: String) {
+        mediaPlayerInteractor.start(trackUrl)
         playStatusLiveData.postValue(PlayStatus.OnStart)
         handler.postDelayed(object : Runnable {
             override fun run() {
@@ -71,12 +67,5 @@ class MediaPlayerViewModel(val mediaPlayerInteractor: MediaPlayerInteractor) : V
 
     companion object {
         private val MP_DELAY = 1000L
-        fun getViewModelFactory(): ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                MediaPlayerViewModel(
-                    mediaPlayerInteractor = Creator.provideMediaPlayerInteractor()
-                )
-            }
-        }
     }
 }
