@@ -26,10 +26,7 @@ class App : Application() {
             androidContext(this@App)
             modules(dataModule, repositoryModule, interactorModule, viewModelModule)
         }
-
-
-
-       switchTheme(getKoin().get<SettingsRepository>().getTheme(THEME_KEY))
+        switchTheme(getKoin().get<SettingsRepository>().getTheme(THEME_KEY))
     }
 
     fun switchTheme(darkThemeEnabled: Boolean) {
@@ -42,6 +39,4 @@ class App : Application() {
             }
         )
     }
-
-
 }

@@ -2,9 +2,6 @@ package ru.dsvusial.playlistmaker.main.ui.view_model
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
 import ru.dsvusial.playlistmaker.main.ui.SingleLiveEvent
 import ru.dsvusial.playlistmaker.main.ui.model.MainNavState
 
@@ -23,6 +20,4 @@ class MainViewModel : ViewModel() {
     fun startSettingsActivity() {
         mainStatusLiveData.value = MainNavState.SETTINGS
     }
-
-
 }
