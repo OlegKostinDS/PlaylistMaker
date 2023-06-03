@@ -25,8 +25,7 @@ class MusicLibraryActivity : AppCompatActivity() {
         initViews()
         initListeners()
         libraryViewpager.adapter = LibraryPagerAdapter(supportFragmentManager, lifecycle)
-        tabMediator = TabLayoutMediator(libraryTabLayout, libraryViewpager){
-                tab , position ->
+        tabMediator = TabLayoutMediator(libraryTabLayout, libraryViewpager) { tab, position ->
             when (position) {
                 0 -> tab.text = getString(R.string.favorite_tracks)
                 else -> tab.text = getString(R.string.playlists)

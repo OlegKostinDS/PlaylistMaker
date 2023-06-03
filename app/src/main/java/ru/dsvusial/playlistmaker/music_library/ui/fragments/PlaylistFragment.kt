@@ -12,6 +12,7 @@ class PlaylistFragment : Fragment() {
     companion object {
         fun newInstance() = PlaylistFragment()
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
