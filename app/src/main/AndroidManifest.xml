@@ -19,7 +19,7 @@
             android:name=".mediaPlayer.ui.MediaPlayerActivity"
             android:exported="false" />
         <activity
-            android:name=".music_library.MusicActivity"
+            android:name=".music_library.ui.MusicLibraryActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

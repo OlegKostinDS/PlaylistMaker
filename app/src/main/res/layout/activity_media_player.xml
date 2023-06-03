@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".music_library.MusicActivity">
+    tools:context=".music_library.ui.MusicLibraryActivity">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/left_guideline"

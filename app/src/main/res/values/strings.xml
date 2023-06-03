@@ -2,7 +2,7 @@
     <string name="app_name">PlaylistMaker</string>
     <string name="title">Playlist maker</string>
     <string name="main_search_button_text">Поиск</string>
-    <string name="main_music">Медиотека</string>
+    <string name="main_music">Медиатека</string>
     <string name="main_settings">Настройки</string>
     <string name="settings_settings_text_view">Настройки</string>
     <string name="settings_dark_theme">Темная тема</string>
@@ -16,10 +16,14 @@
     <string name="support_email_text_body">Спасибо разработчикам и разработчицам за крутое приложение!</string>
     <string name="support_yandex_practicum_offer">https://yandex.ru/legal/practicum_offer/</string>
     <string name="search_hint">Поиск</string>
+    <string name="m_library_hint">Медиатека</string>
     <string name="search_nothing_find_text">Ничего не нашлось</string>
+    <string name="library_playlist_find_text">Вы не создали ни одного плейлиста</string>
+    <string name="library_nothing_find_text">Ваша медиатека пуста</string>
     <string name="search_no_internet_text">Проблемы со связью\n\n
         Загрузка не удалась. Проверьте подключение к интернету</string>
     <string name="search_text_refresh">Обновить</string>
+    <string name="library_text_new_playlist">Новый плейлист</string>
     <string name="search_text_clear">Очистить историю</string>
     <string name="search_searched_textview">Вы искали</string>
     <string name="track_duration">Длительность</string>
@@ -29,4 +33,7 @@
     <string name="track_contry">Страна</string>
     <string name="temp_track_duration">0:30</string>
     <string name="track_duration_zero_value">00:00</string>
+    <string name="favorite_tracks">Избранные треки</string>
+    <string name="playlists">Плейлисты</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
