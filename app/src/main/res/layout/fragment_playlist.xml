@@ -1,63 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/playlist_fragment_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".music_library.ui.fragments.PlaylistFragment">
+    android:visibility="visible">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/playlist_fragment_layout"
-        android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/playlist_fragment_guideline"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:visibility="visible">
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_percent="0.1375"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/playlist_fragment_guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintGuide_percent="0.1375"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <Button
+        android:id="@+id/new_playlist_btn"
+        style="@style/SearchButtons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/library_text_new_playlist"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/new_playlist_btn"
-            style="@style/SearchButtons"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/library_text_new_playlist"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/playlist_fragment_image"
+        android:layout_width="@dimen/search_image_param"
+        android:layout_height="@dimen/search_image_param"
+        android:backgroundTint="@color/rc_background"
+        android:contentDescription="@string/search_nothing_find_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/playlist_fragment_guideline"
+        app:srcCompat="@drawable/search_nothing_found" />
 
-        <ImageView
-            android:id="@+id/playlist_fragment_image"
-            android:layout_width="@dimen/search_image_param"
-            android:layout_height="@dimen/search_image_param"
-            android:backgroundTint="@color/rc_background"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/playlist_fragment_guideline"
-            app:srcCompat="@drawable/search_nothing_found"
-            android:contentDescription="@string/search_nothing_find_text" />
-
-        <TextView
-            android:id="@+id/search_nothing_found_text"
-            style="@style/SearchLibraryActivityTextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/library_playlist_find_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/playlist_fragment_image" />
+    <TextView
+        android:id="@+id/search_nothing_found_text"
+        style="@style/SearchLibraryActivityTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/library_playlist_find_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/playlist_fragment_image" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
