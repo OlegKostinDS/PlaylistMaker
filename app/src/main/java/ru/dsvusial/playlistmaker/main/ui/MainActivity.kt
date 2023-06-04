@@ -5,12 +5,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import androidx.lifecycle.ViewModelProvider
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.dsvusial.playlistmaker.R
 import ru.dsvusial.playlistmaker.main.ui.model.MainNavState
 import ru.dsvusial.playlistmaker.main.ui.view_model.MainViewModel
-import ru.dsvusial.playlistmaker.music_library.MusicActivity
+import ru.dsvusial.playlistmaker.music_library.ui.MusicLibraryActivity
 import ru.dsvusial.playlistmaker.mediaPlayer.ui.SearchActivity
 import ru.dsvusial.playlistmaker.settings.ui.SettingsActivity
 
@@ -37,7 +36,7 @@ class MainActivity : AppCompatActivity() {
                 MainNavState.MUSIC_LIBLARY -> startActivity(
                     Intent(
                         this@MainActivity,
-                        MusicActivity::class.java
+                        MusicLibraryActivity::class.java
                     )
                 )
                 MainNavState.SETTINGS -> startActivity(

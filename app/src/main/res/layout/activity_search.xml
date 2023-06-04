@@ -168,7 +168,7 @@
 
         <TextView
             android:id="@+id/search_nothing_found_text"
-            style="@style/SearchActivityTextStyle"
+            style="@style/SearchLibraryActivityTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="24dp"
