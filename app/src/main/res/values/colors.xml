@@ -26,4 +26,5 @@
     <color name="search_day_night_color">#1A1B22</color>
     <color name="mp_text_color_lesser">#AEAFB4</color>
     <color name="mp_value_text_color">#1A1B22</color>
+    <color name="light_dark_theme_color">#FFFFFF</color>
 </resources>

@@ -25,11 +25,10 @@ val dataModule = module {
             .getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE)
 
     }
-single<NetworkClient>{
-    RetrofitNetworkClient(get())
-}
+    single<NetworkClient> {
+        RetrofitNetworkClient(get())
+    }
     factory { Gson() }
-
 
 
 }

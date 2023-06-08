@@ -52,11 +52,11 @@
 
     <style name="SettingsDayNightStyle">
         <item name="android:textColor">@color/white</item>
-        <item name="navigationIcon">@drawable/arrow_back_btn</item>
+
     </style>
     <style name="SearchDayNightStyle">
         <item name="android:textColor">@color/white</item>
-        <item name="navigationIcon">@drawable/arrow_back_btn</item>
+
     </style>
     <style name="SearchLibraryActivityTextStyle">
         <item name="android:gravity">center</item>

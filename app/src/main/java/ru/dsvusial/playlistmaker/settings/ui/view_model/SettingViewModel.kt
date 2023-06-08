@@ -21,5 +21,6 @@ class SettingViewModel(
         settingsInteractor.saveTheme(THEME_KEY, status)
         switcherStatusLiveData.value = status
         (application as App).switchTheme(status)
+
     }
 }
