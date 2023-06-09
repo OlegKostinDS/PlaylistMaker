@@ -8,10 +8,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import ru.dsvusial.playlistmaker.R
 
 class RootActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_root)
-        if (savedInstanceState == null) {
 
             val navHostFragment =
                 supportFragmentManager.findFragmentById(R.id.rootFragmentContainerView) as NavHostFragment
@@ -20,6 +20,5 @@ class RootActivity : AppCompatActivity() {
             bottomNavigationView.setupWithNavController(navController)
 
 
-        }
     }
 }

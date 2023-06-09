@@ -58,4 +58,5 @@ class SettingsFragment : Fragment() {
         toolbar.setNavigationOnClickListener { settingRouter.onBackPressed() }
     }
 
-    }
+
+}

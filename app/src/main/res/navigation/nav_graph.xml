@@ -2,12 +2,12 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/searchFragment">
+    app:startDestination="@id/musicLibraryFragment">
 
     <fragment
         android:id="@+id/searchFragment"
         android:name="ru.dsvusial.playlistmaker.search.ui.SearchFragment"
-        android:label="SearchFragment" >
+        android:label="SearchFragment">
         <action
             android:id="@+id/action_searchFragment_to_mediaPlayerActivity"
             app:destination="@id/mediaPlayerActivity" />
@@ -19,10 +19,7 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="ru.dsvusial.playlistmaker.settings.ui.SettingsFragment"
-        android:label="SettingsFragment" >
-        <action
-            android:id="@+id/action_settingsFragment_self"
-            app:destination="@id/settingsFragment" />
+        android:label="SettingsFragment">
     </fragment>
     <activity
         android:id="@+id/mediaPlayerActivity"
