@@ -16,8 +16,7 @@ import ru.dsvusial.playlistmaker.utils.THEME_KEY
 
 
 class App : Application() {
-    var darkTheme = false
-        private set
+
 
     override fun onCreate() {
         super.onCreate()
@@ -30,7 +29,7 @@ class App : Application() {
     }
 
     fun switchTheme(darkThemeEnabled: Boolean) {
-        darkTheme = darkThemeEnabled
+
         AppCompatDelegate.setDefaultNightMode(
             if (darkThemeEnabled) {
                 AppCompatDelegate.MODE_NIGHT_YES

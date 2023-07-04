@@ -29,21 +29,21 @@ class TrackAdapter(val listener: HistoryListener) :
         private val rvTrackName = itemView.findViewById<TextView>(R.id.rv_track_name)
         private val rvArtistName = itemView.findViewById<TextView>(R.id.rv_artist_name)
         private val rvTrackDuration = itemView.findViewById<TextView>(R.id.rv_track_duration)
-        private val rvDetails = itemView.findViewById<ImageButton>(R.id.rv_details_btn)
 
         fun bind(model: TrackData) {
+            val cornerRadius =
+                itemView.resources.getDimensionPixelSize(R.dimen.lesser_btn_radius)
             Glide.with(itemView.context)
                 .load(model.artworkUrl100)
                 .placeholder(R.drawable.nodata)
-                .transform(RoundedCorners(2))
                 .centerCrop()
+                .transform(RoundedCorners(cornerRadius))
                 .into(imageTitle)
             rvTrackName.text = model.trackName
             rvArtistName.text = model.artistName
             rvTrackDuration.text =
                 SimpleDateFormat("mm:ss", Locale.getDefault()).format(model.trackTimeMillis)
                     .toString()
-
         }
     }
 

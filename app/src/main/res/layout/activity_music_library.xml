@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/rc_background"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".music_library.ui.MusicLibraryFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/m_library_toolbar"

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/searchFragment"
+        android:icon="@drawable/navigation_bottom_search"
+        android:title="@string/search_hint" />
+
+    <item
+        android:id="@+id/musicLibraryFragment"
+        android:icon="@drawable/navigation_bottom_library"
+        android:title="@string/main_music" />
+
+    <item
+        android:id="@+id/settingsFragment"
+        android:icon="@drawable/navigation_bottom_settings"
+        android:title="@string/settings_settings_text_view" />
+</menu>
