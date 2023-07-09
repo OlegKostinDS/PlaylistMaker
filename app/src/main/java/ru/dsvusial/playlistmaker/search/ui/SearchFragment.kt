@@ -28,7 +28,7 @@ import ru.dsvusial.playlistmaker.search.domain.model.SearchUIType
 import ru.dsvusial.playlistmaker.search.ui.model.UiState
 import ru.dsvusial.playlistmaker.search.ui.view_model.SearchViewModel
 
-class SearchFragment: Fragment() {
+class SearchFragment : Fragment() {
     private val viewModel by viewModel<SearchViewModel>()
     private lateinit var searchEditText: EditText
     private lateinit var searchTracksRecyclerView: RecyclerView
@@ -53,6 +53,7 @@ class SearchFragment: Fragment() {
         private const val CLICK_DEBOUNCE_DELAY = 1000L
 
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -70,12 +71,15 @@ class SearchFragment: Fragment() {
                 UiState.Loading -> {
                     showLoading()
                 }
+
                 is UiState.HistoryContent -> {
                     showHistory(it.list)
                 }
+
                 is UiState.SearchContent -> {
                     showContent(it.list)
                 }
+
                 is UiState.Error -> {
                     selectSearchUI(uiType = it.error)
                 }
@@ -85,7 +89,6 @@ class SearchFragment: Fragment() {
         viewModel.observeTextWatcherStateLiveData().observe(viewLifecycleOwner) {
             searchClearBtn.visibility = clearButtonVisibility(it)
         }
-
 
 
         val textWatcherSearchBtn = object : TextWatcher {
@@ -118,6 +121,7 @@ class SearchFragment: Fragment() {
             viewModel.onClickClearHistoryBtn()
         }
     }
+
     private fun initializeUI(view: View) {
         toolbar = view.findViewById<androidx.appcompat.widget.Toolbar>(R.id.search_toolbar)
         searchEditText = view.findViewById(R.id.search_search)
@@ -134,6 +138,7 @@ class SearchFragment: Fragment() {
         searchClearBtn.visibility = View.GONE
 
     }
+
     private fun showContent(list: List<TrackData>) {
         progressbar.visibility = View.GONE
         recentHistoryLayout.visibility = View.GONE
@@ -160,6 +165,7 @@ class SearchFragment: Fragment() {
         historyTrackAdapter.notifyDataSetChanged()
 
     }
+
     private fun selectSearchUI(uiType: SearchUIType) {
         when (uiType) {
             SearchUIType.NO_INTERNET -> {
@@ -173,6 +179,7 @@ class SearchFragment: Fragment() {
                 progressbar.visibility = View.GONE
                 searchNothingFoundBtn.setOnClickListener { viewModel.search(searchEditText.text.toString()) }
             }
+
             SearchUIType.NO_DATA -> {
                 progressbar.visibility = View.GONE
                 recentHistoryLayout.visibility = View.GONE
@@ -195,12 +202,15 @@ class SearchFragment: Fragment() {
         searchNothingFoundBtn.visibility = View.GONE
 
     }
+
     private fun initAdapters() {
         trackAdapter = TrackAdapter {
             if (clickDebounce()) {
                 viewModel.addToRecentHistoryList(it)
-                findNavController().navigate(R.id.action_searchFragment_to_mediaPlayerActivity,
-                    bundleOf(SEARCH_KEY to it))
+                findNavController().navigate(
+                    R.id.action_searchFragment_to_mediaPlayerActivity,
+                    bundleOf(SEARCH_KEY to it)
+                )
             }
 
 
@@ -211,14 +221,17 @@ class SearchFragment: Fragment() {
         historyTrackAdapter = TrackAdapter {
             if (clickDebounce()) {
                 viewModel.addToRecentHistoryList(it)
-                findNavController().navigate(R.id.action_searchFragment_to_mediaPlayerActivity,
-                    bundleOf(SEARCH_KEY to it))
+                findNavController().navigate(
+                    R.id.action_searchFragment_to_mediaPlayerActivity,
+                    bundleOf(SEARCH_KEY to it)
+                )
             }
         }
         searchHistoryTracksRecyclerView.adapter = historyTrackAdapter
         searchHistoryTracksRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         searchHistoryTracksRecyclerView.adapter?.notifyDataSetChanged()
     }
+
     private fun clearButtonVisibility(s: Boolean): Int {
         return if (!s) {
             View.GONE

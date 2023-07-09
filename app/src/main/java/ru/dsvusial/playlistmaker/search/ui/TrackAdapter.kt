@@ -2,7 +2,6 @@ package ru.dsvusial.playlistmaker.search.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -11,8 +10,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.dsvusial.playlistmaker.R
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.model.TrackData
 import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.ArrayList
+import java.util.Locale
 
 const val SEARCH_KEY = "search_key"
 
