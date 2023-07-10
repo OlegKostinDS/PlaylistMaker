@@ -2,6 +2,8 @@ package ru.dsvusial.playlistmaker.search.data.repository
 
 import android.content.SharedPreferences
 import com.google.gson.Gson
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.model.TrackData
 import ru.dsvusial.playlistmaker.search.data.network.NetworkClient
 import ru.dsvusial.playlistmaker.search.data.network.model.TrackResponse
@@ -25,17 +27,17 @@ class SearchRepositoryImpl(
         sharedPreferences.edit().putString(HISTORY_KEY, json).apply()
     }
 
-    override fun loadTracks(
+    override  fun loadTracks(
         query: String
-    ): SearchResult {
+    ): Flow<SearchResult> = flow {
         val response = networkClient.search(query)
-        return when (response.code) {
+         when (response.code) {
             in 200..399 -> {
                 val result = response as TrackResponse
                 if (result.results.isEmpty()) {
                     SearchResult.Error(SearchUIType.NO_DATA)
                 } else {
-                    SearchResult.Success((response as TrackResponse).results.map {
+                    emit(  SearchResult.Success((response as TrackResponse).results.map {
                         TrackData(
                             trackId = it.trackId,
                             trackName = it.trackName,
@@ -48,12 +50,12 @@ class SearchRepositoryImpl(
                             releaseDate = it.releaseDate,
                             previewUrl = it.previewUrl,
                         )
-                    })
+                    }))
                 }
             }
 
-            in 400..499 -> SearchResult.Error(SearchUIType.NO_DATA)
-            else -> SearchResult.Error(SearchUIType.NO_INTERNET)
+            in 400..499 -> emit(SearchResult.Error(SearchUIType.NO_DATA))
+            else -> emit(SearchResult.Error(SearchUIType.NO_INTERNET))
         }
     }
 

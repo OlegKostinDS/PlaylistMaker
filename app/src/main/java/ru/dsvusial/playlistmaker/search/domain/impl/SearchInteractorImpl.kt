@@ -1,5 +1,6 @@
 package ru.dsvusial.playlistmaker.search.domain.impl
 
+import kotlinx.coroutines.flow.Flow
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.model.TrackData
 import ru.dsvusial.playlistmaker.search.domain.api.SearchInteractor
 import ru.dsvusial.playlistmaker.search.domain.api.SearchRepository
@@ -21,7 +22,7 @@ class SearchInteractorImpl(private val searchRepository: SearchRepository) : Sea
     override fun loadTracks(
         query: String,
 
-    ) : SearchResult {
+    ) : Flow<SearchResult> {
       return searchRepository.loadTracks(query)
     }
 }

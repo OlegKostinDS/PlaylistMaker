@@ -1,13 +1,11 @@
 package ru.dsvusial.playlistmaker.search.ui.view_model
 
 
-
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.launch
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.model.TrackData
 import ru.dsvusial.playlistmaker.search.domain.api.SearchInteractor
 import ru.dsvusial.playlistmaker.search.domain.model.SearchResult
@@ -72,22 +70,27 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
     }
 
     private fun searchDebounce(query: String) {
-     movieSearchDebounce(query)
+        movieSearchDebounce(query)
     }
 
     companion object {
         private const val SEARCH_DEBOUNCE_DELAY = 2000L
     }
 
-   suspend fun search(query: String) {
+    suspend fun search(query: String) {
         _uiStateLiveData.value = UiState.Loading
-        withContext(Dispatchers.IO) {
-        when (val result = searchInteractor.loadTracks(query)) {
-                is SearchResult.Success -> _uiStateLiveData.postValue(UiState.SearchContent(result.data!!))
-                is SearchResult.Error -> _uiStateLiveData.postValue(UiState.Error(result.error!!))
-            }
+        viewModelScope.launch {
+            searchInteractor.loadTracks(query)
+                .collect { result ->
+                    when (result) {
+                        is SearchResult.Success -> _uiStateLiveData.postValue(
+                            UiState.SearchContent(
+                                result.data!!
+                            )
+                        )
+                        is SearchResult.Error -> _uiStateLiveData.postValue(UiState.Error(result.error!!))
+                    }
+                }
         }
     }
-
-
 }
