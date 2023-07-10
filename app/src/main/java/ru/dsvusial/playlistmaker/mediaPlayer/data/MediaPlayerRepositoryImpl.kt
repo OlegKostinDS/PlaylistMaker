@@ -4,7 +4,7 @@ import android.media.MediaPlayer
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.model.PlayerState
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.repository.MediaPlayerRepository
 
-class MediaPlayerRepositoryImpl() :
+class MediaPlayerRepositoryImpl :
     MediaPlayerRepository {
     private var playerState = PlayerState.STATE_DEFAULT
     private var mediaPlayer: MediaPlayer? = null
@@ -34,7 +34,6 @@ class MediaPlayerRepositoryImpl() :
             reset()
             release()
         }
-
     }
 
     override fun getCurrentPosition(): Int {

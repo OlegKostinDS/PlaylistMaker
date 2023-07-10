@@ -58,10 +58,7 @@ class MediaPlayerActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-
         viewModel.onViewPaused()
-        //  presenter.onViewPaused()
-
     }
 
 

@@ -2,15 +2,24 @@ package ru.dsvusial.playlistmaker.mediaPlayer.ui.view_model
 
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.interactors.MediaPlayerInteractor
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.model.PlayerState
 import ru.dsvusial.playlistmaker.mediaPlayer.ui.PlayStatus
 
 class MediaPlayerViewModel(val mediaPlayerInteractor: MediaPlayerInteractor) : ViewModel() {
     private val handler = Handler(Looper.getMainLooper())
+    private var timerJob: Job? = null
+
     private val playStatusLiveData = MutableLiveData<PlayStatus>()
     fun getPlayStatusLiveData(): LiveData<PlayStatus> = playStatusLiveData
 
@@ -45,19 +54,22 @@ class MediaPlayerViewModel(val mediaPlayerInteractor: MediaPlayerInteractor) : V
     private fun startPlayer(trackUrl: String) {
         mediaPlayerInteractor.start(trackUrl)
         playStatusLiveData.postValue(PlayStatus.OnStart)
-        handler.postDelayed(object : Runnable {
-            override fun run() {
-                durationLiveData.value = mediaPlayerInteractor.getCurrentPosition()
 
-                val state = mediaPlayerInteractor.getPlayerState()
-                if (state == PlayerState.STATE_PREPARED) {
-                    durationLiveData.value = "00:00"
-                    playStatusLiveData.postValue(PlayStatus.OnPause)
-                    handler.removeCallbacksAndMessages(null)
+        timerJob = viewModelScope.launch {
+            durationLiveData.value = mediaPlayerInteractor.getCurrentPosition()
+            var state = mediaPlayerInteractor.getPlayerState()
+
+                while (state == PlayerState.STATE_PLAYING) {
+                    durationLiveData.value = mediaPlayerInteractor.getCurrentPosition()
+                    delay(MP_DELAY)
+                    state = mediaPlayerInteractor.getPlayerState()
                 }
-                handler.postDelayed(this, MP_DELAY)
+            if (state == PlayerState.STATE_PREPARED) {
+                durationLiveData.value = "00:00"
+                playStatusLiveData. postValue(PlayStatus.OnPause)
+                timerJob?.cancel()
             }
-        }, MP_DELAY)
+        }
     }
 
     fun preparePlayer(trackUrl: String) {
@@ -66,6 +78,6 @@ class MediaPlayerViewModel(val mediaPlayerInteractor: MediaPlayerInteractor) : V
 
 
     companion object {
-        private val MP_DELAY = 1000L
+        private const val MP_DELAY = 1000L
     }
 }
