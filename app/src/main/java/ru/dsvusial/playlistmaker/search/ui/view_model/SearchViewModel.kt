@@ -77,7 +77,7 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
         private const val SEARCH_DEBOUNCE_DELAY = 2000L
     }
 
-    suspend fun search(query: String) {
+     fun search(query: String) {
         _uiStateLiveData.value = UiState.Loading
         viewModelScope.launch {
             searchInteractor.loadTracks(query)
