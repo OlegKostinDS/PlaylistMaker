@@ -2,8 +2,6 @@ package ru.dsvusial.playlistmaker.search.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -18,9 +16,12 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.dsvusial.playlistmaker.R
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.model.TrackData
@@ -28,8 +29,7 @@ import ru.dsvusial.playlistmaker.search.domain.model.SearchUIType
 import ru.dsvusial.playlistmaker.search.ui.model.UiState
 import ru.dsvusial.playlistmaker.search.ui.view_model.SearchViewModel
 
-class SearchFragment: Fragment() {
-    private val viewModel by viewModel<SearchViewModel>()
+class SearchFragment : Fragment() {
     private lateinit var searchEditText: EditText
     private lateinit var searchTracksRecyclerView: RecyclerView
     private lateinit var searchHistoryTracksRecyclerView: RecyclerView
@@ -44,15 +44,15 @@ class SearchFragment: Fragment() {
     private lateinit var progressbar: ProgressBar
     private lateinit var historyTrackAdapter: TrackAdapter
     private lateinit var trackAdapter: TrackAdapter
-    private val handler = Handler(Looper.getMainLooper())
     private var isClickAllowed = true
-
+    private val viewModel by viewModel<SearchViewModel>()
 
     companion object {
         fun newInstance() = SearchFragment()
         private const val CLICK_DEBOUNCE_DELAY = 1000L
 
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -70,12 +70,15 @@ class SearchFragment: Fragment() {
                 UiState.Loading -> {
                     showLoading()
                 }
+
                 is UiState.HistoryContent -> {
                     showHistory(it.list)
                 }
+
                 is UiState.SearchContent -> {
                     showContent(it.list)
                 }
+
                 is UiState.Error -> {
                     selectSearchUI(uiType = it.error)
                 }
@@ -85,7 +88,6 @@ class SearchFragment: Fragment() {
         viewModel.observeTextWatcherStateLiveData().observe(viewLifecycleOwner) {
             searchClearBtn.visibility = clearButtonVisibility(it)
         }
-
 
 
         val textWatcherSearchBtn = object : TextWatcher {
@@ -118,6 +120,7 @@ class SearchFragment: Fragment() {
             viewModel.onClickClearHistoryBtn()
         }
     }
+
     private fun initializeUI(view: View) {
         toolbar = view.findViewById<androidx.appcompat.widget.Toolbar>(R.id.search_toolbar)
         searchEditText = view.findViewById(R.id.search_search)
@@ -134,6 +137,7 @@ class SearchFragment: Fragment() {
         searchClearBtn.visibility = View.GONE
 
     }
+
     private fun showContent(list: List<TrackData>) {
         progressbar.visibility = View.GONE
         recentHistoryLayout.visibility = View.GONE
@@ -158,8 +162,8 @@ class SearchFragment: Fragment() {
         historyTrackAdapter.recentTracks.clear()
         historyTrackAdapter.recentTracks.addAll(list)
         historyTrackAdapter.notifyDataSetChanged()
-
     }
+
     private fun selectSearchUI(uiType: SearchUIType) {
         when (uiType) {
             SearchUIType.NO_INTERNET -> {
@@ -171,8 +175,13 @@ class SearchFragment: Fragment() {
                 searchNothingFoundText.text = getText(R.string.search_no_internet_text)
                 searchNothingFoundBtn.visibility = View.VISIBLE
                 progressbar.visibility = View.GONE
-                searchNothingFoundBtn.setOnClickListener { viewModel.search(searchEditText.text.toString()) }
+                searchNothingFoundBtn.setOnClickListener {
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        viewModel.search(searchEditText.text.toString())
+                    }
+                }
             }
+
             SearchUIType.NO_DATA -> {
                 progressbar.visibility = View.GONE
                 recentHistoryLayout.visibility = View.GONE
@@ -195,15 +204,16 @@ class SearchFragment: Fragment() {
         searchNothingFoundBtn.visibility = View.GONE
 
     }
+
     private fun initAdapters() {
         trackAdapter = TrackAdapter {
             if (clickDebounce()) {
                 viewModel.addToRecentHistoryList(it)
-                findNavController().navigate(R.id.action_searchFragment_to_mediaPlayerActivity,
-                    bundleOf(SEARCH_KEY to it))
+                findNavController().navigate(
+                    R.id.action_searchFragment_to_mediaPlayerActivity,
+                    bundleOf(SEARCH_KEY to it)
+                )
             }
-
-
         }
 
         searchTracksRecyclerView.adapter = trackAdapter
@@ -211,14 +221,17 @@ class SearchFragment: Fragment() {
         historyTrackAdapter = TrackAdapter {
             if (clickDebounce()) {
                 viewModel.addToRecentHistoryList(it)
-                findNavController().navigate(R.id.action_searchFragment_to_mediaPlayerActivity,
-                    bundleOf(SEARCH_KEY to it))
+                findNavController().navigate(
+                    R.id.action_searchFragment_to_mediaPlayerActivity,
+                    bundleOf(SEARCH_KEY to it)
+                )
             }
         }
         searchHistoryTracksRecyclerView.adapter = historyTrackAdapter
         searchHistoryTracksRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         searchHistoryTracksRecyclerView.adapter?.notifyDataSetChanged()
     }
+
     private fun clearButtonVisibility(s: Boolean): Int {
         return if (!s) {
             View.GONE
@@ -231,9 +244,11 @@ class SearchFragment: Fragment() {
         val current = isClickAllowed
         if (isClickAllowed) {
             isClickAllowed = false
-            handler.postDelayed({ isClickAllowed = true }, CLICK_DEBOUNCE_DELAY)
+            viewLifecycleOwner.lifecycleScope.launch {
+                delay(CLICK_DEBOUNCE_DELAY)
+                isClickAllowed = true
+            }
         }
         return current
     }
-
 }

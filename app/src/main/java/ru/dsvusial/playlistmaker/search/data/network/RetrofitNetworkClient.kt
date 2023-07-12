@@ -1,62 +1,41 @@
 package ru.dsvusial.playlistmaker.search.data.network
 
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import ru.dsvusial.playlistmaker.mediaPlayer.domain.model.TrackData
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import ru.dsvusial.playlistmaker.search.data.network.model.NetworkResponse
 import ru.dsvusial.playlistmaker.search.data.network.model.TrackApi
-import ru.dsvusial.playlistmaker.search.data.network.model.TrackResponse
-import ru.dsvusial.playlistmaker.search.domain.model.SearchUIType
 
-class RetrofitNetworkClient(val songService: TrackApi) : NetworkClient {
+class RetrofitNetworkClient(private val songService: TrackApi,
+                            private val context: Context) : NetworkClient {
 
-    override fun search(
-        query: String,
-        onSuccess: (list: List<TrackData>) -> Unit,
-        onError: (error: SearchUIType) -> Unit
-    ) {
-        songService.search(query)
-            .enqueue(object : Callback<TrackResponse> {
-                override fun onResponse(
-                    call: Call<TrackResponse>,
-                    response: Response<TrackResponse>
-                ) {
-                    when (response.code()) {
-                        200 ->
-                            if (response.body()?.results?.isNotEmpty() == true) {
-                                onSuccess.invoke(response.body()?.results!!.map {
-                                    TrackData(
-                                        trackId = it.trackId,
-                                        trackName = it.trackName,
-                                        artistName = it.artistName,
-                                        trackTimeMillis = it.trackTimeMillis,
-                                        artworkUrl100 = it.artworkUrl100,
-                                        collectionName = it.collectionName,
-                                        country = it.country,
-                                        primaryGenreName = it.primaryGenreName,
-                                        releaseDate = it.releaseDate,
-                                        previewUrl = it.previewUrl,
-                                    )
-                                })
-                            } else {
-                                onError.invoke(SearchUIType.NO_DATA)
+    override suspend fun search(
+        query: String
+    ): NetworkResponse {
+        if (!isConnected()) return NetworkResponse().apply { code = -1 }
+        val response = withContext(Dispatchers.IO) {
+            songService.search(query)
 
-                            }
+        }
+            return response.body()?.apply { code = response.code() }
+                ?: NetworkResponse().apply { code = response.code() }
+        }
 
-                        else -> {
-                            onError.invoke(SearchUIType.NO_INTERNET)
-                        }
-                    }
-                }
+    private fun isConnected(): Boolean {
+        val connectivityManager = context.getSystemService(
+            Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
 
-
-                override fun onFailure(call: Call<TrackResponse>, t: Throwable) {
-                    onError.invoke(SearchUIType.NO_INTERNET)
-
-                }
-
-            })
+        if (capabilities != null) {
+            when {
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> return true
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> return true
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> return true
+            }
+        }
+        return false
     }
 }
+

@@ -1,9 +1,10 @@
 package ru.dsvusial.playlistmaker.search.domain.impl
 
+import kotlinx.coroutines.flow.Flow
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.model.TrackData
-import ru.dsvusial.playlistmaker.search.domain.api.SearchRepository
 import ru.dsvusial.playlistmaker.search.domain.api.SearchInteractor
-import ru.dsvusial.playlistmaker.search.domain.model.SearchUIType
+import ru.dsvusial.playlistmaker.search.domain.api.SearchRepository
+import ru.dsvusial.playlistmaker.search.domain.model.SearchResult
 
 class SearchInteractorImpl(private val searchRepository: SearchRepository) : SearchInteractor {
     override fun clearHistory() {
@@ -20,9 +21,8 @@ class SearchInteractorImpl(private val searchRepository: SearchRepository) : Sea
 
     override fun loadTracks(
         query: String,
-        onSuccess: (list: List<TrackData>) -> Unit,
-        onError: (error: SearchUIType) -> Unit
-    ) {
-        searchRepository.loadTracks(query, onSuccess, onError)
+
+    ) : Flow<SearchResult> {
+      return searchRepository.loadTracks(query)
     }
 }

@@ -1,12 +1,9 @@
 package ru.dsvusial.playlistmaker.search.data.network
 
-import ru.dsvusial.playlistmaker.mediaPlayer.domain.model.TrackData
-import ru.dsvusial.playlistmaker.search.domain.model.SearchUIType
+import ru.dsvusial.playlistmaker.search.data.network.model.NetworkResponse
 
 interface NetworkClient {
-    fun search(
-        query: String,
-        onSuccess: (list: List<TrackData>) -> Unit,
-        onError: (error: SearchUIType) -> Unit
-    )
+    suspend fun search(
+        query: String
+    ) : NetworkResponse
 }

@@ -1,18 +1,24 @@
 package ru.dsvusial.playlistmaker.search.ui.view_model
 
 
-import android.os.Handler
-import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.model.TrackData
 import ru.dsvusial.playlistmaker.search.domain.api.SearchInteractor
+import ru.dsvusial.playlistmaker.search.domain.model.SearchResult
 import ru.dsvusial.playlistmaker.search.ui.model.UiState
+import ru.dsvusial.playlistmaker.utils.debounce
 
 
 class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewModel() {
     private val recentHistoryTracks = ArrayList<TrackData>()
+    private val movieSearchDebounce = debounce<String>(SEARCH_DEBOUNCE_DELAY, viewModelScope, true)
+    { changedText ->
+        search(changedText)
+    }
 
     private val _uiStateLiveData = MutableLiveData<UiState>()
     fun observeUiStateLiveData(): LiveData<UiState> = _uiStateLiveData
@@ -25,7 +31,6 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
     private val _textWatcherLiveData = MutableLiveData<Boolean>()
     fun observeTextWatcherStateLiveData(): LiveData<Boolean> = _textWatcherLiveData
 
-    private val handler = Handler(Looper.getMainLooper())
 
     fun onClickClearHistoryBtn() {
         recentHistoryTracks.clear()
@@ -39,9 +44,11 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
                 recentHistoryTracks.remove(trackData)
                 recentHistoryTracks.add(0, trackData)
             }
+
             (recentHistoryTracks.size < 10) -> {
                 recentHistoryTracks.add(0, trackData)
             }
+
             else -> {
                 recentHistoryTracks.removeAt(9)
                 recentHistoryTracks.add(0, trackData)
@@ -63,23 +70,27 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
     }
 
     private fun searchDebounce(query: String) {
-        handler.removeCallbacksAndMessages(null)
-        handler.postDelayed({ search(query) }, SEARCH_DEBOUNCE_DELAY)
+        movieSearchDebounce(query)
     }
 
     companion object {
         private const val SEARCH_DEBOUNCE_DELAY = 2000L
     }
 
-    fun search(query: String) {
+     fun search(query: String) {
         _uiStateLiveData.value = UiState.Loading
-        searchInteractor.loadTracks(query,
-            onSuccess = {
-                _uiStateLiveData.value = UiState.SearchContent(it)
-            }, onError = {
-                _uiStateLiveData.value = UiState.Error(error = it)
-            })
+        viewModelScope.launch {
+            searchInteractor.loadTracks(query)
+                .collect { result ->
+                    when (result) {
+                        is SearchResult.Success -> _uiStateLiveData.postValue(
+                            UiState.SearchContent(
+                                result.data!!
+                            )
+                        )
+                        is SearchResult.Error -> _uiStateLiveData.postValue(UiState.Error(result.error!!))
+                    }
+                }
+        }
     }
-
-
 }

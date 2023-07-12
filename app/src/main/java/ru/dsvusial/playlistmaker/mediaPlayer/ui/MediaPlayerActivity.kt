@@ -58,10 +58,7 @@ class MediaPlayerActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-
         viewModel.onViewPaused()
-        //  presenter.onViewPaused()
-
     }
 
 
@@ -93,10 +90,8 @@ class MediaPlayerActivity : AppCompatActivity() {
     }
 
     fun getData(trackData: TrackData) {
-
         val cornerRadius =
             applicationContext.resources.getDimensionPixelSize(R.dimen.main_btn_radius)
-
         Glide.with(this)
             .load(trackData.artworkUrl100.replaceAfterLast('/', "512x512bb.jpg"))
             .placeholder(R.drawable.nodata)
