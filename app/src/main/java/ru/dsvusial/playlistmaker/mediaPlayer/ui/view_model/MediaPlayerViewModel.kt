@@ -57,19 +57,26 @@ class MediaPlayerViewModel(
     fun onFavBtnClicked(trackData: TrackData) {
         viewModelScope.launch {
             if (trackData.isFavorite) {
-                trackInteractor.unputFavoriteTrack(trackData)
                 trackData.isFavorite = false
                 favoritesLiveData.value = false
+                trackInteractor.unputFavoriteTrack(trackData)
             } else {
-                trackInteractor.putFavoriteTrack(trackData)
                 trackData.isFavorite = true
                 favoritesLiveData.value = true
+                trackInteractor.putFavoriteTrack(trackData)
 
             }
         }
 
     }
 
+    fun isFavorite(trackId:String){
+        viewModelScope.launch {
+            trackInteractor.getFavoriteIds(trackId).collect { trackId ->
+                favoritesLiveData.value = trackId
+            }
+        }
+    }
 
     private fun startPlayer(trackUrl: String) {
         mediaPlayerInteractor.start(trackUrl)

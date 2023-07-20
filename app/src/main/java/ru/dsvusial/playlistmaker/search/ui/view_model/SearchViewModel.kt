@@ -88,6 +88,7 @@ class SearchViewModel(private val searchInteractor: SearchInteractor,
                         is SearchResult.Success -> _uiStateLiveData.postValue(
                             UiState.SearchContent(
                                 result.data!!
+
                             )
                         )
                         is SearchResult.Error -> _uiStateLiveData.postValue(UiState.Error(result.error!!))

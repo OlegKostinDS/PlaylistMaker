@@ -1,6 +1,7 @@
 package ru.dsvusial.playlistmaker.music_library.data
 
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.model.TrackData
 import ru.dsvusial.playlistmaker.music_library.data.converters.TrackDbConvertor
@@ -27,6 +28,13 @@ class FavoritesTrackRepositoryImpl(
         }
 
     }
+
+    override fun favoritesIds(trackid: String): Flow<Boolean> = flow {
+
+    emit(( appDatabase.trackDao().getTrackIds()).contains(trackid))
+
+    }
+
 
     private fun convertFromTrackEntity(tracks: List<TrackEntity>): List<TrackData> {
         return tracks.map { track -> trackDbConvertor.map(track) }

@@ -223,6 +223,7 @@ class SearchFragment : Fragment() {
         historyTrackAdapter = TrackAdapter {
             if (clickDebounce()) {
                 viewModel.addToRecentHistoryList(it)
+
                 findNavController().navigate(
                     R.id.action_searchFragment_to_mediaPlayerActivity,
                     bundleOf(SEARCH_KEY to it)

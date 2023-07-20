@@ -19,4 +19,8 @@ class TrackInteractorImpl(val trackRepository: FavoritesTrackRepository) : Track
     override suspend fun unputFavoriteTrack(trackData: TrackData) {
         trackRepository.deleteTrackFromFavorites(trackData)
     }
+
+    override fun getFavoriteIds(trackId: String): Flow<Boolean> {
+        return trackRepository.favoritesIds(trackId)
+    }
 }

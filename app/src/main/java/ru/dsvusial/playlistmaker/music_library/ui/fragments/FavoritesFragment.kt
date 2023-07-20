@@ -80,7 +80,7 @@ class FavoritesFragment : Fragment() {
 
     private fun initAdapters() {
         trackAdapter = TrackAdapter {
-            it.isFavorite = true
+            //it.isFavorite = true
             if (clickDebounce()) {
                 findNavController().navigate(
                     R.id.action_musicLibraryFragment_to_mediaPlayerActivity,

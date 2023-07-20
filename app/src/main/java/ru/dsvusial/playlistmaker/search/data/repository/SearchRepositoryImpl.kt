@@ -1,6 +1,7 @@
 package ru.dsvusial.playlistmaker.search.data.repository
 
 import android.content.SharedPreferences
+import android.util.Log
 import com.google.gson.Gson
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -61,8 +62,12 @@ class SearchRepositoryImpl(
                         )
                     }
                     resultTrackData.forEach {
+                        Log.e("testResult","${it}")
                         it.isFavorite = resultIds.contains(it.trackId)
                     }
+//                    resultTrackData.forEach {
+//                        Log.e("testResult","$it")
+//                    }
 
                     val result = SearchResult.Success(resultTrackData)
                     emit(result)
