@@ -7,7 +7,7 @@ import ru.dsvusial.playlistmaker.search.domain.model.SearchResult
 interface SearchRepository {
 
     fun clear()
-    fun saveSearchHistory(historyTrack: ArrayList<TrackData>)
+    suspend fun saveSearchHistory(historyTrack: ArrayList<TrackData>)
        fun loadTracks(query: String): Flow<SearchResult>
     fun getSearchHistory(): List<TrackData>
 }

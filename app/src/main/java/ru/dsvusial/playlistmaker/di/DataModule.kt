@@ -1,6 +1,7 @@
 package ru.dsvusial.playlistmaker.di
 
 import android.content.Context
+import androidx.room.Room
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -8,6 +9,8 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import ru.dsvusial.playlistmaker.music_library.data.converters.TrackDbConvertor
+import ru.dsvusial.playlistmaker.music_library.data.db.AppDatabase
 import ru.dsvusial.playlistmaker.search.data.network.NetworkClient
 import ru.dsvusial.playlistmaker.search.data.network.RetrofitNetworkClient
 import ru.dsvusial.playlistmaker.search.data.network.model.TrackApi
@@ -42,5 +45,11 @@ val dataModule = module {
     }
     factory { Gson() }
 
+    single {
+        Room
+            .databaseBuilder(androidContext(), AppDatabase::class.java, "database.db")
+            .build()
+    }
+    factory { TrackDbConvertor() }
 
 }

@@ -13,7 +13,8 @@ import ru.dsvusial.playlistmaker.search.ui.model.UiState
 import ru.dsvusial.playlistmaker.utils.debounce
 
 
-class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewModel() {
+class SearchViewModel(private val searchInteractor: SearchInteractor,
+) : ViewModel() {
     private val recentHistoryTracks = ArrayList<TrackData>()
     private val movieSearchDebounce = debounce<String>(SEARCH_DEBOUNCE_DELAY, viewModelScope, true)
     { changedText ->
@@ -34,7 +35,7 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
 
     fun onClickClearHistoryBtn() {
         recentHistoryTracks.clear()
-        searchInteractor.saveData(recentHistoryTracks)
+        viewModelScope.launch {searchInteractor.saveData(recentHistoryTracks)}
         _uiStateLiveData.postValue(UiState.HistoryContent(recentHistoryTracks))
     }
 
@@ -55,8 +56,9 @@ class SearchViewModel(private val searchInteractor: SearchInteractor) : ViewMode
             }
 
         }
-        searchInteractor.saveData(recentHistoryTracks)
-
+        viewModelScope.launch {
+            searchInteractor.saveData(recentHistoryTracks)
+        }
 
     }
 

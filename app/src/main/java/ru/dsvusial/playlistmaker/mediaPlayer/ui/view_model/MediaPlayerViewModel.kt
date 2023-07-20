@@ -9,9 +9,14 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.interactors.MediaPlayerInteractor
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.model.PlayerState
+import ru.dsvusial.playlistmaker.mediaPlayer.domain.model.TrackData
 import ru.dsvusial.playlistmaker.mediaPlayer.ui.PlayStatus
+import ru.dsvusial.playlistmaker.music_library.domain.db.TrackInteractor
 
-class MediaPlayerViewModel(val mediaPlayerInteractor: MediaPlayerInteractor) : ViewModel() {
+class MediaPlayerViewModel(
+    val mediaPlayerInteractor: MediaPlayerInteractor,
+    val trackInteractor: TrackInteractor
+) : ViewModel() {
     private var timerJob: Job? = null
 
     private val playStatusLiveData = MutableLiveData<PlayStatus>()
@@ -20,6 +25,9 @@ class MediaPlayerViewModel(val mediaPlayerInteractor: MediaPlayerInteractor) : V
 
     private val durationLiveData = MutableLiveData<String>()
     fun getDurationLiveData(): LiveData<String> = durationLiveData
+
+    private val favoritesLiveData = MutableLiveData<Boolean>()
+    fun getFavoritesLiveData(): LiveData<Boolean> = favoritesLiveData
 
     override fun onCleared() {
         super.onCleared()
@@ -45,6 +53,23 @@ class MediaPlayerViewModel(val mediaPlayerInteractor: MediaPlayerInteractor) : V
             PlayerState.STATE_DEFAULT -> startPlayer(trackUrl)
         }
     }
+
+    fun onFavBtnClicked(trackData: TrackData) {
+        viewModelScope.launch {
+            if (trackData.isFavorite) {
+                trackInteractor.unputFavoriteTrack(trackData)
+                trackData.isFavorite = false
+                favoritesLiveData.value = false
+            } else {
+                trackInteractor.putFavoriteTrack(trackData)
+                trackData.isFavorite = true
+                favoritesLiveData.value = true
+
+            }
+        }
+
+    }
+
 
     private fun startPlayer(trackUrl: String) {
         mediaPlayerInteractor.start(trackUrl)

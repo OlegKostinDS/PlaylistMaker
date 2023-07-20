@@ -15,6 +15,7 @@ import java.util.Locale
 const val SEARCH_KEY = "search_key"
 
 
+
 class TrackAdapter(val listener: HistoryListener) :
     RecyclerView.Adapter<TrackAdapter.TrackViewHolder>() {
 

@@ -11,7 +11,7 @@ import ru.dsvusial.playlistmaker.settings.ui.view_model.SettingViewModel
 
 val viewModelModule = module {
     viewModel {
-        MediaPlayerViewModel(get())
+        MediaPlayerViewModel(get(),get())
     }
     viewModel {
         SearchViewModel(get())
@@ -22,7 +22,7 @@ val viewModelModule = module {
 
 
     viewModel {
-        FavoritesViewModel()
+        FavoritesViewModel(get())
     }
     viewModel {
         PlaylistViewModel()
