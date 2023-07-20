@@ -26,10 +26,6 @@ class SearchRepositoryImpl(
     }
 
     override suspend fun saveSearchHistory(historyTrack: ArrayList<TrackData>) {
-        val resultIds = appDatabase.trackDao().getTrackIds()
-        historyTrack.forEach {
-            it.isFavorite = resultIds.contains(it.trackId)
-        }
         val json = gson.toJson(historyTrack)
         sharedPreferences.edit().putString(HISTORY_KEY, json).apply()
     }
@@ -44,9 +40,6 @@ class SearchRepositoryImpl(
                 if (result.results.isEmpty()) {
                     SearchResult.Error(SearchUIType.NO_DATA)
                 } else {
-
-                    val resultIds = appDatabase.trackDao().getTrackIds()
-
                     val resultTrackData = (response as TrackResponse).results.map {
                         TrackData(
                             trackId = it.trackId,
@@ -61,13 +54,7 @@ class SearchRepositoryImpl(
                             previewUrl = it.previewUrl,
                         )
                     }
-                    resultTrackData.forEach {
-                        Log.e("testResult","${it}")
-                        it.isFavorite = resultIds.contains(it.trackId)
-                    }
-//                    resultTrackData.forEach {
-//                        Log.e("testResult","$it")
-//                    }
+
 
                     val result = SearchResult.Success(resultTrackData)
                     emit(result)

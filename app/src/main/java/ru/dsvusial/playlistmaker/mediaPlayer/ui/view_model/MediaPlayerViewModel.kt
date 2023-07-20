@@ -70,7 +70,7 @@ class MediaPlayerViewModel(
 
     }
 
-    fun isFavorite(trackId:String){
+    fun isFavorite(trackId: String) {
         viewModelScope.launch {
             trackInteractor.getFavoriteIds(trackId).collect { trackId ->
                 favoritesLiveData.value = trackId

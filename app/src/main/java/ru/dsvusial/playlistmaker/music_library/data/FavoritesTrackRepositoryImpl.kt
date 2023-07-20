@@ -26,13 +26,10 @@ class FavoritesTrackRepositoryImpl(
         return appDatabase.trackDao().getTracks().map {
             convertFromTrackEntity(it)
         }
-
     }
 
     override fun favoritesIds(trackid: String): Flow<Boolean> = flow {
-
-    emit(( appDatabase.trackDao().getTrackIds()).contains(trackid))
-
+        emit((appDatabase.trackDao().getTrackIds()).contains(trackid))
     }
 
 

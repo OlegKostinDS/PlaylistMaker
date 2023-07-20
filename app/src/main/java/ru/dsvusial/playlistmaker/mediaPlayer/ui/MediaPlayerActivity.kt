@@ -44,12 +44,13 @@ class MediaPlayerActivity : AppCompatActivity() {
         val track = intent.getSerializableExtra(SEARCH_KEY)!! as TrackData
         viewModel.preparePlayer(track.previewUrl)
         getData(track)
-viewModel.isFavorite(track.trackId)
+        viewModel.isFavorite(track.trackId)
         viewModel.getPlayStatusLiveData().observe(this) {
             when (it) {
                 PlayStatus.OnPause -> mpPlayBtn.setImageResource(R.drawable.mp_play)
-                PlayStatus.OnStart ->{
-                    mpPlayBtn.setImageResource(R.drawable.mp_pause)}
+                PlayStatus.OnStart -> {
+                    mpPlayBtn.setImageResource(R.drawable.mp_pause)
+                }
             }
         }
         viewModel.getDurationLiveData().observe(this) {
@@ -128,8 +129,7 @@ viewModel.isFavorite(track.trackId)
             getString(R.string.track_duration_zero_value)
         mpReleaseDate.text = trackData.releaseDate.substring(0, 4)
 
-//        if (trackData.isFavorite)
-//            mpFavBtn.setImageResource(R.drawable.mp_favorite_active)
+
     }
 
 

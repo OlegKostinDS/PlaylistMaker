@@ -8,6 +8,6 @@ interface SearchRepository {
 
     fun clear()
     suspend fun saveSearchHistory(historyTrack: ArrayList<TrackData>)
-       fun loadTracks(query: String): Flow<SearchResult>
+    fun loadTracks(query: String): Flow<SearchResult>
     fun getSearchHistory(): List<TrackData>
 }

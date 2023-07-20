@@ -23,7 +23,7 @@ class FavoritesViewModel(
 
     private fun fillData() {
 
-    viewModelScope.launch {
+        viewModelScope.launch {
             trackInteractor
                 .getFavoritesTracks()
                 .collect { tracks ->
