@@ -2,6 +2,7 @@ package ru.dsvusial.playlistmaker.mediaPlayer.ui
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -43,8 +44,11 @@ class MediaPlayerActivity : AppCompatActivity() {
         initializeUI()
         val track = intent.getSerializableExtra(SEARCH_KEY)!! as TrackData
         viewModel.preparePlayer(track.previewUrl)
+        Log.e("testResult", "${track.isFavorite} is prep")
+        viewModel.isFavorite(track)
+        Log.e("testResult", "${track.isFavorite} is viewmodle")
         getData(track)
-        viewModel.isFavorite(track.trackId)
+        Log.e("testResult", "${track.isFavorite} is getdata")
         viewModel.getPlayStatusLiveData().observe(this) {
             when (it) {
                 PlayStatus.OnPause -> mpPlayBtn.setImageResource(R.drawable.mp_play)
@@ -57,10 +61,14 @@ class MediaPlayerActivity : AppCompatActivity() {
             setDuration(it)
         }
         viewModel.getFavoritesLiveData().observe(this) {
-            if (it)
+            if (it){
+                Log.e("testResult", "${track.isFavorite} is true activity")
                 mpFavBtn.setImageResource(R.drawable.mp_favorite_active)
-            else
+            }
+            else {
+                Log.e("testResult", "${track.isFavorite} is false activity")
                 mpFavBtn.setImageResource(R.drawable.mp_favorite)
+            }
         }
         initializeListeners(track)
 
