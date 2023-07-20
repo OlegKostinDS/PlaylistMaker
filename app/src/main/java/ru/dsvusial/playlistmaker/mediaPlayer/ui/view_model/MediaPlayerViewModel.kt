@@ -58,12 +58,10 @@ class MediaPlayerViewModel(
     fun onFavBtnClicked(trackData: TrackData) {
         viewModelScope.launch {
             if (trackData.isFavorite) {
-                Log.e("testResult", "${trackData.isFavorite} is true mediaplayer")
                 trackInteractor.unputFavoriteTrack(trackData)
                 trackData.isFavorite = false
                 favoritesLiveData.value = false
             } else {
-                Log.e("testResult", "${trackData.isFavorite} is false mediaplayer")
                 trackInteractor.putFavoriteTrack(trackData)
                 trackData.isFavorite = true
                 favoritesLiveData.value = true
