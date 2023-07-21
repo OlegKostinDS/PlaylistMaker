@@ -1,10 +1,12 @@
 package ru.dsvusial.playlistmaker.search.data.repository
 
 import android.content.SharedPreferences
+import android.util.Log
 import com.google.gson.Gson
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.model.TrackData
+import ru.dsvusial.playlistmaker.music_library.data.db.AppDatabase
 import ru.dsvusial.playlistmaker.search.data.network.NetworkClient
 import ru.dsvusial.playlistmaker.search.data.network.model.TrackResponse
 import ru.dsvusial.playlistmaker.search.domain.api.SearchRepository
@@ -14,6 +16,7 @@ import ru.dsvusial.playlistmaker.search.domain.model.SearchUIType
 class SearchRepositoryImpl(
     private val sharedPreferences: SharedPreferences,
     private val networkClient: NetworkClient,
+    private val appDatabase: AppDatabase,
     val gson: Gson
 ) : SearchRepository {
 
@@ -22,35 +25,41 @@ class SearchRepositoryImpl(
         sharedPreferences.edit().remove(HISTORY_KEY).apply()
     }
 
-    override fun saveSearchHistory(historyTrack: ArrayList<TrackData>) {
+    override suspend fun saveSearchHistory(historyTrack: ArrayList<TrackData>) {
         val json = gson.toJson(historyTrack)
         sharedPreferences.edit().putString(HISTORY_KEY, json).apply()
     }
 
-    override  fun loadTracks(
+    override fun loadTracks(
         query: String
     ): Flow<SearchResult> = flow {
         val response = networkClient.search(query)
-         when (response.code) {
+        when (response.code) {
             in 200..399 -> {
                 val result = response as TrackResponse
                 if (result.results.isEmpty()) {
                     SearchResult.Error(SearchUIType.NO_DATA)
                 } else {
-                    emit(  SearchResult.Success((response as TrackResponse).results.map {
+
+                    val resultTrackData = (response as TrackResponse).results
+                        .filter { it.previewUrl != null }.map {
                         TrackData(
                             trackId = it.trackId,
                             trackName = it.trackName,
                             artistName = it.artistName,
-                            trackTimeMillis = it.trackTimeMillis,
-                            artworkUrl100 = it.artworkUrl100,
-                            collectionName = it.collectionName,
-                            country = it.country,
-                            primaryGenreName = it.primaryGenreName,
-                            releaseDate = it.releaseDate,
-                            previewUrl = it.previewUrl,
+                            trackTimeMillis = it.trackTimeMillis ?: 0,
+                            artworkUrl100 = it.artworkUrl100 ?: "",
+                            collectionName = it.collectionName ?: "",
+                            country = it.country ?: "",
+                            primaryGenreName = it.primaryGenreName ?: "",
+                            releaseDate = it.releaseDate ?: "1970",
+                            previewUrl = it.previewUrl ?: "",
                         )
-                    }))
+                    }
+
+
+                    val result = SearchResult.Success(resultTrackData)
+                    emit(result)
                 }
             }
 

@@ -2,6 +2,7 @@ package ru.dsvusial.playlistmaker.mediaPlayer.ui
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -15,7 +16,7 @@ import ru.dsvusial.playlistmaker.mediaPlayer.domain.model.TrackData
 import ru.dsvusial.playlistmaker.mediaPlayer.ui.view_model.MediaPlayerViewModel
 import ru.dsvusial.playlistmaker.search.ui.SEARCH_KEY
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Locale
 
 
 class MediaPlayerActivity : AppCompatActivity() {
@@ -33,6 +34,7 @@ class MediaPlayerActivity : AppCompatActivity() {
     private lateinit var mpTrackAlbumText: TextView
     private lateinit var mpReleaseDate: TextView
     private lateinit var mpPlayBtn: ImageButton
+    private lateinit var mpFavBtn: ImageButton
     private lateinit var mpCurrentTrackDuration: TextView
 
 
@@ -42,17 +44,28 @@ class MediaPlayerActivity : AppCompatActivity() {
         initializeUI()
         val track = intent.getSerializableExtra(SEARCH_KEY)!! as TrackData
         viewModel.preparePlayer(track.previewUrl)
+        viewModel.isFavorite(track)
         getData(track)
         viewModel.getPlayStatusLiveData().observe(this) {
             when (it) {
                 PlayStatus.OnPause -> mpPlayBtn.setImageResource(R.drawable.mp_play)
-                PlayStatus.OnStart -> mpPlayBtn.setImageResource(R.drawable.mp_pause)
+                PlayStatus.OnStart -> {
+                    mpPlayBtn.setImageResource(R.drawable.mp_pause)
+                }
             }
         }
         viewModel.getDurationLiveData().observe(this) {
             setDuration(it)
         }
-        initializeListeners(track.previewUrl)
+        viewModel.getFavoritesLiveData().observe(this) {
+            if (it){
+                mpFavBtn.setImageResource(R.drawable.mp_favorite_active)
+            }
+            else {
+                mpFavBtn.setImageResource(R.drawable.mp_favorite)
+            }
+        }
+        initializeListeners(track)
 
     }
 
@@ -75,17 +88,21 @@ class MediaPlayerActivity : AppCompatActivity() {
         mpReleaseDate = findViewById(R.id.track_release_date_value)
         mpCurrentTrackDuration = findViewById(R.id.mp_current_track_duration)
         mpPlayBtn = findViewById(R.id.mp_play_btn)
+        mpFavBtn = findViewById(R.id.mp_fav_btn)
         mpTrackAlbum.visibility = View.VISIBLE
         mpTrackAlbumText.visibility = View.VISIBLE
 
     }
 
-    private fun initializeListeners(trackUrl: String) {
+    private fun initializeListeners(track: TrackData) {
         mpBackBtn.setOnClickListener {
             finish()
         }
         mpPlayBtn.setOnClickListener {
-            viewModel.onPlayBtnClicked(trackUrl)
+            viewModel.onPlayBtnClicked(track.previewUrl)
+        }
+        mpFavBtn.setOnClickListener {
+            viewModel.onFavBtnClicked(track)
         }
     }
 
@@ -114,6 +131,8 @@ class MediaPlayerActivity : AppCompatActivity() {
         mpCurrentTrackDuration.text =
             getString(R.string.track_duration_zero_value)
         mpReleaseDate.text = trackData.releaseDate.substring(0, 4)
+
+
     }
 
 

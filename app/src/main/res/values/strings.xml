@@ -18,7 +18,7 @@
     <string name="search_hint">Поиск</string>
     <string name="m_library_hint">Медиатека</string>
     <string name="search_nothing_find_text">Ничего не нашлось</string>
-    <string name="library_playlist_find_text">Вы не создали ни одного плейлиста</string>
+    <string name="library_playlist_find_text">Вы не создали\n ни одного плейлиста</string>
     <string name="library_nothing_find_text">Ваша медиатека пуста</string>
     <string name="search_no_internet_text">Проблемы со связью\n\n
         Загрузка не удалась. Проверьте подключение к интернету</string>

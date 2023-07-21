@@ -49,7 +49,7 @@ class SearchFragment : Fragment() {
 
     companion object {
         fun newInstance() = SearchFragment()
-        private const val CLICK_DEBOUNCE_DELAY = 1000L
+        internal const val CLICK_DEBOUNCE_DELAY = 1000L
 
     }
 
@@ -207,8 +207,10 @@ class SearchFragment : Fragment() {
 
     private fun initAdapters() {
         trackAdapter = TrackAdapter {
+
             if (clickDebounce()) {
                 viewModel.addToRecentHistoryList(it)
+
                 findNavController().navigate(
                     R.id.action_searchFragment_to_mediaPlayerActivity,
                     bundleOf(SEARCH_KEY to it)
@@ -221,6 +223,7 @@ class SearchFragment : Fragment() {
         historyTrackAdapter = TrackAdapter {
             if (clickDebounce()) {
                 viewModel.addToRecentHistoryList(it)
+
                 findNavController().navigate(
                     R.id.action_searchFragment_to_mediaPlayerActivity,
                     bundleOf(SEARCH_KEY to it)

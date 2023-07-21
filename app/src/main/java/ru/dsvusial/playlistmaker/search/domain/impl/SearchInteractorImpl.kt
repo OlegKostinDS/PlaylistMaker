@@ -11,7 +11,7 @@ class SearchInteractorImpl(private val searchRepository: SearchRepository) : Sea
         searchRepository.clear()
     }
 
-    override fun saveData(historyList: ArrayList<TrackData>) {
+    override suspend fun saveData(historyList: ArrayList<TrackData>) {
         searchRepository.saveSearchHistory(historyList)
     }
 
@@ -21,8 +21,7 @@ class SearchInteractorImpl(private val searchRepository: SearchRepository) : Sea
 
     override fun loadTracks(
         query: String,
-
-    ) : Flow<SearchResult> {
+        ) : Flow<SearchResult> {
       return searchRepository.loadTracks(query)
     }
 }

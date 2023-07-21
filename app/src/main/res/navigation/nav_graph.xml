@@ -15,7 +15,11 @@
     <fragment
         android:id="@+id/musicLibraryFragment"
         android:name="ru.dsvusial.playlistmaker.music_library.ui.MusicLibraryFragment"
-        android:label="MusicLibraryFragment" />
+        android:label="MusicLibraryFragment" >
+        <action
+            android:id="@+id/action_musicLibraryFragment_to_mediaPlayerActivity"
+            app:destination="@id/mediaPlayerActivity" />
+    </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="ru.dsvusial.playlistmaker.settings.ui.SettingsFragment"

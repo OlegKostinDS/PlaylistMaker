@@ -3,12 +3,12 @@ package ru.dsvusial.playlistmaker.di
 import org.koin.dsl.module
 import ru.dsvusial.playlistmaker.mediaPlayer.data.MediaPlayerRepositoryImpl
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.repository.MediaPlayerRepository
+import ru.dsvusial.playlistmaker.music_library.data.FavoritesTrackRepositoryImpl
+import ru.dsvusial.playlistmaker.music_library.domain.db.FavoritesTrackRepository
 import ru.dsvusial.playlistmaker.search.data.repository.SearchRepositoryImpl
 import ru.dsvusial.playlistmaker.search.domain.api.SearchRepository
 import ru.dsvusial.playlistmaker.settings.data.SettingsRepositoryImpl
 import ru.dsvusial.playlistmaker.settings.domain.api.SettingsRepository
-import org.koin.core.module.dsl.singleOf
-import org.koin.dsl.bind
 
 val repositoryModule = module {
     single<MediaPlayerRepository> {
@@ -19,7 +19,13 @@ val repositoryModule = module {
         SettingsRepositoryImpl(get())
     }
 
-    singleOf(::SearchRepositoryImpl).bind<SearchRepository>()
+    single<FavoritesTrackRepository> {
+        FavoritesTrackRepositoryImpl(get(),get())
+    }
+    single<SearchRepository> {
+        SearchRepositoryImpl(get(),get(),get(),get())
+    }
+
 }
 
 

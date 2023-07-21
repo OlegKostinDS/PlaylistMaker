@@ -26,4 +26,7 @@
     <color name="mp_value_text_color">#FFFFFF</color>
     <color name="progress_bar">#6200EE</color>
     <color name="light_dark_theme_color">#1A1B22</color>
+    <color name="favorite_button_background">#FFFFFF</color>
+    <color name="line_at_bottom_navigation">#E6E8EB</color>
+
 </resources>

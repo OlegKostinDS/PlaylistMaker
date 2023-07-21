@@ -22,8 +22,8 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/border"
         android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:background="@color/white"
+        android:layout_height="0.5dp"
+        android:background="@color/line_at_bottom_navigation"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
