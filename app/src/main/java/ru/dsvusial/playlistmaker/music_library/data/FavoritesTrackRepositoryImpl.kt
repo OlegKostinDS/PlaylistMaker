@@ -28,8 +28,8 @@ class FavoritesTrackRepositoryImpl(
         }
     }
 
-    override fun favoritesIds(trackid: String): Flow<Boolean> = flow {
-        emit((appDatabase.trackDao().getTrackIds()).contains(trackid))
+    override fun favoritesIds(track: String): Flow<Boolean> = flow {
+        emit((appDatabase.trackDao().getTrackIds()).contains(track))
     }
 
 

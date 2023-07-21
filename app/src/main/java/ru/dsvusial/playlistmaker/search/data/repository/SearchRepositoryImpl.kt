@@ -40,18 +40,20 @@ class SearchRepositoryImpl(
                 if (result.results.isEmpty()) {
                     SearchResult.Error(SearchUIType.NO_DATA)
                 } else {
-                    val resultTrackData = (response as TrackResponse).results.map {
+
+                    val resultTrackData = (response as TrackResponse).results
+                        .filter { it.previewUrl != null }.map {
                         TrackData(
                             trackId = it.trackId,
                             trackName = it.trackName,
                             artistName = it.artistName,
-                            trackTimeMillis = it.trackTimeMillis,
-                            artworkUrl100 = it.artworkUrl100,
-                            collectionName = it.collectionName,
-                            country = it.country,
-                            primaryGenreName = it.primaryGenreName,
-                            releaseDate = it.releaseDate,
-                            previewUrl = it.previewUrl,
+                            trackTimeMillis = it.trackTimeMillis ?: 0,
+                            artworkUrl100 = it.artworkUrl100 ?: "",
+                            collectionName = it.collectionName ?: "",
+                            country = it.country ?: "",
+                            primaryGenreName = it.primaryGenreName ?: "",
+                            releaseDate = it.releaseDate ?: "1970",
+                            previewUrl = it.previewUrl ?: "",
                         )
                     }
 

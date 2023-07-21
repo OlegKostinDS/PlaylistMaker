@@ -43,6 +43,7 @@
     <TextView
         android:id="@+id/search_nothing_found_text"
         style="@style/SearchLibraryActivityTextStyle"
+android:fontFamily="@font/ys_display_medium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"

@@ -1,6 +1,5 @@
 package ru.dsvusial.playlistmaker.mediaPlayer.ui.view_model
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -70,11 +69,11 @@ class MediaPlayerViewModel(
 
     }
 
-    fun isFavorite(trackId: TrackData) {
+    fun isFavorite(track: TrackData) {
         viewModelScope.launch {
-            trackInteractor.getFavoriteIds(trackId.trackId).collect { isFavTrack ->
+            trackInteractor.getFavoriteIds(track.trackId).collect { isFavTrack ->
                 favoritesLiveData.postValue(isFavTrack)
-                trackId.isFavorite = isFavTrack
+                track.isFavorite = isFavTrack
             }
         }
     }
