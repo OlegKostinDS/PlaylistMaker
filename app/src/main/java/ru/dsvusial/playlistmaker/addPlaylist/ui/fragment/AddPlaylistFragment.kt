@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.AppCompatButton
@@ -60,6 +61,18 @@ class AddPlaylistFragment : Fragment() {
         viewModel.getButtonStatusLiveData().observe(viewLifecycleOwner) {
             sendBtn.isEnabled = it
         }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (isNoData()) {
+                        backDialog.show()
+                    } else {
+                        findNavController().popBackStack()
+                    }
+                }
+
+            })
 
     }
 
