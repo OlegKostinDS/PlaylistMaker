@@ -1,0 +1,23 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:width="320dp"
+        android:height="320dp"
+        android:gravity="center">
+
+        <shape android:shape="rectangle">
+            <corners android:radius="8dp" />
+            <stroke
+            android:color="@color/yp_gray"
+            android:width="1dp"
+            android:dashWidth="24dp"
+            android:dashGap="24dp" />
+        </shape>
+    </item>
+
+    <item
+        android:width="100dp"
+        android:height="100dp"
+        android:gravity="center"
+        android:drawable="@drawable/add_photo_placeholder_vector_image">
+    </item>
+</layer-list>

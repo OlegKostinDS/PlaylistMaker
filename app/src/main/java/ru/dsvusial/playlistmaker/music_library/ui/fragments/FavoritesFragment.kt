@@ -12,16 +12,15 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.dsvusial.playlistmaker.R
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.model.TrackData
 import ru.dsvusial.playlistmaker.music_library.ui.model.FavoritesTrackState
 import ru.dsvusial.playlistmaker.music_library.ui.view_models.FavoritesViewModel
 import ru.dsvusial.playlistmaker.search.ui.SEARCH_KEY
-import ru.dsvusial.playlistmaker.search.ui.SearchFragment
+import ru.dsvusial.playlistmaker.search.ui.SearchFragment.Companion.CLICK_DEBOUNCE_DELAY
 import ru.dsvusial.playlistmaker.search.ui.TrackAdapter
+import ru.dsvusial.playlistmaker.utils.debounce
 
 
 class FavoritesFragment : Fragment() {
@@ -31,8 +30,7 @@ class FavoritesFragment : Fragment() {
     private lateinit var favoritesNothingFoundText: TextView
     private lateinit var favoritesRecyclerView: RecyclerView
     private lateinit var trackAdapter: TrackAdapter
-    private var isClickAllowed = true
-
+    private lateinit var onClickDebounce: (TrackData) -> Unit
     companion object {
         fun newInstance() = FavoritesFragment()
     }
@@ -53,7 +51,15 @@ class FavoritesFragment : Fragment() {
         favoritesRecyclerView = view.findViewById(R.id.favorites_tracks_recyclerview)
         initAdapters()
         viewModel.observeState().observe(viewLifecycleOwner) { state ->
-
+            onClickDebounce =     debounce(delayMillis = CLICK_DEBOUNCE_DELAY,
+                coroutineScope = viewLifecycleOwner.lifecycleScope,
+                useLastParam = false,
+                action = {
+                    findNavController().navigate(
+                        R.id.action_musicLibraryFragment_to_mediaPlayerFragment,
+                        bundleOf(SEARCH_KEY to it)
+                    )
+                })
             when (state) {
                 FavoritesTrackState.Empty -> {
                     favotiesNothingFoundImage.visibility = View.VISIBLE
@@ -79,14 +85,8 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun initAdapters() {
-        trackAdapter = TrackAdapter {
-
-            if (clickDebounce()) {
-                findNavController().navigate(
-                    R.id.action_musicLibraryFragment_to_mediaPlayerActivity,
-                    bundleOf(SEARCH_KEY to it)
-                )
-            }
+        trackAdapter = TrackAdapter {track->
+            onClickDebounce(track)
         }
 
         favoritesRecyclerView.adapter = trackAdapter
@@ -94,15 +94,5 @@ class FavoritesFragment : Fragment() {
         favoritesRecyclerView.adapter?.notifyDataSetChanged()
     }
 
-    private fun clickDebounce(): Boolean {
-        val current = isClickAllowed
-        if (isClickAllowed) {
-            isClickAllowed = false
-            viewLifecycleOwner.lifecycleScope.launch {
-                delay(SearchFragment.CLICK_DEBOUNCE_DELAY)
-                isClickAllowed = true
-            }
-        }
-        return current
-    }
+
 }
