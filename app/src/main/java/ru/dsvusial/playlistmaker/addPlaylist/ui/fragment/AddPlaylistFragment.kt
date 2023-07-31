@@ -28,6 +28,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.dsvusial.playlistmaker.R
 import ru.dsvusial.playlistmaker.addPlaylist.domain.model.PlaylistData
 import ru.dsvusial.playlistmaker.addPlaylist.ui.viewmodel.AddPlaylistViewModel
+import ru.dsvusial.playlistmaker.utils.FilenameGenerator
 import java.io.File
 import java.io.FileOutputStream
 
@@ -42,9 +43,9 @@ class AddPlaylistFragment : Fragment() {
     private lateinit var backBtn: MaterialToolbar
     private lateinit var addImage: ImageView
     private lateinit var backDialog: MaterialAlertDialogBuilder
-    var addUri: Uri? = null
+    private var addUri: Uri? = null
     private val playlistIds: List<String> = mutableListOf()
-    val viewModel: AddPlaylistViewModel by viewModel()
+    private val viewModel: AddPlaylistViewModel by viewModel()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -98,7 +99,7 @@ class AddPlaylistFragment : Fragment() {
         val pickMedia =
             registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
                 if (uri != null) {
-                    val imageFileName = viewModel.getImageName()
+                    val imageFileName = FilenameGenerator.getImageName()
                     addUri = saveImageToPrivateStorage(uri, imageFileName)
                     addImage.setImageURI(addUri)
                 }
@@ -107,7 +108,6 @@ class AddPlaylistFragment : Fragment() {
             pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
     }
-
 
 
     private fun saveImageToPrivateStorage(uri: Uri, imageName: String): Uri {
@@ -132,13 +132,13 @@ class AddPlaylistFragment : Fragment() {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (p3 > 0)
+                if (p3 > 0) {
                     playlistNameEditTextLayout.setInputStrokeColor(R.drawable.text_input_layout_selected)
-                else
+                    viewModel.nameTextHasChanged(true)
+                } else {
                     playlistNameEditTextLayout.setInputStrokeColor(R.drawable.text_input_layout_unselected)
-                viewModel.nameTextHasChanged(
-                    (!playlistDescEditText.text.toString().isNullOrEmpty()) && p3 > 0
-                )
+                    viewModel.nameTextHasChanged(false)
+                }
             }
 
             override fun afterTextChanged(p0: Editable?) {
@@ -157,10 +157,6 @@ class AddPlaylistFragment : Fragment() {
                     playlistDescEditTextLayout.setInputStrokeColor(R.drawable.text_input_layout_selected)
                 else
                     playlistDescEditTextLayout.setInputStrokeColor(R.drawable.text_input_layout_unselected)
-                viewModel.nameTextHasChanged(
-                    (!playlistNameEditText.text.toString().isNullOrEmpty()) && p3 > 0
-                )
-
             }
 
             override fun afterTextChanged(p0: Editable?) {

@@ -24,8 +24,7 @@ import ru.dsvusial.playlistmaker.mediaPlayer.domain.model.TrackData
 import ru.dsvusial.playlistmaker.mediaPlayer.ui.view_model.MediaPlayerViewModel
 import ru.dsvusial.playlistmaker.music_library.ui.model.PlaylistState
 import ru.dsvusial.playlistmaker.search.ui.SEARCH_KEY
-import java.text.SimpleDateFormat
-import java.util.Locale
+import ru.dsvusial.playlistmaker.utils.DateTimeUtil
 
 
 class MediaPlayerFragment : Fragment() {
@@ -226,9 +225,7 @@ class MediaPlayerFragment : Fragment() {
             .into(mpCover)
         mpTrackName.text = trackData.trackName
         mpArtistName.text = trackData.artistName
-        mpTrackDuration.text =
-            SimpleDateFormat("mm:ss", Locale.getDefault()).format(trackData.trackTimeMillis)
-                .toString()
+        mpTrackDuration.text = DateTimeUtil.formatTimeMillisToString(trackData.trackTimeMillis)
         mpTrackCountry.text = trackData.country
         mpTrackAlbum.text = trackData.collectionName.ifEmpty {
             mpTrackAlbum.visibility = View.GONE

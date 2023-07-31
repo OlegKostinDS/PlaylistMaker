@@ -2,10 +2,14 @@ package ru.dsvusial.playlistmaker.addPlaylist.data.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import ru.dsvusial.playlistmaker.addPlaylist.data.db.TracksForPLaylitsDataBase.Companion.dbVersionForTFPDB
 import ru.dsvusial.playlistmaker.addPlaylist.data.db.dao.TracksForPlaylistDao
 import ru.dsvusial.playlistmaker.addPlaylist.data.db.entity.TrackForPlaylistsEntity
 
-@Database(version = 5, entities = [TrackForPlaylistsEntity::class])
+@Database(version = dbVersionForTFPDB, entities = [TrackForPlaylistsEntity::class])
 abstract class TracksForPLaylitsDataBase : RoomDatabase() {
     abstract fun tracksForPaylistDao(): TracksForPlaylistDao
+    companion object{
+        const val dbVersionForTFPDB = 5
+    }
 }

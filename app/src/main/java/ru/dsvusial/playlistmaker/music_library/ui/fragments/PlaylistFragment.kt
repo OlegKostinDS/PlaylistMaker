@@ -78,10 +78,7 @@ class PlaylistFragment : Fragment() {
         playlistAdapter.notifyDataSetChanged()
     }
     private fun initAdapters() {
-        playlistAdapter = PlaylistAdapter {
-
-
-        }
+        playlistAdapter = PlaylistAdapter {}
         playlistRecyclerView.adapter = playlistAdapter
         playlistRecyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
         playlistRecyclerView.adapter?.notifyDataSetChanged()

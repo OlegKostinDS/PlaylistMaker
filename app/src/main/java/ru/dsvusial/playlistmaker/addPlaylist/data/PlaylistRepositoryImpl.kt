@@ -21,17 +21,24 @@ class PlaylistRepositoryImpl(
 
     override suspend fun addTrackForPlaylists(trackData: TrackData) {
         appTracksDatabase.tracksForPaylistDao()
-            .insertTrackForPlaylists(trackDbConvertor.mapTrackDataToTrackForPlaylistsEntity(trackData))
+            .insertTrackForPlaylists(
+                trackDbConvertor.mapTrackDataToTrackForPlaylistsEntity(
+                    trackData
+                )
+            )
     }
 
     override suspend fun updatePlaylist(playlistData: PlaylistData) {
         appDatabase.playlistDao()
-            .updatePlaylist(trackDbConvertor.mapListToString(playlistData.playlistTracks), playlistData.playlistAmount
-            , playlistData.id)
+            .updatePlaylist(
+                tracks = trackDbConvertor.mapListToString(playlistData.playlistTracks),
+                amount = playlistData.playlistAmount,
+                idPlaylist = playlistData.id
+            )
     }
 
     override fun playlists(): Flow<List<PlaylistData>> {
-       return appDatabase.playlistDao().getPlaylists().map { convertFromPlaylistEntity(it) }
+        return appDatabase.playlistDao().getPlaylists().map { convertFromPlaylistEntity(it) }
     }
 
     private fun convertFromPlaylistEntity(playlists: List<PlaylistEntity>): List<PlaylistData> {

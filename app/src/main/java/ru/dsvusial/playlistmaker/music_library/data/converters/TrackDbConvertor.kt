@@ -13,7 +13,7 @@ class TrackDbConvertor(val gson: Gson) {
         return PlaylistEntity(
             id = 0,
             playlistName = playlist.playlistName,
-            playlistDesc = playlist.playlistDesc,
+            playlistDesc = playlist.playlistDesc ?: "",
             playlistUri = playlist.playlistUri,
             playlistTracks = gson.toJson(playlist.playlistTracks),
             playlistAmount = playlist.playlistAmount,

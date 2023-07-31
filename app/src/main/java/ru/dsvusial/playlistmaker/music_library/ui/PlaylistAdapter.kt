@@ -10,6 +10,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.dsvusial.playlistmaker.R
 import ru.dsvusial.playlistmaker.addPlaylist.domain.model.PlaylistData
+import ru.dsvusial.playlistmaker.utils.NUMBER_FOR_FIRST_ITERATION
+import ru.dsvusial.playlistmaker.utils.NUMBER_FOR_SECOND_ITERATION
 
 class PlaylistAdapter(val listener: PlaylistListener) :
     RecyclerView.Adapter<PlaylistAdapter.PlaylistViewHolder>() {
@@ -40,10 +42,10 @@ class PlaylistAdapter(val listener: PlaylistListener) :
         }
 
         private fun conventAmountToString(amount: Int): String {
-            var temp = amount % 100
+            var temp = amount % NUMBER_FOR_FIRST_ITERATION
             if (temp in 5..20)
                 return "$amount треков"
-            temp %= 10
+            temp %= NUMBER_FOR_SECOND_ITERATION
             return when (temp) {
                 1 -> "$amount трек"
                 in (2..4) -> "$amount трека"
