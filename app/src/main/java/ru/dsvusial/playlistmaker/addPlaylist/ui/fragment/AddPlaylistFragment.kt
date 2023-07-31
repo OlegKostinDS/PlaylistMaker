@@ -1,7 +1,10 @@
 package ru.dsvusial.playlistmaker.addPlaylist.ui.fragment
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -13,6 +16,8 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.AppCompatButton
+import androidx.core.net.toUri
+
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.appbar.MaterialToolbar
@@ -23,6 +28,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.dsvusial.playlistmaker.R
 import ru.dsvusial.playlistmaker.addPlaylist.domain.model.PlaylistData
 import ru.dsvusial.playlistmaker.addPlaylist.ui.viewmodel.AddPlaylistViewModel
+import java.io.File
+import java.io.FileOutputStream
 
 
 class AddPlaylistFragment : Fragment() {
@@ -91,16 +98,38 @@ class AddPlaylistFragment : Fragment() {
         val pickMedia =
             registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
                 if (uri != null) {
-                    addImage.setImageURI(uri)
-                    addUri = uri
+                  val imageFileName =  getImageName()
+                    addUri =        saveImageToPrivateStorage(uri, imageFileName)
+                    addImage.setImageURI(addUri)
                 }
             }
         addImage.setOnClickListener {
             pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
     }
+    fun getImageName(): String{
+        val allowedChars = ('A'..'Z') + ('a'..'z')
+        val str = (10..14)
+            .map { allowedChars.random() }
+            .joinToString("")
+            .plus(".jpg")
+        return str
+    }
+    private fun saveImageToPrivateStorage(uri: Uri, imageName: String) : Uri {
+        //создаём экземпляр класса File, который указывает на нужный каталог
+        val filePath = File(requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES), "myalbum")
+        if (!filePath.exists()){
+            filePath.mkdirs()
+        }
+        val file = File(filePath, "${imageName}.jpg")
+        val inputStream = requireActivity().contentResolver.openInputStream(uri)
+        val outputStream = FileOutputStream(file)
+        BitmapFactory
+            .decodeStream(inputStream)
+            .compress(Bitmap.CompressFormat.JPEG, 30, outputStream)
 
-
+        return file.toUri()
+    }
     private fun initTextWatchers() {
         val textWatcherAddPlaylistNameBtn = object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {

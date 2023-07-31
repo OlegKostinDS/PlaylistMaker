@@ -1,15 +1,18 @@
 package ru.dsvusial.playlistmaker.mediaPlayer.ui
 
 import android.net.Uri
+import android.os.Environment
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.dsvusial.playlistmaker.R
 import ru.dsvusial.playlistmaker.addPlaylist.domain.model.PlaylistData
+import java.io.File
 
 class BottomSheetAdapter(val listener: PlaylistListener) :
     RecyclerView.Adapter<BottomSheetAdapter.BottomSheetViewHolder>() {
@@ -25,6 +28,7 @@ class BottomSheetAdapter(val listener: PlaylistListener) :
         private val plAmount = itemView.findViewById<TextView>(R.id.bottom_amount)
 
         fun bind(model: PlaylistData) {
+
             val play = Uri.parse(model.playlistUri)
             val cornerRadius =
                 itemView.resources.getDimensionPixelSize(R.dimen.lesser_btn_radius)
