@@ -98,8 +98,8 @@ class AddPlaylistFragment : Fragment() {
         val pickMedia =
             registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
                 if (uri != null) {
-                  val imageFileName =  getImageName()
-                    addUri =        saveImageToPrivateStorage(uri, imageFileName)
+                    val imageFileName = viewModel.getImageName()
+                    addUri = saveImageToPrivateStorage(uri, imageFileName)
                     addImage.setImageURI(addUri)
                 }
             }
@@ -107,21 +107,16 @@ class AddPlaylistFragment : Fragment() {
             pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
     }
-    fun getImageName(): String{
-        val allowedChars = ('A'..'Z') + ('a'..'z')
-        val str = (10..14)
-            .map { allowedChars.random() }
-            .joinToString("")
-            .plus(".jpg")
-        return str
-    }
-    private fun saveImageToPrivateStorage(uri: Uri, imageName: String) : Uri {
-        //создаём экземпляр класса File, который указывает на нужный каталог
-        val filePath = File(requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES), "myalbum")
-        if (!filePath.exists()){
+
+
+
+    private fun saveImageToPrivateStorage(uri: Uri, imageName: String): Uri {
+        val filePath =
+            File(requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES), "myalbum")
+        if (!filePath.exists()) {
             filePath.mkdirs()
         }
-        val file = File(filePath, "${imageName}.jpg")
+        val file = File(filePath, imageName)
         val inputStream = requireActivity().contentResolver.openInputStream(uri)
         val outputStream = FileOutputStream(file)
         BitmapFactory
@@ -130,6 +125,7 @@ class AddPlaylistFragment : Fragment() {
 
         return file.toUri()
     }
+
     private fun initTextWatchers() {
         val textWatcherAddPlaylistNameBtn = object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
