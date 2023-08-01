@@ -26,6 +26,7 @@ class App : Application() {
             modules(dataModule, repositoryModule, interactorModule, viewModelModule)
         }
         switchTheme(getKoin().get<SettingsRepository>().getTheme(THEME_KEY))
+
     }
 
     fun switchTheme(darkThemeEnabled: Boolean) {

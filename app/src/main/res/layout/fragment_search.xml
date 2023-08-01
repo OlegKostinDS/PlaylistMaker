@@ -168,7 +168,7 @@
             android:contentDescription="@string/search_nothing_find_text" />
 
         <TextView
-            android:id="@+id/search_nothing_found_text"
+            android:id="@+id/playlist_nothing_found_text"
             style="@style/SearchLibraryActivityTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -189,7 +189,7 @@
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_nothing_found_text" />
+            app:layout_constraintTop_toBottomOf="@id/playlist_nothing_found_text" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

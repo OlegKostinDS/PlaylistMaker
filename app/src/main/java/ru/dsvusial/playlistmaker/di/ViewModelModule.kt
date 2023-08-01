@@ -3,6 +3,7 @@ package ru.dsvusial.playlistmaker.di
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
+import ru.dsvusial.playlistmaker.addPlaylist.ui.viewmodel.AddPlaylistViewModel
 import ru.dsvusial.playlistmaker.mediaPlayer.ui.view_model.MediaPlayerViewModel
 import ru.dsvusial.playlistmaker.music_library.ui.view_models.FavoritesViewModel
 import ru.dsvusial.playlistmaker.music_library.ui.view_models.PlaylistViewModel
@@ -11,7 +12,7 @@ import ru.dsvusial.playlistmaker.settings.ui.view_model.SettingViewModel
 
 val viewModelModule = module {
     viewModel {
-        MediaPlayerViewModel(get(),get())
+        MediaPlayerViewModel(get(),get(),get())
     }
     viewModel {
         SearchViewModel(get())
@@ -25,6 +26,9 @@ val viewModelModule = module {
         FavoritesViewModel(get())
     }
     viewModel {
-        PlaylistViewModel()
+        PlaylistViewModel(get())
+    }
+    viewModel{
+        AddPlaylistViewModel(get())
     }
 }

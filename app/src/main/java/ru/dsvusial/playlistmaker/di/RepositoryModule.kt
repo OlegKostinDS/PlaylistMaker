@@ -1,6 +1,8 @@
 package ru.dsvusial.playlistmaker.di
 
 import org.koin.dsl.module
+import ru.dsvusial.playlistmaker.addPlaylist.data.PlaylistRepositoryImpl
+import ru.dsvusial.playlistmaker.addPlaylist.domain.PlaylistRepository
 import ru.dsvusial.playlistmaker.mediaPlayer.data.MediaPlayerRepositoryImpl
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.repository.MediaPlayerRepository
 import ru.dsvusial.playlistmaker.music_library.data.FavoritesTrackRepositoryImpl
@@ -25,7 +27,9 @@ val repositoryModule = module {
     single<SearchRepository> {
         SearchRepositoryImpl(get(),get(),get(),get())
     }
-
+    single<PlaylistRepository> {
+      PlaylistRepositoryImpl(get(),get(),get())
+    }
 }
 
 

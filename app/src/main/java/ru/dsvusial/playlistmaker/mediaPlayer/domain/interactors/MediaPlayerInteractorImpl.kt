@@ -3,8 +3,7 @@ package ru.dsvusial.playlistmaker.mediaPlayer.domain.interactors
 
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.model.PlayerState
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.repository.MediaPlayerRepository
-import java.text.SimpleDateFormat
-import java.util.*
+import ru.dsvusial.playlistmaker.utils.DateTimeUtil
 
 class MediaPlayerInteractorImpl(
     val mediaPlayerRepository: MediaPlayerRepository
@@ -38,7 +37,7 @@ class MediaPlayerInteractorImpl(
     }
 
     private fun convertMillisecondsToString(duration: Int): String {
-        return SimpleDateFormat("mm:ss", Locale.getDefault()).format(duration)
+        return DateTimeUtil.formatTimeMillisToString(duration)
     }
 
 }

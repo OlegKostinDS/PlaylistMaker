@@ -29,4 +29,8 @@
     <color name="light_dark_theme_color">#FFFFFF</color>
     <color name="favorite_button_background">#1A1B22</color>
     <color name="line_at_bottom_navigation">#E6E8EB</color>
+    <color name="yp_gray">#AEAFB4</color>
+    <color name="yp_gray_night">#1A1B22</color>
+    <color name="yp_gray_night_bottom">#FFFFFF</color>
+    <color name="yp_gray_text">#E6E8EB</color>
 </resources>

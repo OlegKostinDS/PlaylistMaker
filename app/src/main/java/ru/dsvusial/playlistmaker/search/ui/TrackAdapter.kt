@@ -9,8 +9,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.dsvusial.playlistmaker.R
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.model.TrackData
-import java.text.SimpleDateFormat
-import java.util.Locale
+import ru.dsvusial.playlistmaker.utils.DateTimeUtil
 
 const val SEARCH_KEY = "search_key"
 
@@ -40,9 +39,7 @@ class TrackAdapter(val listener: HistoryListener) :
                 .into(imageTitle)
             rvTrackName.text = model.trackName
             rvArtistName.text = model.artistName
-            rvTrackDuration.text =
-                SimpleDateFormat("mm:ss", Locale.getDefault()).format(model.trackTimeMillis)
-                    .toString()
+            rvTrackDuration.text = DateTimeUtil.formatTimeMillisToString(model.trackTimeMillis)
         }
     }
 

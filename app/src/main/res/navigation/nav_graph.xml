@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/musicLibraryFragment">
 
@@ -8,25 +9,40 @@
         android:id="@+id/searchFragment"
         android:name="ru.dsvusial.playlistmaker.search.ui.SearchFragment"
         android:label="SearchFragment">
+
         <action
-            android:id="@+id/action_searchFragment_to_mediaPlayerActivity"
-            app:destination="@id/mediaPlayerActivity" />
+            android:id="@+id/action_searchFragment_to_mediaPlayerFragment"
+            app:destination="@id/mediaPlayerFragment" />
     </fragment>
     <fragment
         android:id="@+id/musicLibraryFragment"
         android:name="ru.dsvusial.playlistmaker.music_library.ui.MusicLibraryFragment"
         android:label="MusicLibraryFragment" >
+
         <action
-            android:id="@+id/action_musicLibraryFragment_to_mediaPlayerActivity"
-            app:destination="@id/mediaPlayerActivity" />
+            android:id="@+id/action_musicLibraryFragment_to_newPlaylistFragment"
+            app:destination="@id/newPlaylistFragment" />
+        <action
+            android:id="@+id/action_musicLibraryFragment_to_mediaPlayerFragment"
+            app:destination="@id/mediaPlayerFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="ru.dsvusial.playlistmaker.settings.ui.SettingsFragment"
         android:label="SettingsFragment">
     </fragment>
-    <activity
-        android:id="@+id/mediaPlayerActivity"
-        android:name="ru.dsvusial.playlistmaker.mediaPlayer.ui.MediaPlayerActivity"
-        android:label="MediaPlayerActivity" />
+
+    <fragment
+        android:id="@+id/newPlaylistFragment"
+        android:name="ru.dsvusial.playlistmaker.addPlaylist.ui.fragment.AddPlaylistFragment"
+        android:label="fragment_new_playlist"
+        tools:layout="@layout/fragment_new_playlist" />
+    <fragment
+        android:id="@+id/mediaPlayerFragment"
+        android:name="ru.dsvusial.playlistmaker.mediaPlayer.ui.MediaPlayerFragment"
+        android:label="MediaPlayerFragment" >
+        <action
+            android:id="@+id/action_mediaPlayerFragment_to_newPlaylistFragment"
+            app:destination="@id/newPlaylistFragment" />
+    </fragment>
 </navigation>

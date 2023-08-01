@@ -56,6 +56,15 @@
         <item name="android:textColor">@color/settings_settings_textview</item>
 
     </style>
+    <style name="InputEditTextStyle" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">54dp</item>
+        <item name="android:textColor">@color/settings_settings_textview</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/add_fragment_corner_radius</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/add_fragment_corner_radius</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/add_fragment_corner_radius</item>
+        <item name="boxCornerRadiusTopStart">@dimen/add_fragment_corner_radius</item>
+    </style>
     <style name="SearchLibraryActivityTextStyle">
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/search_day_night_color</item>
@@ -78,4 +87,5 @@
         <item name="android:textSize">@dimen/tab_layout_text_size</item>
 
     </style>
+
 </resources>

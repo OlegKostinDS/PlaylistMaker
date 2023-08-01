@@ -4,18 +4,23 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import ru.dsvusial.playlistmaker.addPlaylist.domain.PlaylistIncteractor
+import ru.dsvusial.playlistmaker.addPlaylist.domain.model.PlaylistData
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.interactors.MediaPlayerInteractor
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.model.PlayerState
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.model.TrackData
 import ru.dsvusial.playlistmaker.mediaPlayer.ui.PlayStatus
 import ru.dsvusial.playlistmaker.music_library.domain.db.TrackInteractor
+import ru.dsvusial.playlistmaker.music_library.ui.model.PlaylistState
 
 class MediaPlayerViewModel(
     val mediaPlayerInteractor: MediaPlayerInteractor,
-    val trackInteractor: TrackInteractor
+    val trackInteractor: TrackInteractor,
+    val playlistIncteractor: PlaylistIncteractor,
 ) : ViewModel() {
     private var timerJob: Job? = null
 
@@ -28,6 +33,18 @@ class MediaPlayerViewModel(
 
     private val favoritesLiveData = MutableLiveData<Boolean>()
     fun getFavoritesLiveData(): LiveData<Boolean> = favoritesLiveData
+
+    private val stateLiveData = MutableLiveData<PlaylistState>()
+
+    fun observeState(): LiveData<PlaylistState> = stateLiveData
+
+    private val isContainsPlaylist = MutableLiveData<Boolean>()
+
+    fun observeContainsPlaylist() = isContainsPlaylist
+
+    init {
+        fillData()
+    }
 
     override fun onCleared() {
         super.onCleared()
@@ -66,7 +83,6 @@ class MediaPlayerViewModel(
                 favoritesLiveData.value = true
             }
         }
-
     }
 
     fun isFavorite(track: TrackData) {
@@ -100,6 +116,56 @@ class MediaPlayerViewModel(
 
     fun preparePlayer(trackUrl: String) {
         mediaPlayerInteractor.prepare(trackUrl)
+    }
+
+    private fun fillData() {
+
+        viewModelScope.launch {
+            playlistIncteractor
+                .getPlaylists()
+                .collect { playlist ->
+                    processResult(playlist)
+                    //   idList = playlist.flatMap { it.playlistTracks }
+                }
+        }
+
+    }
+
+    private fun processResult(playlists: List<PlaylistData>) {
+        if (playlists.isEmpty()) {
+            renderState(PlaylistState.Empty)
+        } else {
+            renderState(PlaylistState.Content(playlists))
+        }
+    }
+
+    private fun renderState(state: PlaylistState) {
+        stateLiveData.postValue(state)
+    }
+
+    fun isItInPlaylists(track: TrackData, playlistData: PlaylistData) {
+        isContainsPlaylist.value = playlistData.playlistTracks.contains(track.trackId)
+    }
+
+
+    fun addTrackToPlaylistsId(playlistData: PlaylistData, track: TrackData) {
+        val list = mutableListOf<String>()
+        list.addAll(playlistData.playlistTracks)
+        list.add(track.trackId)
+        viewModelScope.launch(Dispatchers.IO) {
+            playlistIncteractor.updatePlaylist(
+                playlistData.copy(
+                    playlistTracks = list,
+                    playlistAmount = list.size
+                )
+            )
+        }
+    }
+
+    fun addTracksForPlaylists(track: TrackData) {
+        viewModelScope.launch(Dispatchers.IO) {
+            playlistIncteractor.addTrackForPlaylists(track)
+        }
     }
 
 
