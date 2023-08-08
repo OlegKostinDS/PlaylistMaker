@@ -61,7 +61,9 @@
             app:destination="@id/newPlaylistFragment" />
         <action
             android:id="@+id/action_detailedPlaylistFragment_to_editPlaylistFragment"
-            app:destination="@id/editPlaylistFragment" />
+            app:destination="@id/editPlaylistFragment"
+
+            />
     </fragment>
     <fragment
         android:id="@+id/editPlaylistFragment"
@@ -72,6 +74,7 @@
             app:destination="@id/musicLibraryFragment" />
         <action
             android:id="@+id/action_editPlaylistFragment_to_detailedPlaylistFragment"
-            app:destination="@id/detailedPlaylistFragment" />
+            app:destination="@id/detailedPlaylistFragment"
+            app:popUpTo="@id/musicLibraryFragment" />
     </fragment>
 </navigation>

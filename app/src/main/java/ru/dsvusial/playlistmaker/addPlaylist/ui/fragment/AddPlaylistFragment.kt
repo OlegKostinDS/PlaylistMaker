@@ -20,6 +20,8 @@ import androidx.core.net.toUri
 
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
@@ -101,7 +103,12 @@ open class AddPlaylistFragment : Fragment() {
                 if (uri != null) {
                     val imageFileName = FilenameGenerator.getImageName()
                     addUri = saveImageToPrivateStorage(uri, imageFileName)
-                    addImage.setImageURI(addUri)
+
+                    Glide.with(requireActivity())
+                        .load(addUri)
+                        .placeholder(R.drawable.nodata)
+                        .centerCrop()
+                        .into(addImage)
                 }
             }
         addImage.setOnClickListener {
@@ -110,7 +117,7 @@ open class AddPlaylistFragment : Fragment() {
     }
 
 
-     fun saveImageToPrivateStorage(uri: Uri, imageName: String): Uri {
+    fun saveImageToPrivateStorage(uri: Uri, imageName: String): Uri {
         val filePath =
             File(requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES), "myalbum")
         if (!filePath.exists()) {
@@ -171,7 +178,7 @@ open class AddPlaylistFragment : Fragment() {
         this.setBoxStrokeColorStateList(resources.getColorStateList(colorId, null))
     }
 
-    fun initListeners() {
+    private fun initListeners() {
         backBtn.setOnClickListener {
             if (isNoData()) {
                 backDialog.show()

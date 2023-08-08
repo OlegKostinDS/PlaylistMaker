@@ -2,7 +2,6 @@ package ru.dsvusial.playlistmaker.detailedPlaylist.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,8 +30,9 @@ import ru.dsvusial.playlistmaker.search.ui.TrackAdapter
 import ru.dsvusial.playlistmaker.utils.ConvertUtil
 import ru.dsvusial.playlistmaker.utils.DateTimeUtil
 
-const val TAG = "TAG"
+
 const val EDIT_KEY = "edit_key"
+
 class DetailedPlaylistFragment : Fragment() {
     val viewModel by viewModel<DetailedPlaylistViewModel>()
     private lateinit var playlistData: PlaylistData
@@ -130,7 +130,6 @@ class DetailedPlaylistFragment : Fragment() {
             sharePlaylist()
         }
         moreAboutDetailedPlaylist.setOnClickListener {
-            Log.d(TAG, "initListeners: ${playlistData.playlistName}")
             val cornerRadius =
                 requireActivity().resources.getDimensionPixelSize(R.dimen.lesser_btn_radius)
             Glide.with(requireActivity())
@@ -148,7 +147,7 @@ class DetailedPlaylistFragment : Fragment() {
         editInfoBottomSheet.setOnClickListener {
             findNavController().navigate(
                 R.id.action_detailedPlaylistFragment_to_editPlaylistFragment,
-                 createArgs(playlistData)
+                createArgs(playlistData)
             )
 
         }

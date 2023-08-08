@@ -2,10 +2,13 @@ package ru.dsvusial.playlistmaker.addPlaylist.ui.fragment
 
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.AppCompatButton
@@ -50,6 +53,7 @@ class EditPlaylistFragment : AddPlaylistFragment() {
         initUi(view)
         initPhotoPicker()
         setUi()
+        initTextWatchers()
         backBtn.setOnClickListener {
             findNavController().popBackStack()
         }
@@ -87,6 +91,38 @@ class EditPlaylistFragment : AddPlaylistFragment() {
 
             }
         }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+
+                    findNavController().popBackStack()
+
+                }
+
+            })
+    }
+
+    private fun initTextWatchers() {
+        val textWatcherAddPlaylistNameBtn = object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if (p3 > 0) {
+                    playlistNameEditTextLayout.setInputStrokeColor(R.drawable.text_input_layout_selected)
+                    viewModel.nameTextHasChanged(true)
+                } else {
+                    playlistNameEditTextLayout.setInputStrokeColor(R.drawable.text_input_layout_unselected)
+                    viewModel.nameTextHasChanged(false)
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+
+            }
+
+        }
+        playlistNameEditText.addTextChangedListener(textWatcherAddPlaylistNameBtn)
     }
 
     private fun initPhotoPicker() {
