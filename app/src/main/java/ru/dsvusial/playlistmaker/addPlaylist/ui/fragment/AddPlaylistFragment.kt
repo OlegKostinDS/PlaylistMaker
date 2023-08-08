@@ -33,7 +33,7 @@ import java.io.File
 import java.io.FileOutputStream
 
 
-class AddPlaylistFragment : Fragment() {
+open class AddPlaylistFragment : Fragment() {
 
     private lateinit var playlistNameEditText: TextInputEditText
     private lateinit var playlistNameEditTextLayout: TextInputLayout
@@ -44,8 +44,8 @@ class AddPlaylistFragment : Fragment() {
     private lateinit var addImage: ImageView
     private lateinit var backDialog: MaterialAlertDialogBuilder
     private var addUri: Uri? = null
-    private val playlistIds: List<String> = mutableListOf()
-    private val viewModel: AddPlaylistViewModel by viewModel()
+    val playlistIds: List<String> = mutableListOf()
+    open val viewModel: AddPlaylistViewModel by viewModel()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -110,7 +110,7 @@ class AddPlaylistFragment : Fragment() {
     }
 
 
-    private fun saveImageToPrivateStorage(uri: Uri, imageName: String): Uri {
+     fun saveImageToPrivateStorage(uri: Uri, imageName: String): Uri {
         val filePath =
             File(requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES), "myalbum")
         if (!filePath.exists()) {
@@ -171,7 +171,7 @@ class AddPlaylistFragment : Fragment() {
         this.setBoxStrokeColorStateList(resources.getColorStateList(colorId, null))
     }
 
-    private fun initListeners() {
+    fun initListeners() {
         backBtn.setOnClickListener {
             if (isNoData()) {
                 backDialog.show()

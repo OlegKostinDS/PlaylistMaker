@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.dsvusial.playlistmaker.R
 import ru.dsvusial.playlistmaker.addPlaylist.domain.model.PlaylistData
+import ru.dsvusial.playlistmaker.music_library.ui.PLAYLIST_KEY
 import ru.dsvusial.playlistmaker.music_library.ui.PlaylistAdapter
 import ru.dsvusial.playlistmaker.music_library.ui.model.PlaylistState
 import ru.dsvusial.playlistmaker.music_library.ui.view_models.PlaylistViewModel
@@ -78,7 +80,12 @@ class PlaylistFragment : Fragment() {
         playlistAdapter.notifyDataSetChanged()
     }
     private fun initAdapters() {
-        playlistAdapter = PlaylistAdapter {}
+        playlistAdapter = PlaylistAdapter {
+            findNavController().navigate(
+                R.id.action_musicLibraryFragment_to_detailedPlaylistFragment,
+                bundleOf(PLAYLIST_KEY to it)
+            )
+        }
         playlistRecyclerView.adapter = playlistAdapter
         playlistRecyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
         playlistRecyclerView.adapter?.notifyDataSetChanged()

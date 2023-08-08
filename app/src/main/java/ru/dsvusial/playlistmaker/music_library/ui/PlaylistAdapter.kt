@@ -12,7 +12,7 @@ import ru.dsvusial.playlistmaker.R
 import ru.dsvusial.playlistmaker.addPlaylist.domain.model.PlaylistData
 import ru.dsvusial.playlistmaker.utils.NUMBER_FOR_FIRST_ITERATION
 import ru.dsvusial.playlistmaker.utils.NUMBER_FOR_SECOND_ITERATION
-
+const val PLAYLIST_KEY = "playlist_key"
 class PlaylistAdapter(val listener: PlaylistListener) :
     RecyclerView.Adapter<PlaylistAdapter.PlaylistViewHolder>() {
 

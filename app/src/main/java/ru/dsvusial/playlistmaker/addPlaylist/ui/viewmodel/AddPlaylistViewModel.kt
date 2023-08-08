@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 import ru.dsvusial.playlistmaker.addPlaylist.domain.PlaylistIncteractor
 import ru.dsvusial.playlistmaker.addPlaylist.domain.model.PlaylistData
 
-class AddPlaylistViewModel(val playlistIncteractor: PlaylistIncteractor) : ViewModel() {
+open class AddPlaylistViewModel(val playlistIncteractor: PlaylistIncteractor) : ViewModel() {
 
     private val buttonStatusLiveData = MutableLiveData<Boolean>()
     fun getButtonStatusLiveData(): LiveData<Boolean> = buttonStatusLiveData
@@ -23,10 +23,6 @@ class AddPlaylistViewModel(val playlistIncteractor: PlaylistIncteractor) : ViewM
             playlistIncteractor.addPlaylist(playlist)
         }
     }
-
-
-
-
 
 
 }

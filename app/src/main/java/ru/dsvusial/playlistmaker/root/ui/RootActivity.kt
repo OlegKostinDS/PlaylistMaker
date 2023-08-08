@@ -14,21 +14,24 @@ class RootActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_root)
 
-            val navHostFragment =
-                supportFragmentManager.findFragmentById(R.id.rootFragmentContainerView) as NavHostFragment
-            val navController = navHostFragment.navController
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.rootFragmentContainerView) as NavHostFragment
+        val navController = navHostFragment.navController
 
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if(destination.id == R.id.newPlaylistFragment) {
+            if (destination.id == R.id.newPlaylistFragment
+                || destination.id == R.id.detailedPlaylistFragment
+                || destination.id == R.id.editPlaylistFragment
+            ) {
 
                 bottomNavigationView.visibility = View.GONE
             } else {
                 bottomNavigationView.visibility = View.VISIBLE
             }
         }
-            bottomNavigationView.setupWithNavController(navController)
+        bottomNavigationView.setupWithNavController(navController)
 
 
     }

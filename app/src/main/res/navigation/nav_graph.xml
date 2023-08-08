@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_musicLibraryFragment_to_mediaPlayerFragment"
             app:destination="@id/mediaPlayerFragment" />
+        <action
+            android:id="@+id/action_musicLibraryFragment_to_detailedPlaylistFragment"
+            app:destination="@id/detailedPlaylistFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -44,5 +47,31 @@
         <action
             android:id="@+id/action_mediaPlayerFragment_to_newPlaylistFragment"
             app:destination="@id/newPlaylistFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailedPlaylistFragment"
+        android:name="ru.dsvusial.playlistmaker.detailedPlaylist.ui.fragment.DetailedPlaylistFragment"
+        android:label="fragment_detailed_playlist"
+        tools:layout="@layout/fragment_detailed_playlist" >
+        <action
+            android:id="@+id/action_detailedPlaylistFragment_to_mediaPlayerFragment"
+            app:destination="@id/mediaPlayerFragment" />
+        <action
+            android:id="@+id/action_detailedPlaylistFragment_to_newPlaylistFragment"
+            app:destination="@id/newPlaylistFragment" />
+        <action
+            android:id="@+id/action_detailedPlaylistFragment_to_editPlaylistFragment"
+            app:destination="@id/editPlaylistFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editPlaylistFragment"
+        android:name="ru.dsvusial.playlistmaker.addPlaylist.ui.fragment.EditPlaylistFragment"
+        android:label="EditPlaylistFragment" >
+        <action
+            android:id="@+id/action_editPlaylistFragment_to_musicLibraryFragment"
+            app:destination="@id/musicLibraryFragment" />
+        <action
+            android:id="@+id/action_editPlaylistFragment_to_detailedPlaylistFragment"
+            app:destination="@id/detailedPlaylistFragment" />
     </fragment>
 </navigation>

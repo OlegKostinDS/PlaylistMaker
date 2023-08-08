@@ -41,4 +41,11 @@
     <string name="playlist_desc">Описание</string>
     <string name="add_playlist">Создать</string>
     <string name="add_to_playlist">Добавить в плейлист</string>
+    <string name="edit_info_bottom_sheet">Редактировать информацию</string>
+    <string name="delete_info_bottom_sheet">Удалить плейлист</string>
+    <string name="share_info_bottom_sheet">Поделиться</string>
+    <string name="Yes">ДА</string>
+    <string name="No">НЕТ</string>
+    <string name="save">Сохранить</string>
+    <string name="edit">Редактировать</string>
 </resources>

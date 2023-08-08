@@ -9,4 +9,7 @@ interface PlaylistIncteractor {
     suspend fun addTrackForPlaylists(trackData: TrackData)
     suspend fun updatePlaylist(playlistData: PlaylistData)
     fun getPlaylists(): Flow<List<PlaylistData>>
+    suspend fun deleteTrackFromPlaylistById(trackId: String, playlistId: Int): Flow<List<TrackData>>
+ suspend   fun deletePlaylist(playlistData: PlaylistData)
+   suspend fun updatePlaylistForEdit(playlistData: PlaylistData)
 }

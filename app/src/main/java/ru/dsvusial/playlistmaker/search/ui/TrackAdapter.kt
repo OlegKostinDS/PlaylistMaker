@@ -15,7 +15,10 @@ const val SEARCH_KEY = "search_key"
 
 
 
-class TrackAdapter(val listener: HistoryListener) :
+class TrackAdapter(
+    var onItemClick: ((TrackData) -> Unit)? = null,
+    var onItemLongClick: ((TrackData) -> Unit)?= null
+) :
     RecyclerView.Adapter<TrackAdapter.TrackViewHolder>() {
 
     val recentTracks: ArrayList<TrackData> = ArrayList<TrackData>()
@@ -52,13 +55,12 @@ class TrackAdapter(val listener: HistoryListener) :
 
         holder.bind(recentTracks[position])
         holder.itemView.setOnClickListener {
-            listener.onClick(recentTracks[position])
+            onItemClick?.invoke(recentTracks[position])
         }
-
-    }
-
-    fun interface HistoryListener {
-        fun onClick(trackData: TrackData)
+        holder.itemView.setOnLongClickListener {
+            onItemLongClick?.invoke(recentTracks[position])
+            return@setOnLongClickListener true
+        }
     }
 
 

@@ -76,4 +76,18 @@
         <item name="android:layout_marginTop">8dp</item>
         <item name="android:layout_marginBottom">8dp</item>
     </style>
+    <style name="DetailedPlaylistLesserText">
+        <item name="android:textColor">@color/yp_black</item>
+        <item name="android:textSize">@dimen/dp_text_size</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+    </style>
+    <style name="DetailedBottomSheetTextViewTextStyle">
+        <item name="android:layout_gravity">start</item>
+        <item name="android:layout_marginStart">@dimen/margin_16dp</item>
+        <item name="android:layout_marginTop">@dimen/margin_21dp</item>
+        <item name="android:layout_marginBottom">@dimen/margin_21dp</item>
+        <item name="android:textColor">@color/yp_gray_night</item>
+        <item name="android:textSize">@dimen/settings_tw_text_size</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+    </style>
 </resources>

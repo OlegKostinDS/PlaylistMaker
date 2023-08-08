@@ -14,6 +14,7 @@
     <dimen name="settings_tw_margin_end">44dp</dimen>
     <dimen name="settings_tw_text_size">16sp</dimen>
     <dimen name="mp_text_size">13sp</dimen>
+    <dimen name="dp_text_size">18sp</dimen>
     <dimen name="rv_imageview_wh">45dp</dimen>
     <dimen name="rv_lesser_text_size">11sp</dimen>
     <dimen name="tab_layout_text_size">14sp</dimen>
@@ -21,6 +22,8 @@
     <dimen name="search_image_param">120dp</dimen>
     <dimen name="music_player_margin">24dp</dimen>
     <dimen name="margin_16dp">16dp</dimen>
+    <dimen name="margin_21dp">21dp</dimen>
     <dimen name="add_fragment_corner_radius">4dp</dimen>
+    <dimen name="start_detailed_margin">16dp</dimen>
 
 </resources>

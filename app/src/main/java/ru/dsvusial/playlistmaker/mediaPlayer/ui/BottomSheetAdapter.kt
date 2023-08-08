@@ -1,18 +1,16 @@
 package ru.dsvusial.playlistmaker.mediaPlayer.ui
 
 import android.net.Uri
-import android.os.Environment
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.dsvusial.playlistmaker.R
 import ru.dsvusial.playlistmaker.addPlaylist.domain.model.PlaylistData
-import java.io.File
+import ru.dsvusial.playlistmaker.utils.ConvertUtil
 
 class BottomSheetAdapter(val listener: PlaylistListener) :
     RecyclerView.Adapter<BottomSheetAdapter.BottomSheetViewHolder>() {
@@ -39,20 +37,10 @@ class BottomSheetAdapter(val listener: PlaylistListener) :
                 .transform(RoundedCorners(cornerRadius))
                 .into(imageTitle)
             plName.text = model.playlistName
-            plAmount.text = conventAmountToString(model.playlistAmount)
+            plAmount.text = ConvertUtil.conventAmountToTrackString(model.playlistAmount)
+
         }
 
-        private fun conventAmountToString(amount: Int): String {
-            var temp = amount % 100
-            if (temp in 5..20)
-                return "$amount треков"
-            temp %= 10
-            return when (temp) {
-                1 -> "$amount трек"
-                in (2..4) -> "$amount трека"
-                else -> "$amount треков"
-            }
-        }
     }
 
 
