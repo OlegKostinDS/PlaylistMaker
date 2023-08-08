@@ -15,6 +15,8 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -60,12 +62,13 @@ class EditPlaylistFragment : AddPlaylistFragment() {
         viewModel.getPlaylistLiveData().observe(viewLifecycleOwner) { playlist ->
             playlistNameEditText.setText(playlist.playlistName)
             playlistDescEditText.setText(playlist.playlistDesc)
+            val cornerRadius =
+                requireActivity().resources.getDimensionPixelSize(R.dimen.edit_radius)
             Glide.with(requireActivity())
                 .load(playlist.playlistUri)
                 .placeholder(R.drawable.nodata)
-                .centerCrop()
+                .transform(CenterCrop(), RoundedCorners(cornerRadius))
                 .into(addImage)
-
         }
         sendBtn.setOnClickListener {
             lateinit var tempPlaylist: PlaylistData

@@ -16,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -220,8 +221,7 @@ class MediaPlayerFragment : Fragment() {
         Glide.with(this)
             .load(trackData.artworkUrl100.replaceAfterLast('/', "512x512bb.jpg"))
             .placeholder(R.drawable.nodata)
-            .centerInside()
-            .transform(RoundedCorners(cornerRadius))
+            .transform(CenterCrop(),RoundedCorners(cornerRadius))
             .into(mpCover)
         mpTrackName.text = trackData.trackName
         mpArtistName.text = trackData.artistName

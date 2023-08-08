@@ -9,6 +9,7 @@
     <dimen name="settings_paddings_frameslayouts">21dp</dimen>
     <dimen name="main_btn_radius">16dp</dimen>
     <dimen name="lesser_btn_radius">2dp</dimen>
+    <dimen name="edit_radius">8dp</dimen>
     <dimen name="space_between_button">16dp</dimen>
     <dimen name="mp_text_border">16dp</dimen>
     <dimen name="settings_tw_margin_end">44dp</dimen>

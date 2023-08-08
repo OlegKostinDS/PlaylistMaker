@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -135,8 +136,7 @@ class DetailedPlaylistFragment : Fragment() {
             Glide.with(requireActivity())
                 .load(playlistData.playlistUri)
                 .placeholder(R.drawable.nodata)
-                .centerCrop()
-                .transform(RoundedCorners(cornerRadius))
+                .transform(CenterCrop(),RoundedCorners(cornerRadius))
                 .into(infoBottomImage)
             infoBottomName.text = playlistData.playlistName
             infoBottomAmount.text =

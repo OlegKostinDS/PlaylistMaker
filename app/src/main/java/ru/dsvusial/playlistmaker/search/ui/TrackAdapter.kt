@@ -6,6 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.dsvusial.playlistmaker.R
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.model.TrackData
@@ -14,10 +15,9 @@ import ru.dsvusial.playlistmaker.utils.DateTimeUtil
 const val SEARCH_KEY = "search_key"
 
 
-
 class TrackAdapter(
     var onItemClick: ((TrackData) -> Unit)? = null,
-    var onItemLongClick: ((TrackData) -> Unit)?= null
+    var onItemLongClick: ((TrackData) -> Unit)? = null
 ) :
     RecyclerView.Adapter<TrackAdapter.TrackViewHolder>() {
 
@@ -37,8 +37,7 @@ class TrackAdapter(
             Glide.with(itemView.context)
                 .load(model.artworkUrl100)
                 .placeholder(R.drawable.nodata)
-                .centerCrop()
-                .transform(RoundedCorners(cornerRadius))
+                .transform(CenterCrop(),RoundedCorners(cornerRadius))
                 .into(imageTitle)
             rvTrackName.text = model.trackName
             rvArtistName.text = model.artistName

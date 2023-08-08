@@ -21,6 +21,7 @@ import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -88,11 +89,11 @@ open class AddPlaylistFragment : Fragment() {
 
     private fun initDialogs() {
         backDialog = MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Завершить создание плейлиста?")
-            .setMessage("Все несохраненные данные будут потеряны")
-            .setNeutralButton("Отмена") { dialog, which ->
+            .setTitle(getString(R.string.stop_creating_playlist))
+            .setMessage(getString(R.string.all_unsaved_data_will_be_lost))
+            .setNeutralButton(getString(R.string.cancel)) { dialog, which ->
             }
-            .setPositiveButton("Завершить") { dialog, which ->
+            .setPositiveButton(getString(R.string.stop)) { dialog, which ->
                 findNavController().popBackStack()
             }
     }
@@ -103,11 +104,12 @@ open class AddPlaylistFragment : Fragment() {
                 if (uri != null) {
                     val imageFileName = FilenameGenerator.getImageName()
                     addUri = saveImageToPrivateStorage(uri, imageFileName)
-
+                    val cornerRadius =
+                        requireActivity().resources.getDimensionPixelSize(R.dimen.edit_radius)
                     Glide.with(requireActivity())
                         .load(addUri)
                         .placeholder(R.drawable.nodata)
-                        .centerCrop()
+                        .transform(CenterCrop(), RoundedCorners(cornerRadius))
                         .into(addImage)
                 }
             }
@@ -192,7 +194,10 @@ open class AddPlaylistFragment : Fragment() {
                 findNavController().popBackStack()
                 Toast.makeText(
                     requireContext(),
-                    "Плейлист ${playlistNameEditText.text.toString()} создан", Toast.LENGTH_SHORT
+                    this.resources.getString(
+                        R.string.playlist_created,
+                        playlistNameEditText.text.toString()
+                    ), Toast.LENGTH_SHORT
                 ).show()
 
                 viewModel.addPlaylist(

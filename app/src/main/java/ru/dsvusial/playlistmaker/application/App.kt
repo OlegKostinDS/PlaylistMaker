@@ -1,4 +1,4 @@
-package ru.dsvusial.playlistmaker
+package ru.dsvusial.playlistmaker.application
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
