@@ -22,13 +22,21 @@
 
     <style name="SettingsActivityFrameLayoutPaddingStyle">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">58dp</item>
         <item name="android:paddingStart">@dimen/settings_margin_start_framelayouts</item>
         <item name="android:paddingTop">@dimen/settings_paddings_frameslayouts</item>
         <item name="android:paddingEnd">@dimen/settings_paddings_frameslayouts</item>
         <item name="android:paddingBottom">@dimen/settings_paddings_frameslayouts</item>
     </style>
 
+    <style name="SearchActivityFrameLayoutPaddingStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingStart">@dimen/settings_margin_start_framelayouts</item>
+        <item name="android:paddingTop">@dimen/settings_paddings_frameslayouts</item>
+        <item name="android:paddingEnd">@dimen/settings_paddings_frameslayouts</item>
+        <item name="android:paddingBottom">@dimen/settings_paddings_frameslayouts</item>
+    </style>
     <style name="SettingsActivityTextViewTextAndLayoutStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>

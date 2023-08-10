@@ -8,6 +8,6 @@ object DateTimeUtil {
         SimpleDateFormat("mm:ss", Locale.getDefault()).format(timeMillis)
             .toString()
     fun formatTimeMillisToMinutesString(timeMillis: Int):Int =
-        SimpleDateFormat("mm", Locale.getDefault()).format(timeMillis).toInt()
+       timeMillis/(1000*60)
 
 }

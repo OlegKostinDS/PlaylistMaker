@@ -10,6 +10,6 @@ import ru.dsvusial.playlistmaker.addPlaylist.data.db.entity.TrackForPlaylistsEnt
 abstract class TracksForPLaylitsDataBase : RoomDatabase() {
     abstract fun tracksForPlaylistDao(): TracksForPlaylistDao
     companion object{
-        const val dbVersionForTFPDB = 20
+        const val dbVersionForTFPDB = 21
     }
 }

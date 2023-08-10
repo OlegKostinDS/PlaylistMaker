@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -28,14 +27,20 @@
     </androidx.appcompat.widget.Toolbar>
 
 
-    <FrameLayout style="@style/SettingsActivityFrameLayoutPaddingStyle">
+    <FrameLayout
+        style="@style/SettingsActivityFrameLayoutPaddingStyle"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+       >
 
         <TextView
             style="@style/SettingsActivityTextViewTextAndLayoutStyle"
+            android:layout_gravity="center_vertical"
             android:text="@string/settings_dark_theme" />
 
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/themeSwitcher"
+
             style="@style/SettingsActivityImageViewGravity"
             tools:ignore="UseSwitchCompatOrMaterialXml" />
     </FrameLayout>
@@ -71,14 +76,19 @@
 
     <FrameLayout
         android:id="@+id/settings_user_case_btn"
-        style="@style/SettingsActivityFrameLayoutPaddingStyle">
+
+        style="@style/SettingsActivityFrameLayoutPaddingStyle"
+        >
 
         <TextView
+
             style="@style/SettingsActivityTextViewTextAndLayoutStyle"
+            android:layout_gravity="center_vertical"
             android:text="@string/settings_user_case" />
 
         <ImageView
             style="@style/SettingsActivityImageViewGravity"
+            android:layout_gravity="center_vertical|end"
             android:contentDescription="@string/user_agreement"
             app:srcCompat="@drawable/arrow_forward_btn" />
     </FrameLayout>

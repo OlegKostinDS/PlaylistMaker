@@ -53,4 +53,6 @@
     <string name="stop_creating_playlist">Завершить создание плейлиста?</string>
     <string name="cancel">Отмена</string>
     <string name="stop">Завершить</string>
+    <string name="playlist_is_empty">Плейлист пуст</string>
+
 </resources>

@@ -134,11 +134,23 @@
             android:layout_marginVertical="8dp"
             android:background="@color/yp_gray_text" />
 
+        <TextView
+            android:id="@+id/detailed_playlist_bottom_sheet_no_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/ys_display_medium"
+            android:text="@string/playlist_is_empty"
+            android:textColor="@color/yp_gray_night"
+            android:textSize="@dimen/main_text_size"
+            android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/detailed_playlist_bottom_sheet_recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
 
     </LinearLayout>
 
