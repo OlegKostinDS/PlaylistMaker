@@ -213,21 +213,21 @@
             android:id="@+id/share_info_bottom_sheet"
             style="@style/DetailedBottomSheetTextViewTextStyle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:text="@string/share_info_bottom_sheet" />
 
         <TextView
             android:id="@+id/edit_info_bottom_sheet"
             style="@style/DetailedBottomSheetTextViewTextStyle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:text="@string/edit_info_bottom_sheet" />
 
         <TextView
             android:id="@+id/delete_info_bottom_sheet"
             style="@style/DetailedBottomSheetTextViewTextStyle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:text="@string/delete_info_bottom_sheet" />
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
