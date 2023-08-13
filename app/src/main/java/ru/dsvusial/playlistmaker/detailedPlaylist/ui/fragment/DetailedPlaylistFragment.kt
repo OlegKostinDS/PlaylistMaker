@@ -103,10 +103,12 @@ class DetailedPlaylistFragment : Fragment() {
         }
 
         viewModel.isBottomSheetClosed().observe(viewLifecycleOwner) { state ->
-            if (state)
+            if (state) {
                 moreBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-            else
+
+            } else {
                 moreBottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+            }
         }
 
         viewModel.stateLiveData.observe(viewLifecycleOwner) { state ->
@@ -114,6 +116,7 @@ class DetailedPlaylistFragment : Fragment() {
                 is BottomSheetState.Content -> {
                     binding.detailedPlaylistBottomSheetNoData.visibility = View.GONE
                     binding.detailedPlaylistBottomSheetRecyclerview.visibility = View.VISIBLE
+
                 }
 
                 BottomSheetState.Empty -> {
@@ -127,6 +130,9 @@ class DetailedPlaylistFragment : Fragment() {
     private fun initListeners(playlistData: PlaylistData) {
         binding.detailedBackBtn.setOnClickListener {
             findNavController().popBackStack()
+        }
+        binding.moreDetaliedPlaylistContainer.setOnClickListener {
+
         }
         binding.shareDetailedPlaylist.setOnClickListener {
 

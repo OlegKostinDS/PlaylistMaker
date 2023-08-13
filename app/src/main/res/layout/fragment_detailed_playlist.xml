@@ -212,22 +212,31 @@
         <TextView
             android:id="@+id/share_info_bottom_sheet"
             style="@style/DetailedBottomSheetTextViewTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="@string/share_info_bottom_sheet" />
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_60dp"
+            android:text="@string/share_info_bottom_sheet"
+            android:foreground="?attr/selectableItemBackground"/>
 
         <TextView
             android:id="@+id/edit_info_bottom_sheet"
             style="@style/DetailedBottomSheetTextViewTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="@string/edit_info_bottom_sheet" />
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_60dp"
+            android:text="@string/edit_info_bottom_sheet"
+            android:foreground="?attr/selectableItemBackground"/>
 
         <TextView
             android:id="@+id/delete_info_bottom_sheet"
             style="@style/DetailedBottomSheetTextViewTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="@string/delete_info_bottom_sheet" />
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_60dp"
+            android:text="@string/delete_info_bottom_sheet"
+            android:foreground="?attr/selectableItemBackground"/>
+
+        <View
+            android:id="@+id/more_detalied_playlist_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

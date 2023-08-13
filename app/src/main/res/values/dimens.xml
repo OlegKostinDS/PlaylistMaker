@@ -28,5 +28,6 @@
     <dimen name="margin_7dp">7dp</dimen>
     <dimen name="add_fragment_corner_radius">4dp</dimen>
     <dimen name="start_detailed_margin">16dp</dimen>
+    <dimen name="_60dp">60dp</dimen>
 
 </resources>
