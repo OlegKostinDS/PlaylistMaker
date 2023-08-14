@@ -185,15 +185,11 @@ class DetailedPlaylistFragment : Fragment() {
                 Toast.LENGTH_SHORT
             ).show()
         } else {
-            Intent().apply {
-                action = Intent.ACTION_SEND
-                putExtra(
-                    Intent.EXTRA_TEXT,
-                    getSharingTextFromPlaylist(playlistData, currentTracks)
-                )
+            val intent = Intent.createChooser(Intent(Intent.ACTION_SEND).apply {
+                putExtra(Intent.EXTRA_TEXT, getSharingTextFromPlaylist(playlistData, currentTracks))
                 type = "text/plain"
-                requireActivity().startActivity(this)
-            }
+            }, getString(R.string.share))
+            requireActivity().startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
         }
     }
 
@@ -213,7 +209,7 @@ class DetailedPlaylistFragment : Fragment() {
             tempString.add(
                 "${index + 1}. ${track.artistName} - ${track.trackName} (${
                     DateTimeUtil.formatTimeMillisToString(track.trackTimeMillis)
-                })."
+                })"
             )
         }
         return tempString.joinToString("\n")
