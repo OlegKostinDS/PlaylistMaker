@@ -26,7 +26,7 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <androidx.constraintlayout.widget.ConstraintLayout style="@style/SettingsActivityFrameLayoutPaddingStyle">
+    <androidx.constraintlayout.widget.ConstraintLayout style="@style/SearchActivityFrameLayoutPaddingStyle">
 
         <EditText
             android:id="@+id/search_search"

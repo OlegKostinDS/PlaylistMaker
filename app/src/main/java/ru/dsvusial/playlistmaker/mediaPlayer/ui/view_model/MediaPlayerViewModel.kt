@@ -125,7 +125,6 @@ class MediaPlayerViewModel(
                 .getPlaylists()
                 .collect { playlist ->
                     processResult(playlist)
-                    //   idList = playlist.flatMap { it.playlistTracks }
                 }
         }
 

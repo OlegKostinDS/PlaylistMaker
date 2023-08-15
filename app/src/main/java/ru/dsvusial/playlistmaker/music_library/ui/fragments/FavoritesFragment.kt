@@ -85,10 +85,11 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun initAdapters() {
-        trackAdapter = TrackAdapter {track->
-            onClickDebounce(track)
-        }
-
+        trackAdapter = TrackAdapter ()
+trackAdapter.onItemClick = {
+        track->
+    onClickDebounce(track)
+}
         favoritesRecyclerView.adapter = trackAdapter
         favoritesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         favoritesRecyclerView.adapter?.notifyDataSetChanged()

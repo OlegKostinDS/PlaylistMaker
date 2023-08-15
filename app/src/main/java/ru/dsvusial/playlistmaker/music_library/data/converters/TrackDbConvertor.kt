@@ -11,7 +11,7 @@ import ru.dsvusial.playlistmaker.music_library.data.db.entity.TrackEntity
 class TrackDbConvertor(val gson: Gson) {
     fun mapToPlaylistEntity(playlist: PlaylistData): PlaylistEntity {
         return PlaylistEntity(
-            id = 0,
+            id = playlist.id,
             playlistName = playlist.playlistName,
             playlistDesc = playlist.playlistDesc ?: "",
             playlistUri = playlist.playlistUri,
@@ -38,6 +38,20 @@ class TrackDbConvertor(val gson: Gson) {
     }
 
     fun map(track: TrackEntity): TrackData {
+        return TrackData(
+            trackId = track.trackId,
+            trackName = track.trackName,
+            artistName = track.artistName,
+            trackTimeMillis = track.trackTimeMillis,
+            artworkUrl100 = track.artworkUrl100,
+            collectionName = track.collectionName,
+            country = track.country,
+            primaryGenreName = track.primaryGenreName,
+            releaseDate = track.releaseDate,
+            previewUrl = track.previewUrl,
+        )
+    }
+    fun mapFromTracksForPlaylist(track: TrackForPlaylistsEntity): TrackData {
         return TrackData(
             trackId = track.trackId,
             trackName = track.trackName,

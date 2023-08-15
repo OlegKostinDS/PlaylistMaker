@@ -7,6 +7,4 @@ data class PlaylistData(
     val playlistUri: String,
     val playlistTracks: List<String>,
     val playlistAmount: Int
-) {
-
-}
+) : java.io.Serializable

@@ -7,12 +7,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.dsvusial.playlistmaker.R
 import ru.dsvusial.playlistmaker.addPlaylist.domain.model.PlaylistData
 import ru.dsvusial.playlistmaker.utils.NUMBER_FOR_FIRST_ITERATION
 import ru.dsvusial.playlistmaker.utils.NUMBER_FOR_SECOND_ITERATION
-
+const val PLAYLIST_KEY = "playlist_key"
 class PlaylistAdapter(val listener: PlaylistListener) :
     RecyclerView.Adapter<PlaylistAdapter.PlaylistViewHolder>() {
 
@@ -33,8 +34,7 @@ class PlaylistAdapter(val listener: PlaylistListener) :
             Glide.with(itemView.context)
                 .load(play)
                 .placeholder(R.drawable.nodata)
-                .centerCrop()
-                .transform(RoundedCorners(cornerRadius))
+                .transform(CenterCrop(),RoundedCorners(cornerRadius))
                 .into(imageTitle)
             plName.text = model.playlistName
             plAmount.text = conventAmountToString(model.playlistAmount)

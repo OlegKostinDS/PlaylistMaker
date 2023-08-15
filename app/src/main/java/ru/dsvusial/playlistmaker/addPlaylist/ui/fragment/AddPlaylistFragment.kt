@@ -20,6 +20,9 @@ import androidx.core.net.toUri
 
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
@@ -33,7 +36,7 @@ import java.io.File
 import java.io.FileOutputStream
 
 
-class AddPlaylistFragment : Fragment() {
+open class AddPlaylistFragment : Fragment() {
 
     private lateinit var playlistNameEditText: TextInputEditText
     private lateinit var playlistNameEditTextLayout: TextInputLayout
@@ -44,8 +47,8 @@ class AddPlaylistFragment : Fragment() {
     private lateinit var addImage: ImageView
     private lateinit var backDialog: MaterialAlertDialogBuilder
     private var addUri: Uri? = null
-    private val playlistIds: List<String> = mutableListOf()
-    private val viewModel: AddPlaylistViewModel by viewModel()
+    val playlistIds: List<String> = mutableListOf()
+    open val viewModel: AddPlaylistViewModel by viewModel()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -86,11 +89,11 @@ class AddPlaylistFragment : Fragment() {
 
     private fun initDialogs() {
         backDialog = MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Завершить создание плейлиста?")
-            .setMessage("Все несохраненные данные будут потеряны")
-            .setNeutralButton("Отмена") { dialog, which ->
+            .setTitle(getString(R.string.stop_creating_playlist))
+            .setMessage(getString(R.string.all_unsaved_data_will_be_lost))
+            .setNeutralButton(getString(R.string.cancel)) { dialog, which ->
             }
-            .setPositiveButton("Завершить") { dialog, which ->
+            .setPositiveButton(getString(R.string.stop)) { dialog, which ->
                 findNavController().popBackStack()
             }
     }
@@ -101,7 +104,13 @@ class AddPlaylistFragment : Fragment() {
                 if (uri != null) {
                     val imageFileName = FilenameGenerator.getImageName()
                     addUri = saveImageToPrivateStorage(uri, imageFileName)
-                    addImage.setImageURI(addUri)
+                    val cornerRadius =
+                        requireActivity().resources.getDimensionPixelSize(R.dimen.edit_radius)
+                    Glide.with(requireActivity())
+                        .load(addUri)
+                        .placeholder(R.drawable.nodata)
+                        .transform(CenterCrop(), RoundedCorners(cornerRadius))
+                        .into(addImage)
                 }
             }
         addImage.setOnClickListener {
@@ -110,7 +119,7 @@ class AddPlaylistFragment : Fragment() {
     }
 
 
-    private fun saveImageToPrivateStorage(uri: Uri, imageName: String): Uri {
+    fun saveImageToPrivateStorage(uri: Uri, imageName: String): Uri {
         val filePath =
             File(requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES), "myalbum")
         if (!filePath.exists()) {
@@ -185,7 +194,10 @@ class AddPlaylistFragment : Fragment() {
                 findNavController().popBackStack()
                 Toast.makeText(
                     requireContext(),
-                    "Плейлист ${playlistNameEditText.text.toString()} создан", Toast.LENGTH_SHORT
+                    this.resources.getString(
+                        R.string.playlist_created,
+                        playlistNameEditText.text.toString()
+                    ), Toast.LENGTH_SHORT
                 ).show()
 
                 viewModel.addPlaylist(

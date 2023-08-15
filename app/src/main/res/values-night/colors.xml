@@ -32,4 +32,6 @@
     <color name="yp_gray_text">#FFFFFF</color>
     <color name="yp_gray_night">#AEAFB4</color>
     <color name="yp_gray_night_bottom">#1A1B22</color>
+    <color name="yp_black">#1A1B22</color>
+    <color name="yp_light_gray_">#E6E8EB</color>
 </resources>

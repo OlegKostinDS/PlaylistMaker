@@ -22,4 +22,20 @@ class PlaylistIncteractorImpl(val playlistRepository: PlaylistRepository) : Play
     override fun getPlaylists(): Flow<List<PlaylistData>> {
         return playlistRepository.playlists()
     }
+
+
+    override suspend fun deleteTrackFromPlaylistById(
+        trackId: String,
+        playlistId: Int
+    ): Flow<List<TrackData>> {
+        return playlistRepository.deleteTrackFromPlaylistById(trackId, playlistId)
+    }
+
+    override suspend fun deletePlaylist(playlistData: PlaylistData) {
+        playlistRepository.deletePlaylist(playlistData)
+    }
+
+    override suspend fun updatePlaylistForEdit(playlistData: PlaylistData) {
+        playlistRepository.updatePlaylistByEdit(playlistData)
+    }
 }

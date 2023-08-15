@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import ru.dsvusial.playlistmaker.App
+import ru.dsvusial.playlistmaker.application.App
 import ru.dsvusial.playlistmaker.settings.domain.impl.SettingsInteractor
 import ru.dsvusial.playlistmaker.utils.THEME_KEY
 

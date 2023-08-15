@@ -3,6 +3,8 @@ package ru.dsvusial.playlistmaker.di
 import org.koin.dsl.module
 import ru.dsvusial.playlistmaker.addPlaylist.domain.PlaylistIncteractor
 import ru.dsvusial.playlistmaker.addPlaylist.domain.impl.PlaylistIncteractorImpl
+import ru.dsvusial.playlistmaker.detailedPlaylist.domain.DetailedPlaylistInteractor
+import ru.dsvusial.playlistmaker.detailedPlaylist.domain.impl.DetailedPlaylistInteractorImpl
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.interactors.MediaPlayerInteractor
 import ru.dsvusial.playlistmaker.mediaPlayer.domain.interactors.MediaPlayerInteractorImpl
 import ru.dsvusial.playlistmaker.music_library.domain.db.TrackInteractor
@@ -28,5 +30,8 @@ val interactorModule = module {
     }
     single<PlaylistIncteractor>{
         PlaylistIncteractorImpl(get())
+    }
+    single<DetailedPlaylistInteractor>{
+        DetailedPlaylistInteractorImpl(get())
     }
 }

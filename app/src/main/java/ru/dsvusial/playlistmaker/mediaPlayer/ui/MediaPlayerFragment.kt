@@ -2,6 +2,7 @@ package ru.dsvusial.playlistmaker.mediaPlayer.ui
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -217,12 +219,13 @@ class MediaPlayerFragment : Fragment() {
     fun getData(trackData: TrackData) {
         val cornerRadius =
             requireActivity().resources.getDimensionPixelSize(R.dimen.main_btn_radius)
+        trackData.artworkUrl100 = trackData.artworkUrl100.replaceAfterLast('/', "512x512bb.jpg")
         Glide.with(this)
-            .load(trackData.artworkUrl100.replaceAfterLast('/', "512x512bb.jpg"))
+            .load(trackData.artworkUrl100)
             .placeholder(R.drawable.nodata)
-            .centerInside()
-            .transform(RoundedCorners(cornerRadius))
+            .transform(CenterCrop(),RoundedCorners(cornerRadius))
             .into(mpCover)
+        Log.d("TAG", "${trackData.artworkUrl100}")
         mpTrackName.text = trackData.trackName
         mpArtistName.text = trackData.artistName
         mpTrackDuration.text = DateTimeUtil.formatTimeMillisToString(trackData.trackTimeMillis)

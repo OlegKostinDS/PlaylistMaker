@@ -215,14 +215,15 @@ class SearchFragment : Fragment() {
     }
 
     private fun initAdapters() {
-        trackAdapter = TrackAdapter {
+        trackAdapter = TrackAdapter()
+        trackAdapter.onItemClick = {
             viewModel.addToRecentHistoryList(it)
             onClickDebounce(it)
         }
-
         searchTracksRecyclerView.adapter = trackAdapter
         searchTracksRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        historyTrackAdapter = TrackAdapter {
+        historyTrackAdapter = TrackAdapter()
+        historyTrackAdapter.onItemClick = {
             viewModel.addToRecentHistoryList(it)
             onClickDebounce(it)
         }
